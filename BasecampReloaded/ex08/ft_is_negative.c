@@ -6,16 +6,11 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:42:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/17 15:52:40 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:18:27 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+void	ft_putchar(char c);
 
 void	ft_is_negative(int n)
 {

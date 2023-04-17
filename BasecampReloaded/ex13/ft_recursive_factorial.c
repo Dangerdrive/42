@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
+/*   ft_recursive_factorial.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/17 19:17:28 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/04/17 15:42:57 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/04/17 19:47:21 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putchar(char c);
-
-void	ft_print_alphabet(void)
+int	ft_recursive_factorial(int nb)
 {
-	char	alpha;
-
-	alpha = 'a';
-	while (alpha <= 'z')
+	if ((nb <= 0) || (nb > 12))
+		return (0);
+	if (nb == 1)
+		return (1);
+	else
 	{
-		ft_putchar(alpha);
-		alpha++;
+		return (nb * ft_recursive_factorial(nb - 1));
 	}
 }

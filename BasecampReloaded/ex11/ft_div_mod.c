@@ -1,25 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
+/*   ft_div_mod.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/17 19:17:28 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/04/17 15:42:57 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/04/17 19:18:52 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putchar(char c);
-
-void	ft_print_alphabet(void)
+void	ft_div_mod(int a, int b, int *div, int *mod)
 {
-	char	alpha;
-
-	alpha = 'a';
-	while (alpha <= 'z')
-	{
-		ft_putchar(alpha);
-		alpha++;
-	}
+	*div = a / b;
+	*mod = a % b;
 }
