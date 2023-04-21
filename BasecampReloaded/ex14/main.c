@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int	ft_recursive_factorial(int nb);
+int ft_sqrt(int nb);
 
 int	main(void)
 {
-	printf("factorial = %d\n", ft_recursive_factorial(13));
+	printf("square root = %d\n", ft_sqrt(1024));
 }

@@ -1,3 +1,4 @@
 *.pdf
 a.out
-retirardepoismain.c
+retirardepois_main.c
+retirardepois_ft_putchar.c
