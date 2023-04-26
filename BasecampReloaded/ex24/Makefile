@@ -1,33 +1,26 @@
 # Name of the library
 NAME = libft.a
 
-# Directories for source and header files
-SRCDIR = srcs
-INCDIR = includes
-
-# Compiler and flags
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
 
 # Source files and object files
-SRCS = $(addprefix $(SRCDIR)/, ft_putchar.c ft_putstr.c ft_strcmp.c ft_strlen.c ft_swap.c)
+SRCS = $(wildcard srcs/*.c)
 OBJS = $(SRCS:.c=.o)
 
 # Rules
-.PHONY: all clean fclean re
+#.PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 
-$(SRCDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
+srcs/%.o: srcs/%.c
+	cc -Wall -Wextra -Werror -c -o $@ $< -I includes
 
 clean:
-	rm -f $(OBJS)
+	rm -f */*.o
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f *.a
 
 re: fclean all

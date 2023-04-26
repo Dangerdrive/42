@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int ft_sqrt(int nb);
+int	ft_sqrt(int nb);
 
 int	main(void)
 {
-	printf("square root = %d\n", ft_sqrt(1024));
+	printf("square root = %d\n", ft_sqrt(2147395600));
 }

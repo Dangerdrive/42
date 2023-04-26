@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/22 12:55:41 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:06:57 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	ft_strlen(char *str)
 
 int	*ft_range(int min, int max)
 {
-	int	i;
+	int		i;
 	size_t	n;
-	int	*arr;
-
+	int		*arr;
 
 	if (min >= max)
 		return (NULL);

@@ -1,31 +1,34 @@
-SRCDIR	= ./srcs/
-SRCNAME	= display_file.c
-SRCS	= ${addprefix ${SRCDIR}, ${SRCNAME}}
+NAME		:= ft_display_file
+CC			:= cc
+CFLAGS 		:= -Wall -Wextra -Werror -c
 
-OBJS	= ${SRCS:.c=.o}
+SRC_DIR		:= ./srcs/
+SRC_FILES 	:= *.c
+OBJ_FILES	:= $(SRC_FILES:.c=.o)
+SRCS		:= $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJS		:= $(addprefix $(SRC_DIR), $(OBJ_FILES))
 
-NAME	= ft_display_file
-
-CC		= gcc
-RM		= rm -f
-
-CFLAGS	= -Wall -Wextra -Werror
+HEADER		:= -I includes/
+RM			:= rm -f
 
 
-.c.o:
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}:	${OBJS}
-			${CC} -o ${NAME} ${OBJS}
+all: objs $(NAME)
 
-all: 		${NAME}
+objs: $(SRCS)
 
-clean:
-			${RM} ${OBJS}
+$(SRC_DIR)%.o : $(SRC_DIR)%.c
+	$(CC) $(CFLAGS) $< -o $@ $(HEADER)
 
-fclean:		clean
-			${RM} ${NAME}
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) $(OBJS)
 
-re:			fclean all
+clean: 
+	$(RM) $(OBJS)
 
-.PHONY:		clean fclean re all
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all objs $(NAME) clean fclean re

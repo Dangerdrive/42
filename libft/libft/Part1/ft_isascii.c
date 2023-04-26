@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_foreach.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/22 18:09:58 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/04/25 22:00:54 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_count_if(char **tab, int(*f)(char*))
+int	ft_isascii(int c)
 {
-	int	count;
-	
-	count = 0;
-	while (*tab != NULL)
-	{
-		if (f(*tab) == 1)
-		{
-			count++;
-		}
-		tab++;
-	}
-	return (count);
+	return (c >= 0 && c <= 127);
 }
+// #include <ctype.h>
+// int isdigit(int c);

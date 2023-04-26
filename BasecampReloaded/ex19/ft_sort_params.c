@@ -6,20 +6,11 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/22 16:34:21 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:02:35 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_putchar(char c);
-
-void	ft_putstr(char *str)
-{
-	while (*str)
-	{
-		ft_putchar(*str);
-		str++;
-	}
-}
 
 void	ft_swap(char **a, char **b)
 {
@@ -37,34 +28,39 @@ int	ft_strcmp(char *s1, char *s2)
 		s1++;
 		s2++;
 	}
-	return (*s1 - *s2);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void	ft_print_params(int argc,char **argv)
+void	ft_sort_ascii(char **argv, int argc)
 {
 	int	i;
+	int	j;
 
 	i = 1;
-	while (i < argc)
+	while (i < argc - 1)
 	{
-		ft_putstr(argv[i]);
-		ft_putchar('\n');
-		i++;
-	}
-}
-
-int	main(int argc,char **argv)
-{
-	int	i;
-
-	i = 1;
-	while ((i + 1) < argc)
-	{
-		if (ft_strcmp(argv[i], argv[i + 1]) > 0)
+		j = i + 1;
+		while (j < argc)
 		{
-			ft_swap(&argv[i], &argv[i + 1]);
+			if (ft_strcmp(argv[i], argv[j]) > 0)
+				ft_swap(&argv[i], &argv[j]);
+			j++;
 		}
 		i++;
 	}
-	ft_print_params(argc, argv);
+}
+
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	ft_sort_ascii(argv, argc);
+	i = 1;
+	while (i < argc)
+	{
+		while (*argv[i])
+			ft_putchar(*argv[i]++);
+		ft_putchar('\n');
+		i++;
+	}
 }
