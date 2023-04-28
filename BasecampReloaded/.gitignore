@@ -6,3 +6,4 @@ libft.a
 ex24/srcs/
 ex19/ft_putchar.c
 *.bak
+*.o

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 14:47:28 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/03/22 20:45:09 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/04/26 20:22:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_str_is_numeric(char *str)
-{
-	int	i;
+#include "libft.h"
 
-	if (*str == '\0')
-	{
-		return (1);
-	}
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-		{
-			i++;
-		}
-		else
-			return (0);
-	}
-	return (1);
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (c + ('a' - 'A'));
+	return (c);
 }
+
+/*
+       #include <ctype.h>
+
+       int toupper(int c);
+
+*/

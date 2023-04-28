@@ -1,34 +1,24 @@
-NAME		:= ft_display_file
-CC			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -c
+NAME = ft_display_file
 
-SRC_DIR		:= ./srcs/
-SRC_FILES 	:= *.c
-OBJ_FILES	:= $(SRC_FILES:.c=.o)
-SRCS		:= $(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJS		:= $(addprefix $(SRC_DIR), $(OBJ_FILES))
+# Source files and object files
+SRCS = $(wildcard srcs/*.c)
+OBJS = $(SRCS:.c=.o)
 
-HEADER		:= -I includes/
-RM			:= rm -f
+# Rules
+.PHONY: all clean fclean re
 
-
-
-all: objs $(NAME)
-
-objs: $(SRCS)
-
-$(SRC_DIR)%.o : $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) $< -o $@ $(HEADER)
+all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+	cc $(OBJS) -o $(NAME)
 
-clean: 
-	$(RM) $(OBJS)
+srcs/%.o: srcs/%.c
+	cc -Wall -Wextra -Werror -c -o $@ $< -I includes
+
+clean:
+	rm -f */*.o
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f *.a
 
 re: fclean all
-
-.PHONY: all objs $(NAME) clean fclean re

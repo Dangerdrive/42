@@ -3,6 +3,7 @@
 		"ft_display_file.h": "c",
 		"ft_putchar.h": "c",
 		"libft.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"*.bak": "c"
 	}
 }

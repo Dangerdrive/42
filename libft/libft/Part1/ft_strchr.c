@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 02:19:38 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/26 20:00:45 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/04/26 20:24:09 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+char *ft_strchr(const char *s, int c)
 {
-	unsigned int	dest_len;
-	unsigned int	src_len;
-	unsigned int	i;
-
-	dest_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
-	i = 0;
-	while (src[i] && dest_len + i + 1 < size)
+	while (*s)
 	{
-		dest[dest_len + i] = src[i];
-		i++;
+		if (*s == c)
+			return (s);
+		s++;
 	}
-	dest[dest_len + i] = '\0';
-	if (size < dest_len)
-		return (src_len + size);
-	else
-		return (src_len + dest_len);
+	if (*s == c)
+		return (s);
+	return (NULL);
 }
+
+/*
+#include <string.h>
+
+       char *strchr(const char *s, int c);
+	   
+The  strchr() function returns a pointer to the first occurrence of the
+       character c in the string s.
+
+*/

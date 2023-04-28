@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/03/22 20:45:11 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:11:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_str_is_alpha(char *str)
-{
-	int	i;
+#include "libft.h"
 
-	if (*str == '\0')
-	{
-		return (1);
-	}
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 65 && str[i] <= 90))
-		{
-			i++;
-		}
-		else
-			return (0);
-	}
-	return (1);
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - ('a' - 'A'));
+	return (c);
 }
+
+/*
+       #include <ctype.h>
+
+       int toupper(int c);
+
+*/

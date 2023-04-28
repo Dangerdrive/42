@@ -7,7 +7,7 @@ SRCS = $(wildcard srcs/*.c)
 OBJS = $(SRCS:.c=.o)
 
 # Rules
-#.PHONY: all clean fclean re
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
