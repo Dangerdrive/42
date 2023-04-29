@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int	ft_recursive_factorial(int nb);
+int	ft_iterative_factorial(int nb);
 
 int	main(void)
 {
-	printf("factorial = %d\n", ft_recursive_factorial(-1));
+	printf("factorial = %d\n", ft_iterative_factorial(12));
 }
