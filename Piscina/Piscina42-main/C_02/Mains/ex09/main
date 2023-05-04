@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+char	*ft_strcapitalize(char *str);
+
+int	main(void)
+{
+	char	phrase[] = "salut, comment tu vas ? 42mots quarante-deux; cinquante+et+un";
+
+	printf("Before: %s\n", phrase);
+	ft_strcapitalize(phrase);
+	printf("After: %s\n", phrase);
+}

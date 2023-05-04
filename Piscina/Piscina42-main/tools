@@ -1,0 +1,26 @@
+cc -Wall -Werror -Wextra *.c && ./a.out 'teste2' "test 3"
+
+cc -Wall -Werror -Wextra *.c && ./a.out
+
+Only library function allowed is write.
+
+No library function allowed 
+please use norminette.
+The following rules are also part of norminette norms:
+- only use "while" when loops are needed.
+Each variable should be declared in a separate line.
+value atribution to a variable should be done in a separate line.
+
+
+then make a int main to be used in a separate file 
+include an example
+in the int main you can include library functions to display a result.
+
+remover usuário
+PS1='~$ '
+echo "PS1='~$ '" >> ~/.bashrc
+
+remover folders
+PS1='~\W$ '
+remover permanentemente
+echo "PS1='~\W$ '" >> ~/.bashrc

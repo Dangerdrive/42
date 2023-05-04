@@ -4,6 +4,12 @@
 		"ft_putchar.h": "c",
 		"libft.h": "c",
 		"stdlib.h": "c",
-		"*.bak": "c"
-	}
+		"*.bak": "c",
+		"random": "c",
+		"string.h": "c",
+		"sstream": "c"
+	},
+	"diffEditor.codeLens": true,
+	"editor.wordWrap": "wordWrapColumn",
+	"editor.wordWrapColumn": 90
 }

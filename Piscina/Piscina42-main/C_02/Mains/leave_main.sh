@@ -1,0 +1,1 @@
+find . -type f \( -name 'f*' -o -name '*.out' \) -delete
