@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   P1-07.ft_memset.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/25 22:17:35 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:39:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	unsigned char	*p;
-	unsigned char	uc;
+	unsigned char	*tmp_str;
+	unsigned char	tmp_char;
 
-	p = s;
-	uc = c;
+	tmp_str = s;
+	tmp_char = c;
 	while (n-- > 0)
 	{
-		*p++ = uc;
+		*tmp_str++ = tmp_char;
 	}
 	return (s);
 }

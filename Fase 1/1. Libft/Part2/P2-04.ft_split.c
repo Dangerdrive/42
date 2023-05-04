@@ -29,7 +29,7 @@ static size_t	word_length(const char *s, char c)
 	return (len);
 }
 
-static cha	*copy_word(const char *s, size_t len)
+static char	*copy_word(const char *s, size_t len)
 {
 	char	*word;
 

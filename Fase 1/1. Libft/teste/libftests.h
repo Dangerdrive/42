@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/03 16:18:19 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:49:50 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <ctype.h>
 
 int	memset_test(void);
-int	ft_bzero_test(void);
+int	bzero_test(void);
 int	memcpy_test(void);
 int	memccpy_test(void);
 int	memmove_test(void);

@@ -6,24 +6,22 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/03 15:15:09 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:59:41 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char		*dst_cpy;
-	const unsigned char	*src_cpy;
+	//unsigned char		*dest_cpy;
+	//const unsigned char	*src_cpy;
 
-	dst_cpy = (unsigned char *)dst;
-	src_cpy = (const unsigned char *)src;
-
+	//dest_cpy = (unsigned char *)dest;
+	//src_cpy = (const unsigned char *)src;
 	while (n--)
-		*dst_cpy++ = *src_cpy++;
-
-	return (dst);
+		*(unsigned char*)dest++ = *(unsigned char*)src++;
+	return (dest);
 }
 /*
 NAME

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   P1-10.ft_memmove.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/26 19:47:40 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:52:39 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,17 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		*d++ = *s++;
 	return (dest);
 }
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*dest_cpy;
+	const unsigned char	*src_cpy;
 
+	dest_cpy = (unsigned char *)dest;
+	src_cpy = (const unsigned char *)src;
+	while (n--)
+		*dest_cpy++ = *src_cpy++;
+	return (dest);
+}
 // #include <string.h>
 
 //void *memmove(void *dest, const void *src, size_t n);

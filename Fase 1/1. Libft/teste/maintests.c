@@ -9,8 +9,10 @@ int	main(void)
 	// isalnum_test();
 	// isascii_test();
 	// isprint_test(); //05
-	// strlen_test();
-	memset_test();
+	// strlen_test(); //06
+	// memset_test(); //07  - arrumar. Deve modificar a string recebida.
+	// bzero_test();
+	memcpy_test();
 	// strlcpy_test(); //11
 	//strlcat_test(); //12  arrumar
 	//toupper_test(); //13
@@ -226,56 +228,110 @@ int	strlen_test(void)
 
 
 //P1-07
-int memset_test(void)
+int	memset_test(void)
 {
-    char *tested_func;
-    char *ft_memset_dest;
-    size_t destsize;
-    int c;
-    size_t n;
-    char *s;
+	char	*tested_func;
+	char	*ft_memset_dest;
+	size_t	destsize;
+	int		c;
+	size_t	n;
+	char	*s;
 
-    tested_func = "ft_memset";
-    printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+	tested_func = "ft_memset";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
 
-    destsize = 10;
-    ft_memset_dest = malloc(destsize);
-    if (!ft_memset_dest)
-    {
-        printf("Error: memory allocation failed\n");
-        return (0);
-    }
+	destsize = 10;
+	ft_memset_dest = malloc(destsize);
+	if (!ft_memset_dest)
+	{
+		printf("Error: memory allocation failed\n");
+		return (0);
+	}
 
-    // Test 1
-    c = 'A';
-    n = 3;
-    s = "Hello";
-    printf("\nTest 1: memset %zu bytes of %s with %c\n", n, s, c);
-    ft_memset(ft_memset_dest, c, n);
-    if (memcmp(ft_memset_dest, "AAAlo", strlen("AAAlo")) == 0)
-        printf("Test 1 passed\n");
-    else
-        printf("Test 1 failed\n");
+	//Test 1
+	c = 'A';
+	n = 3;
+	s = "Hello";
+	printf("\nTest 1: memset %zu bytes of %s with %c\n", n, s, c);
+	ft_memset_dest = ft_memset(s, c, n);
+	printf("%s\n",s);
+	if (memcmp(s, "AAAlo", strlen("AAAlo")) == 0)
+		printf("Test 1 passed\n");
+	else
+		printf("Test 1 failed\n");
 
-    // Test 2
-    c = 0;
-    n = 10;
-    s = "Hello";
-    printf("\nTest 2: memset %zu bytes of %s with null character\n", n, s);
-    ft_memset(ft_memset_dest, c, n);
-    if (memcmp(ft_memset_dest, "", strlen("")) == 0)
-        printf("Test 2 passed\n");
-    else
-        printf("Test 2 failed\n");
+	// Test 2
+	c = 0;
+	n = 5;
+	s = "Hello";
+	printf("\nTest 2: memset %zu bytes of %s with null character\n", n, s);
+	ft_memset_dest = ft_memset(s, c, n);
+	if (memcmp(s, "", strlen("")) == 0)
+		printf("Test 2 passed\n");
+	else
+		printf("Test 2 failed\n");
 
-    printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
-    free(ft_memset_dest);
-    return (1);
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+	free(s);
+	return (1);
 }
 
+//P1-08
+int bzero_test(void)
+{
+	char str[] = "Hello, World!";
+	size_t len = sizeof(str) - 1;
+	
+	// Initialize the string with non-zero values
+	for (size_t i = 0; i < len; i++) {
+		str[i] = 'a';
+	}
 
+	// Print the original string
+	printf("Original string: %s\n", str);
 
+	// Call ft_bzero to zero out the string
+	ft_bzero(str, len);
 
+	// Print the modified string
+	printf("Modified string: %s\n", str);
+
+	// Check if the string was zeroed out
+	for (size_t i = 0; i < len; i++) {
+		if (str[i] != '\0') {
+			printf("Error: string not zeroed out\n");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+//P1-09
+int	memcpy_test(void)
+{
+	char	*tested_func;
+	char	*src;
+	char	dest[30];
+	char	ft_dest[30];
+	size_t	size;
+	int		result;
+
+	tested_func = "ft_memcpy";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+
+	src = "Hello, world!";
+	size = strlen(src) + 1;
+	result = memcmp(memcpy(dest, src, size), ft_memcpy(ft_dest, src, size), size);
+	printf("src: \"%s\"\nsize: %lu\nresult: %d\n", src, size, result);
+
+	src = "Test case 2.";
+	size = strlen(src) + 1;
+	result = memcmp(memcpy(dest, src, size), ft_memcpy(ft_dest, src, size), size);
+	printf("src: \"%s\"\nsize: %lu\nresult: %d\n", src, size, result);
+
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+	return (1);
+}
 
 
 //P1-11
