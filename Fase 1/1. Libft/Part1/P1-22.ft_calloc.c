@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   P1-22.ft_calloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/28 18:01:24 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:22:40 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	n;
-	int	sign;
+#include "libft.h"
 
-	n = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*arr;
+
+	if (!size || nmemb > __SIZE_MAX__ / size)
+		return (NULL);
+	arr = malloc(nmemb * size);
+	if (arr)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		ft_bzero(arr, nmemb * size);
+		return (arr);
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		n = n * 10 + (*str - '0');
-		str++;
-	}
-	return (n * sign);
+	else
+		return (NULL);
 }
+
 /*
 	   The  calloc()  function allocates memory for an array of nmemb elements
        of size bytes each and returns a pointer to the allocated memory.   The

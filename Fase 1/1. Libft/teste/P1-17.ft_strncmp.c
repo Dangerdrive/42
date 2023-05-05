@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   P1-17.ft_strncmp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/26 20:24:09 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/22 01:08:42 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/05 17:03:25 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strchr(const char *s, int c)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	while (*s)
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] != '\0' || s2[i] != '\0') && (i < n))
 	{
-		if (*s == c)
-			return (s);
-		s++;
+		if (s1[i] != s2[i])
+			return ((s1[i] - s2[i]));
+		i++;
 	}
-	if (*s == c)
-		return (s);
-	return (NULL);
+	return (0);
 }
-
-/*
-#include <string.h>
-
-       char *strchr(const char *s, int c);
-	   
-The  strchr() function returns a pointer to the first occurrence of the
-       character c in the string s.
-
-*/

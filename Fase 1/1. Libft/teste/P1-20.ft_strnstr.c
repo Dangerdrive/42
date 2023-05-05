@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   P1-20.ft_strnstr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/26 20:49:13 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:57:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
-{
-	size_t	hlen;
-	size_t	nlen;
+char	*ft_strnstr(const char *big, const char *little, size_t len)
+{	
+	size_t	blen;
+	size_t	llen;
 
-	hlen = ft_strlen(haystack);
-	nlen = ft_strlen(needle);
-	if (nlen == 0)
-		return ((char *)haystack);
-	if (nlen > len)
+	blen = ft_strlen(big);
+	llen = ft_strlen(little);
+	if (llen == 0)
+		return ((char *)big);
+	if (llen > len)
 		return (NULL);
-	while (*haystack && len >= nlen)
+	while (*big && len >= llen)
 	{
-		if (*haystack == *needle && ft_memcmp(haystack, needle, nlen) == 0)
-			return ((char *)haystack);
-		haystack++;
+		if (*big == *little && ft_memcmp(big, little, llen) == 0)
+			return ((char *)big);
+		big++;
 		len--;
 	}
 	return (NULL);

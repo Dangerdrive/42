@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   P1-15.ft_strchr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 20:05:19 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/25 20:17:33 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/05 16:17:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+char	*ft_strchr(const char *s, int c)
 {
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == c)
+		return ((char *)s);
+	return (NULL);
 }
-// #1. The content to create the new element with.
-// The new element.
-// malloc
-// Allocates (with malloc(3)) and returns a new
-// element. The variable ’content’ is initialized
-// with the value of the parameter ’content’. The
-// variable ’next’ is initialized to NULL.
 
-// Parameters
-// Return value
-// External functs.
-// Description
+/*
+#include <string.h>
+
+       char *strchr(const char *s, int c);
+	   
+The  strchr() function returns a pointer to the first occurrence of the
+       character c in the string s.
+
+*/

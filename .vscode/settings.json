@@ -7,7 +7,9 @@
 		"*.bak": "c",
 		"random": "c",
 		"string.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"algorithm": "c",
+		"bit": "c"
 	},
 	"diffEditor.codeLens": true,
 	"editor.wordWrap": "wordWrapColumn",

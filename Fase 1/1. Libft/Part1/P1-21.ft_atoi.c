@@ -1,40 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   P1-21.ft_atoi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/28 18:01:26 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/05/05 12:58:52 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/05 13:01:00 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+#include "libft.h"
+
+int	ft_atoi(const char *nptr)
 {
-	int	n;
+	int	result;
 	int	sign;
 
-	n = 0;
+	result = 0;
 	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
+	while ((*nptr >= 9 && *nptr <= 13) || *nptr == ' ')
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		nptr++;
 	}
-	while (*str >= '0' && *str <= '9')
+	if (*nptr == '-')
 	{
-		n = n * 10 + (*str - '0');
-		str++;
+		sign = -1;
+		nptr++;
 	}
-	return (n * sign);
+	else if (*nptr == '+')
+		nptr++;
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		result = result * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (sign * result);
 }
 /*
-       #include <stdlib.h>
+	   #include <stdlib.h>
 
-       int atoi(const char *nptr);
+	   int atoi(const char *nptr);
 
 */

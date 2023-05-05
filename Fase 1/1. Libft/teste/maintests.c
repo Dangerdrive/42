@@ -12,7 +12,7 @@ int	main(void)
 	// strlen_test(); //06
 	// memset_test(); //07  - arrumar. Deve modificar a string recebida.
 	// bzero_test();
-	memcpy_test();
+	//memcpy_test();
 	// strlcpy_test(); //11
 	//strlcat_test(); //12  arrumar
 	//toupper_test(); //13
@@ -27,6 +27,12 @@ int	main(void)
 	//putstr_fd_test();
 	//putnbr_fd_test();
 	//putendl_fd_test();
+	lstnew_test();
+	//strchr_test();
+	//strrchr_test();
+	//strncmp_test();
+	memchr_test();
+
 }
 
 // char	*aux_ft_strlupcase(unsigned int n, char *str)
@@ -460,6 +466,215 @@ int	tolower_test(void)
 	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
 	return (1);
 }
+//P1-15
+int strchr_test(void)
+{
+    char *tested_func;
+    char *str;
+    int c;
+    char *ft_strchr_result;
+    char *strchr_result;
+    
+    tested_func = "ft_strchr";
+    printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+    
+    str = "test string, no jokes";
+    c = 'j';
+    printf("\nstring tested: %s\ncharacter tested: %c", str, c);
+    ft_strchr_result = ft_strchr(str, c);
+    strchr_result = strchr(str, c);
+    printf("\nft_strchr result: %s", ft_strchr_result);
+    printf("\nstrchr result: %s", strchr_result);
+    if (ft_strchr_result != strchr_result)
+    {
+        printf("\n\033[0;31mError: result doesn't match the expected value\033[0m\n");
+        return (0);
+    }
+    
+    str = "Goodbye World!";
+    c = 'o';
+    printf("\n\n\nstring tested: %s\ncharacter tested: %c", str, c);
+    ft_strchr_result = ft_strchr(str, c);
+    strchr_result = strchr(str, c);
+    printf("\nft_strchr result: %s", ft_strchr_result);
+    printf("\nstrchr result: %s", strchr_result);
+    if (ft_strchr_result != strchr_result)
+    {
+        printf("\n\033[0;31mError: result doesn't match the expected value\033[0m\n");
+        return (0);
+    }
+    
+    printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+    return (1);
+}
+//P1-16
+int strrchr_test(void)
+{
+    char *tested_func;
+    char *str;
+    int c;
+    char *ft_strrchr_result;
+    char *strrchr_result;
+    
+    tested_func = "ft_strrchr";
+    printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+    
+    str = "test string, no jokes";
+    c = 'j';
+    printf("\nstring tested: %s\ncharacter tested: %c", str, c);
+    ft_strrchr_result = ft_strrchr(str, c);
+    strrchr_result = strrchr(str, c);
+    printf("\nft_strrchr result: %s", ft_strrchr_result);
+    printf("\nstrrchr result: %s", strrchr_result);
+    if (ft_strrchr_result != strrchr_result)
+    {
+        printf("\n\033[0;31mError: result doesn't match the expected value\033[0m\n");
+        return (0);
+    }
+    
+    str = "Goodbye World!";
+    c = 'o';
+    printf("\n\n\nstring tested: %s\ncharacter tested: %c", str, c);
+    ft_strrchr_result = ft_strrchr(str, c);
+    strrchr_result = strrchr(str, c);
+    printf("\nft_strrchr result: %s", ft_strrchr_result);
+    printf("\nstrrchr result: %s", strrchr_result);
+    if (ft_strrchr_result != strrchr_result)
+    {
+        printf("\n\033[0;31mError: result doesn't match the expected value\033[0m\n");
+        return (0);
+    }
+    
+    printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+    return (1);
+}
+
+
+//P1-17
+int strncmp_test()
+{
+    char *str1 = "Hello, world!";
+    char *str2 = "Hello";
+    int result;
+    int expected_result;
+    unsigned int n;
+
+    n = 5;
+
+    // Test 1
+    expected_result = strncmp(str1, str2, n);
+    result = ft_strncmp(str1, str2, n);
+    if (result != expected_result)
+        printf("Test 1 failed: expected %d, got %d\n", expected_result, result);
+    else
+        printf("Test 1 succeeded!\n");
+
+    // Test 2
+    expected_result = strncmp(str1, str2, n);
+    result = ft_strncmp(str2, str1, n);
+    if (result != -expected_result)
+        printf("Test 2 failed: expected %d, got %d\n", -expected_result, result);
+    else
+        printf("Test 2 succeeded!\n");
+
+    // Test 3
+    expected_result = strncmp(str1, str2, n + 1);
+    result = ft_strncmp(str1, str2, n + 1);
+    if (result != expected_result)
+        printf("Test 3 failed: expected %d, got %d\n", expected_result, result);
+    else
+        printf("Test 3 succeeded!\n");
+
+    return (0);
+}
+
+//P1-19
+int memchr_test(void)
+{
+    char *tested_func = "ft_memchr";
+    printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+    
+	char str[] = "Hello, world!";
+    char *result1, *result2;
+    int c = 'o';
+
+    // Using the standard library function to compare results
+    result1 = memchr(str, c, strlen(str));
+    result2 = ft_memchr(str, c, strlen(str));
+
+    printf("Tested string: %s\n", str);
+    printf("Using memchr:\n");
+    printf("Result: %s\n", result1);
+    printf("Using ft_memchr:\n");
+    printf("Result: %s\n", result2);
+
+printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+    return (1);
+}
+
+int	strnstr_test(void)
+{
+    char *tested_func = "ft_strnstr";
+    printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+    
+    char haystack[] = "Hello, world!";
+    char needle[] = "world";
+    char *result1, *result2;
+    size_t len = strlen(haystack);
+
+    // Using the standard library function to compare results
+    result1 = strnstr(haystack, needle, len);
+    result2 = ft_strnstr(haystack, needle, len);
+
+    printf("Haystack: %s\n", haystack);
+    printf("Needle: %s\n", needle);
+    printf("Length: %zu\n", len);
+    printf("Using strnstr:\n");
+    printf("Result: %s\n", result1);
+    printf("Using ft_strnstr:\n");
+    printf("Result: %s\n", result2);
+
+    printf("\n");
+
+    // Testing with needle longer than haystack
+    char haystack2[] = "world";
+    char needle2[] = "Hello, world!";
+    len = strlen(haystack2);
+
+    // Using the standard library function to compare results
+    result1 = strnstr(haystack2, needle2, len);
+    result2 = ft_strnstr(haystack2, needle2, len);
+
+    printf("Haystack: %s\n", haystack2);
+    printf("Needle: %s\n", needle2);
+    printf("Length: %zu\n", len);
+    printf("Using strnstr:\n");
+    printf("Result: %s\n", result1);
+    printf("Using ft_strnstr:\n");
+    printf("Result: %s\n", result2);
+
+    printf("\n");
+
+    // Testing with needle length 0
+    char haystack3[] = "Hello, world!";
+    char needle3[] = "";
+    len = strlen(haystack3);
+
+    // Using the standard library function to compare results
+    result1 = strnstr(haystack3, needle3, len);
+    result2 = ft_strnstr(haystack3, needle3, len);
+
+    printf("Haystack: %s\n", haystack3);
+    printf("Needle: %s\n", needle3);
+    printf("Length: %zu\n", len);
+    printf("Using strnstr:\n");
+    printf("Result: %s\n", result1);
+    printf("Using ft_strnstr:\n");
+    printf("Result: %s\n", result2);
+
+    printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+    return (0);
+}
 
 //P2-01
 int	substr_test(void)
@@ -625,4 +840,17 @@ int itoa_test(void)
 
 	free(result);
 	return (1);
+}
+
+//PB-01
+int lstnew_test()
+{
+	int content = 42;
+	t_list *node = ft_lstnew(&content);
+
+	printf("content: %d\n", *(int *)node->content);
+	printf("next: %p\n", node->next);
+
+	free(node);
+	return (0);
 }

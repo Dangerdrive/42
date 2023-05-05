@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PB-02.ft_lstadd_front.c                            :+:      :+:    :+:   */
+/*   PB-01.ft_lstnew.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:05:19 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/05 15:59:47 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:09:12 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_list	*ft_lstnew(void *content)
 {
-	lst new->content
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (node)
+	{
+		node->content = content;
+		node->next = NULL;
+	}
+	return (node);
 }
-// #1. The address of a pointer to the first link of
-// a list.
-// #2. The address of a pointer to the element to be
-// added to the list.
-// None
-// None
-// Adds the element ’new’ at the beginning of the
-// list.
+// #1. The content to create the new element with.
+// The new element.
+// malloc
+// Allocates (with malloc(3)) and returns a new
+// element. The variable ’content’ is initialized
+// with the value of the parameter ’content’. The
+// variable ’next’ is initialized to NULL.
 
 // Parameters
 // Return value
