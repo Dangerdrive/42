@@ -13,11 +13,13 @@ int	main(void)
 	// memset_test(); //07  - arrumar. Deve modificar a string recebida.
 	// bzero_test();
 	//memcpy_test();
+	//memmove_test();
 	// strlcpy_test(); //11
 	//strlcat_test(); //12  arrumar
 	//toupper_test(); //13
 	//tolower_test(); //14
 
+	split_test();
 	//itoa_test();
 	//strmapi_test();
 	//striteri_test();
@@ -27,12 +29,15 @@ int	main(void)
 	//putstr_fd_test();
 	//putnbr_fd_test();
 	//putendl_fd_test();
-	lstnew_test();
 	//strchr_test();
 	//strrchr_test();
 	//strncmp_test();
-	memchr_test();
+	//memchr_test();
+	//atoi_test();
+	//calloc_test();
+	//strdup_test();
 
+	//lstnew_test();
 }
 
 // char	*aux_ft_strlupcase(unsigned int n, char *str)
@@ -339,6 +344,33 @@ int	memcpy_test(void)
 	return (1);
 }
 
+//P1-10
+int	memmove_test(void)
+{
+	char	*tested_func;
+	char	*src;
+	char	dest[30];
+	char	ft_dest[30];
+	size_t	size;
+	int		result;
+
+	tested_func = "ft_memmove";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+
+	src = "Hello, world!";
+	size = strlen(src) + 1;
+	result = memcmp(memmove(dest, src, size), ft_memmove(ft_dest, src, size), size);
+	printf("src: \"%s\"\nsize: %lu\nresult: %d\n", src, size, result);
+
+	src = "Test case 2.";
+	size = strlen(src) + 1;
+	result = memcmp(memmove(dest, src, size), ft_memmove(ft_dest, src, size), size);
+	printf("src: \"%s\"\nsize: %lu\nresult: %d\n", src, size, result);
+
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+	return (1);
+}
+
 
 //P1-11
 int	strlcpy_test(void)
@@ -612,6 +644,7 @@ printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
     return (1);
 }
 
+//P1-20
 int	strnstr_test(void)
 {
     char *tested_func = "ft_strnstr";
@@ -619,18 +652,18 @@ int	strnstr_test(void)
     
     char haystack[] = "Hello, world!";
     char needle[] = "world";
-    char *result1, *result2;
+    char /**result1, */*result2;
     size_t len = strlen(haystack);
 
     // Using the standard library function to compare results
-    result1 = strnstr(haystack, needle, len);
+    //result1 = strnstr(haystack, needle, len);
     result2 = ft_strnstr(haystack, needle, len);
 
     printf("Haystack: %s\n", haystack);
     printf("Needle: %s\n", needle);
     printf("Length: %zu\n", len);
-    printf("Using strnstr:\n");
-    printf("Result: %s\n", result1);
+    //printf("Using strnstr:\n");
+   // printf("Result: %s\n", result1);
     printf("Using ft_strnstr:\n");
     printf("Result: %s\n", result2);
 
@@ -642,14 +675,14 @@ int	strnstr_test(void)
     len = strlen(haystack2);
 
     // Using the standard library function to compare results
-    result1 = strnstr(haystack2, needle2, len);
+    //result1 = strnstr(haystack2, needle2, len);
     result2 = ft_strnstr(haystack2, needle2, len);
 
     printf("Haystack: %s\n", haystack2);
     printf("Needle: %s\n", needle2);
     printf("Length: %zu\n", len);
-    printf("Using strnstr:\n");
-    printf("Result: %s\n", result1);
+    //printf("Using strnstr:\n");
+    //printf("Result: %s\n", result1);
     printf("Using ft_strnstr:\n");
     printf("Result: %s\n", result2);
 
@@ -661,19 +694,154 @@ int	strnstr_test(void)
     len = strlen(haystack3);
 
     // Using the standard library function to compare results
-    result1 = strnstr(haystack3, needle3, len);
+    //result1 = strnstr(haystack3, needle3, len);
     result2 = ft_strnstr(haystack3, needle3, len);
 
     printf("Haystack: %s\n", haystack3);
     printf("Needle: %s\n", needle3);
     printf("Length: %zu\n", len);
-    printf("Using strnstr:\n");
-    printf("Result: %s\n", result1);
+    //printf("Using strnstr:\n");
+    //printf("Result: %s\n", result1);
     printf("Using ft_strnstr:\n");
     printf("Result: %s\n", result2);
 
     printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
     return (0);
+}
+
+//P1-21
+
+int	atoi_test(void)
+{
+	char *tested_func = "ft_atoi";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+	char *str1 = "1234";
+	char *str2 = "-5678";
+	char *str3 = "9223499999999999999";
+	char *str4 = "2147483647";
+	char *str5 = "-2147483648";
+	char *str6 = "12abc34";
+	char *str7 = "  \t  123   ";
+	char *str8 = "  \t  -456   ";
+	char *str9 = "  \t  +789   ";
+	char *str10 = "";
+	char *str11 = "   ";
+	char *str12 = "+-123";
+	char *str13 = "1234 5678";
+	char *str14 = "1234abc";
+	char *str15 = "abc1234";
+		
+	printf("ft_atoi: %d\n", ft_atoi(str1));  // 1234
+	printf("atoi: %d\n", atoi(str1));  // 1234
+	printf("ft_atoi: %d\n", ft_atoi(str2));  // -5678
+	printf("atoi: %d\n", atoi(str2));  // -5678
+	printf("ft_atoi: %d\n", ft_atoi(str3));  // 99999999999999999999999999999
+	printf("atoi: %d\n", atoi(str3));  // 2147483647
+	printf("ft_atoi: %d\n", ft_atoi(str4));  // 2147483647
+	printf("atoi: %d\n", atoi(str4));  // 2147483647
+	printf("ft_atoi: %d\n", ft_atoi(str5));  // -2147483648
+	printf("atoi: %d\n", atoi(str5));  // -2147483648
+	printf("ft_atoi: %d\n", ft_atoi(str6));  // 12
+	printf("atoi: %d\n", atoi(str6));  // 12
+	printf("ft_atoi: %d\n", ft_atoi(str7));  // 123
+	printf("atoi: %d\n", atoi(str7));  // 123
+	printf("ft_atoi: %d\n", ft_atoi(str8));  // -456
+	printf("atoi: %d\n", atoi(str8));  // -456
+	printf("ft_atoi: %d\n", ft_atoi(str9));  // 789
+	printf("atoi: %d\n", atoi(str9));  // 789
+	printf("ft_atoi: %d\n", ft_atoi(str10)); // 0
+	printf("atoi: %d\n", atoi(str10)); // 0
+	printf("ft_atoi: %d\n", ft_atoi(str11)); // 0
+	printf("atoi: %d\n", atoi(str11)); // 0
+	printf("ft_atoi: %d\n", ft_atoi(str12)); // -123
+	printf("atoi: %d\n", atoi(str12)); // -123
+	printf("ft_atoi: %d\n", ft_atoi(str13)); // 1234
+	printf("atoi: %d\n", atoi(str13)); // 1234
+	printf("ft_atoi: %d\n", ft_atoi(str14)); // 1234
+	printf("atoi: %d\n", atoi(str14)); // 1234
+	printf("ft_atoi: %d\n", ft_atoi(str15)); // 0
+	printf("atoi: %d\n", atoi(str15)); // 0
+
+
+	printf("atoi: %d\n", atoi("-9223372036854775807"));
+	printf("ft_atoi: %d\n",ft_atoi("-9223372036854775807"));
+	printf("atoi: %d\n", atoi("-9223372036854775808"));
+	printf("ft_atoi: %d\n", ft_atoi("-9223372036854775808"));
+	printf("atoi: %d\n", atoi("-9223372036854775809"));
+	printf("ft_atoi: %d\n", ft_atoi("-9223372036854775809"));
+
+
+		
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+
+	return (0);
+}
+
+//P1-21
+
+int	calloc_test(void)
+{
+	char *tested_func = "ft_calloc";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+	
+	char	*str;
+
+	str = (char *)ft_calloc(10, sizeof(char));
+	if (str == NULL)
+	{
+		printf("Allocation failed\n");
+		return (0);
+	}
+
+	// The memory should be zero-initialized
+	if (strcmp(str, "") != 0)
+	{
+		printf("Memory not initialized to zero\n");
+		free(str);
+		return (0);
+	}
+
+	// Change the first character
+	str[0] = 'A';
+
+	// Make sure the rest of the string is still zero
+	if (strcmp(str + 1, "") != 0)
+	{
+		printf("Memory not initialized to zero\n");
+		free(str);
+		return (0);
+	}
+	printf("%s", str);
+	free(str);
+
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+
+	return (1);
+}
+//P1-23
+int	strdup_test(void)
+{
+	char *tested_func = "ft_strdup";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+
+	char	*str1 = "Hello, world!";
+	char	*str2;
+
+	str2 = ft_strdup(str1);
+	if (str2 == NULL)
+	{
+		printf("Error: ft_strdup failed to allocate memory\n");
+		exit(EXIT_FAILURE);
+	}
+
+	printf("str1: %s\n", str1);
+	printf("str2: %s\n", str2);
+
+	free(str2);
+
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
+
+	return (0);
 }
 
 //P2-01
@@ -710,6 +878,21 @@ int	strjoin_test(void)
 	joined = ft_strjoin(str1, str2);
 	printf("%s", joined);
 	return (1);
+}
+
+//P2-03
+int	split_test(void)
+{
+	char	**result;
+	char	*str = "This is a test string for ft_split";
+
+	result = ft_split(str, ' ');
+	if (!result)
+		return (1);
+	for (int i = 0; result[i]; i++)
+		printf("%s\n", result[i]);
+	free(result);
+	return (0);
 }
 
 //P2-08

@@ -1,3 +1,0 @@
-char *strmalloc
-strmalloc = (char *)malloc(sizeof(char)) * tamanho_string + 1;
-int *arrmall = (int *)malloc(sizeof(int)) * n_posicoes_do_array;

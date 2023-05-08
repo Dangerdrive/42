@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   P2-04.ft_split.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/08 17:57:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/08 18:01:12 by fde-alen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
 static size_t	count_words(const char *s, char c)
 {
 	size_t	i;
@@ -43,19 +57,17 @@ static char	*copy_word(const char *s, size_t len)
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	size_t	n;
 	size_t	i;
 	size_t	j;
 
 	if (!s)
 		return (NULL);
-	n = count_words(s, c);
-	split = (char **)malloc((n + 1) * sizeof(char *));
+	split = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < n)
+	while (i < count_words(s, c))
 	{
 		while (s[j] && s[j] == c)
 			j++;
@@ -73,7 +85,6 @@ char	**ft_split(char const *s, char c)
 	split[i] = NULL;
 	return (split);
 }
-
 
 // #1. The string to be split.
 // #2. The delimiter character.

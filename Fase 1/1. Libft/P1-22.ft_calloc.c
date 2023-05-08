@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalphatest.c                                      :+:      :+:    :+:   */
+/*   P1-22.ft_calloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/03 13:24:37 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/08 18:28:40 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
+#include "libft.h"
 
-
-int	isalphatest()
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	c;
+	void	*arr;
 
-	c = '0';
-	printf("%d\n", isalpha(c));
-	c = 'a';
-	printf("%d\n", isalpha(c));
-	c = 'X';
-	printf("%d\n", isalpha(c));
-	c = '&';
-	printf("%d\n", isalpha(c));
+	if (!size || nmemb > __SIZE_MAX__ / size)
+		return (NULL);
+	arr = malloc(nmemb * size);
+	if (arr)
+	{
+		ft_bzero(arr, nmemb * size);
+		return (arr);
+	}
+	else
+		return (NULL);
 }
-// #include <ctype.h>
-// int isalpha(int c);

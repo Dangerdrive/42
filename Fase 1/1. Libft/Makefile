@@ -1,17 +1,16 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/05 11:45:50 by fde-alen          #+#    #+#              #
-#    Updated: 2023/05/05 11:46:34 by fde-alen         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Name of the library
+NAME = libft.a
 
-NAME	= libft.a
-SRCS	= ft_memset.c \
+# Directories for source and header files
+SRCDIR = .
+INCDIR = .
+
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+# Source files and object files
+SRCS = $(addprefix $(SRCDIR)/, ft_memset.c \
 		  ft_bzero.c \
 		  ft_memcpy.c \
 		  ft_memccpy.c \
@@ -26,7 +25,6 @@ SRCS	= ft_memset.c \
 		  ft_strnstr.c \
 		  ft_strncmp.c \
 		  ft_strcmp.c \
-		  ft_strcmp_low_up.c \
 		  ft_atoi.c \
 		  ft_atoll.c \
 		  ft_isalpha.c \
@@ -36,7 +34,6 @@ SRCS	= ft_memset.c \
 		  ft_isprint.c \
 		  ft_toupper.c \
 		  ft_tolower.c \
-		  ft_str_to_lower_upper.c \
 		  ft_calloc.c \
 		  ft_strdup.c \
 		  ft_substr.c \
@@ -50,44 +47,24 @@ SRCS	= ft_memset.c \
 		  ft_putchar_fd.c \
 		  ft_putstr_fd.c \
 		  ft_putendl_fd.c \
-		  ft_putnbr_fd.c \
-		  ft_ternar.c
-INC		= libft.h
-OBJS	= $(SRCS:.c=.o)
+		  ft_putnbr_fd.c)
+OBJS = $(SRCS:.c=.o)
 
-BONUS	= ft_lstnew.c \
-		  ft_lstadd_front.c \
-		  ft_lstsize.c \
-		  ft_lstlast.c \
-		  ft_lstadd_back.c \
-		  ft_lstdelone.c \
-		  ft_lstclear.c \
-		  ft_lstiter.c \
-		  ft_lstmap.c
-B_OBJS	= $(BONUS:.c=.o)
+# Rules
+.PHONY: all clean fclean re
 
+all: $(NAME)
 
-CC		= gcc
-RM		= /bin/rm -f
-CFLAGS	= -Wall -Wextra -Werror
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
 
-%.o:%.c $(INC)
-	$(CC) $(CFLAGS) -c $< -include $(INC) -o $(<:.c=.o)
-
-$(NAME):		$(OBJS) $(B_OBJS)
-					ar rc $(NAME) $(OBJS) $(B_OBJS)
-
-all:			$(INC) $(NAME)
+$(SRCDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
 
 clean:
-				$(RM) $(OBJS) $(B_OBJS)
+	rm -f $(OBJS)
 
-fclean:			clean
-					$(RM) $(NAME)
+fclean: clean
+	rm -f $(NAME)
 
-re:				fclean all
-
-bonus:			$(NAME) $(B_OBJS)
-					ar rc $(NAME) $(OBJS) $(B_OBJS)
-
-.PHONY:			all clean fclean re bonus
+re: fclean all

@@ -6,35 +6,36 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/05 13:06:30 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:33:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	unsigned char	*dest_ptr;
+	unsigned char	*src_ptr;
 
-	d = (unsigned char *)dest;
-	s = (const unsigned char *)src;
-	while (n--)
-		*d++ = *s++;
+	dest_ptr = (unsigned char *)dest;
+	src_ptr = (unsigned char *)src;
+	if (dest_ptr == src_ptr)
+		return (dest);
+	if (dest_ptr < src_ptr)
+	{
+		while (n--)
+			*dest_ptr++ = *src_ptr++;
+	}
+	else
+	{
+		dest_ptr += n;
+		src_ptr += n;
+		while (n--)
+			*--dest_ptr = *--src_ptr;
+	}
 	return (dest);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char		*dest_cpy;
-	const unsigned char	*src_cpy;
-
-	dest_cpy = (unsigned char *)dest;
-	src_cpy = (const unsigned char *)src;
-	while (n--)
-		*dest_cpy++ = *src_cpy++;
-	return (dest);
-}
 // #include <string.h>
 
 //void *memmove(void *dest, const void *src, size_t n);
