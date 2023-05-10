@@ -78,10 +78,5 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst,
 						void *(*f)(void *), void (*del)(void *));
-int					ft_tern_i(int cond, int ret_true, int ret_false);
-double				ft_tern_d(int cond, double ret_true, double ret_false);
-float				ft_ternar_f(int cond, float ret_true, float ret_false);
-long long			ft_ternar_ll(int cond,
-						long long ret_true, long long ret_false);
 
 #endif

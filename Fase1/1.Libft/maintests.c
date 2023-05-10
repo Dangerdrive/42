@@ -24,7 +24,7 @@ int	main(void)
 	//strmapi_test();
 	//striteri_test();
 	//strjoin_test();
-	substr_test();
+	//substr_test();
 	//putchar_fd_test();
 	//putstr_fd_test();
 	//putnbr_fd_test();
@@ -33,6 +33,7 @@ int	main(void)
 	//strrchr_test();
 	//strncmp_test();
 	//memchr_test();
+	memcmp_test();
 	//atoi_test();
 	//calloc_test();
 	//strdup_test();
@@ -645,6 +646,42 @@ int memchr_test(void)
 
 printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
 	return (1);
+}
+
+int memcmp_test(void)
+{
+	char *tested_func = "ft_memchr";
+	printf("\033[0;32m\\\\TEST %s\n\n\033[0m", tested_func);
+    const char *s1 = "abcde";
+    const char *s2 = "abcde";
+    size_t n = strlen(s1);
+
+    int cmp1 = memcmp(s1, s2, n);
+    int cmp2 = ft_memcmp(s1, s2, n);
+
+    printf("memcmp result: %d\n", cmp1);
+    printf("ft_memcmp result: %d\n", cmp2);
+
+	s1 = "abz";
+	s2 = "abcde";
+    cmp1 = memcmp(s1, s2, n);
+    cmp2 = ft_memcmp(s1, s2, n);
+
+    printf("memcmp result: %d\n", cmp1);
+    printf("ft_memcmp result: %d\n", cmp2);
+
+	s1 = "abz";
+	s2 = "zsfsdfs";
+    cmp1 = memcmp(s1, s2, n);
+    cmp2 = ft_memcmp(s1, s2, n);
+
+    printf("memcmp result: %d\n", cmp1);
+    printf("ft_memcmp result: %d\n", cmp2);
+
+
+    return 1;
+
+	printf("\033[0;32m\n\\\\END of %s test\n\033[0m", tested_func);
 }
 
 //P1-20
