@@ -9,7 +9,8 @@
 		"string.h": "c",
 		"sstream": "c",
 		"algorithm": "c",
-		"bit": "c"
+		"bit": "c",
+		"string": "c"
 	},
 	"diffEditor.codeLens": true,
 	"editor.wordWrap": "wordWrapColumn",
