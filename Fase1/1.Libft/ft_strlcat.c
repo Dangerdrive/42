@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   P1-22.ft_calloc.c                                  :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/08 18:28:40 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/22 02:19:38 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/12 15:57:51 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
 {
-	void	*arr;
+	size_t	dest_len;
+	size_t	src_len;
+	size_t	i;
 
-	if (!size || nmemb > __SIZE_MAX__ / size)
-		return (NULL);
-	arr = malloc(nmemb * size);
-	if (arr)
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
+	if (destsize <= dest_len)
+		return (src_len + destsize);
+	i = 0;
+	while (src[i] && dest_len + i + 1 < destsize)
 	{
-		ft_bzero(arr, nmemb * size);
-		return (arr);
+		dest[dest_len + i] = src[i];
+		i++;
 	}
-	else
-		return (NULL);
+	dest[dest_len + i] = '\0';
+	return (src_len + dest_len);
 }

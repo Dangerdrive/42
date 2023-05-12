@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 20:05:19 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/01 20:02:32 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/12 12:14:36 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
-}
-// #1. The string to output.
-// #2. The file descriptor on which to write.
-// None
-// write
-// Outputs the string ’s’ to the given file
-// descriptor.
+	void	*arr;
 
-// Parameters
-// Return value
-// External functs.
-// Description
+	if (!nmemb || !size || nmemb > __SIZE_MAX__ / size)
+		return (NULL);
+	arr = malloc(nmemb * size);
+	if (arr)
+	{
+		ft_bzero(arr, nmemb * size);
+		return (arr);
+	}
+	else
+		return (NULL);
+}

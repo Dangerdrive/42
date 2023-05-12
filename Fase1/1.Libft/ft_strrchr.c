@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/25 22:00:54 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:13:15 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isascii(int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	return (c >= 0 && c <= 127);
+	const char	*last;
+
+	last = NULL;
+	while (*s)
+	{
+		if (*s == (unsigned char)c)
+			last = s;
+		s++;
+	}
+	if (*s == (unsigned char)c)
+		return ((char *)s);
+	return ((char *)last);
 }
-// #include <ctype.h>
-// int isdigit(int c);

@@ -1,0 +1,4 @@
+*.out
+maintests.c
+libftests.h
+*.o
