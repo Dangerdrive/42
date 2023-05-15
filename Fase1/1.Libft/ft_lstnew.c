@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PB-01.ft_lstnew.c                                  :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 20:05:19 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/08 18:29:56 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:55:10 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*node;
+	size_t	content_len;
 
 	node = malloc(sizeof(t_list));
 	if (node)
 	{
-		node->content = content;
+		content_len = ft_strlen(content);
+		node->content = malloc(content_len + 1);
+		if (!node->content)
+		{
+			free(node);
+			return (NULL);
+		}
+		ft_strlcpy(node->content, content, content_len + 1);
 		node->next = NULL;
 	}
 	return (node);
