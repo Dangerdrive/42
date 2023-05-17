@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:57:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/12 18:12:16 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:10:34 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,28 @@ static char	*copy_word(const char *s, size_t len)
 	return (word);
 }
 
+static void	*ft_free_split(char **split, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	size_t	i;
 	size_t	j;
 
+	if (!s)
+		return (NULL);
 	split = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
@@ -71,7 +87,9 @@ char	**ft_split(char const *s, char c)
 			j++;
 		split[i] = copy_word(&s[j], word_length(&s[j], c));
 		if (!split[i])
-			return (NULL);
+		{
+			return (ft_free_split(split, i));
+		}
 		i++;
 		j += word_length(&s[j], c);
 	}

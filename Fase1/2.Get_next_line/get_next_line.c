@@ -3,7 +3,7 @@
 char	*get_next_line(int fd)
 {
 
-	return(NULL)
+	return (NULL);
 }
 
 void	ft_putchar(char c)
