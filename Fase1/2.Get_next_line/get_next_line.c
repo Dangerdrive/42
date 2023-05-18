@@ -1,80 +1,61 @@
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
-{
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 32
+#endif
 
+static char	*read_line(int fd, char *buffer, char *remainder)
+{
+	int		bytes_read;
+	char	*line_break;
+	char	*temp;
+
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	while (bytes_read > 0)
+	{
+		buffer[bytes_read] = '\0';
+		if ((line_break = ft_strchr(buffer, '\n')) != NULL)
+		{
+			*line_break = '\0';
+			temp = remainder;
+			remainder = ft_strdup(line_break + 1);
+			free(temp);
+			return (buffer);
+		}
+		temp = remainder;
+		remainder = ft_strjoin(remainder, buffer);
+		free(temp);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+	}
+	free(remainder);
 	return (NULL);
 }
 
-void	ft_putchar(char c)
+char	*get_next_line(int fd)
 {
-	write(1, &c, 1);
+	static char	*remainder = NULL;
+	char		*buffer;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buffer == NULL)
+		return (NULL);
+	if (remainder != NULL)
+	{
+		if ((line = ft_strchr(remainder, '\n')) != NULL)
+		{
+			*line = '\0';
+			line = ft_strdup(remainder);
+			ft_strcpy(remainder, line + ft_strlen(line) + 1);
+			free(buffer);
+			return (line);
+		}
+		free(buffer);
+		buffer = ft_strdup(remainder);
+		free(remainder);
+		remainder = NULL;
+	}
+	return (read_line(fd, buffer, remainder));
 }
-
-void	ft_putstr(char *str)
-{
-	while (*str)
-	{
-		ft_putchar(*str);
-		str++;
-	}
-}
-
-int	ft_display_file(int fd)
-{
-	char	buffer[65535];
-
-	while (read(fd, buffer, 65534))
-	{
-		ft_putstr(buffer);
-	}
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	char	*error;
-	int		fd;
-
-	if (argc == 1)
-	{
-		error = "File name missing.\n";
-		ft_putstr(error);
-		return (1);
-	}
-	if (argc > 2)
-	{
-		error = "Too many arguments.\n";
-		ft_putstr(error);
-		return (2);
-	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1 || ft_display_file(fd) == -1)
-	{
-		error = "Cannot read file.\n";
-		ft_putstr(error);
-		return (3);
-	}
-	close(fd);
-	return (0);
-}
-
-
-/*
-Parameters
-Return value
-External functs.
-Description
-get_next_line
-char *get_next_line(int fd);
-get_next_line.c, get_next_line_utils.c,
-get_next_line.h
-fd: The file descriptor to read from
-Read line: correct behavior
-NULL: there is nothing else to read, or an error
-occurred
-read, malloc, free
-Write a function that returns a line read from a
-file descriptor
-
-*/
