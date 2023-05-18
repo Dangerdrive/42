@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "get_next_line.h"
+#include <errno.h>
 
 int main(void)
 {
@@ -15,26 +17,23 @@ int main(void)
 		return 1;
 	}
 
-	// Read lines until the end of file or an error occurs
+	// Read lines until the end of the file or an error occurs
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s\n", line);
 		free(line);
 	}
 
-	// Check for errors
-	if (line == NULL && !feof(fd))
+	// Check if an error occurred or if there is more to read
+	if (line == NULL && errno != 0)
 	{
 		perror("Error reading file");
+		close(fd);
 		return 1;
 	}
 
 	// Close the file
-	if (close(fd) < 0)
-	{
-		perror("Error closing file");
-		return 1;
-	}
+	close(fd);
 
 	return 0;
 }
