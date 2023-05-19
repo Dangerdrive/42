@@ -6,14 +6,14 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/11 18:06:40 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:59:46 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define MAX_INT 2147483647
-# define MIN_INT -2147483648
+// # define MAX_INT 2147483647
+// # define MIN_INT -2147483648
 
 # include <stdlib.h>
 # include <unistd.h>

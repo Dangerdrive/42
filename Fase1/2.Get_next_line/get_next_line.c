@@ -59,3 +59,40 @@ char	*get_next_line(int fd)
 	}
 	return (read_line(fd, buffer, remainder));
 }
+
+#include <fcntl.h>
+#include <stdio.h>
+#include "get_next_line.h"
+
+int main(void)
+{
+	int fd;
+	char *line;
+
+	fd = open("fucker.txt", O_RDONLY);  // Replace "example.txt" with the file you want to read
+	if (fd == -1)
+	{
+		printf("Failed to open the file.\n");
+		return 1;
+	}
+
+	line = get_next_line(fd);
+	// while (line != NULL)
+	// {
+	// 	printf("%s\n", line);
+	// 	free(line);
+	// 	line = get_next_line(fd);
+	// }
+	int i = 0;
+	while (i < 3)
+	{
+		printf("%s\n", line);
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+
+	close(fd);
+
+	return 0;
+}

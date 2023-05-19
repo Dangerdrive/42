@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 21:50:44 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/16 19:18:49 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:19:36 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	size_t	total_size;
 
 	total_size = nmemb * size;
-	if (total_size > __SIZE_MAX__ - size)
+	if (total_size / size != nmemb)
 		return (NULL);
 	arr = malloc(total_size);
 	if (arr != NULL)
