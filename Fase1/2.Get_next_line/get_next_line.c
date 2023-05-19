@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 300
+# define BUFFER_SIZE 300
 #endif
 
 static char	*read_line(int fd, char *buffer, char *remainder)
@@ -33,7 +33,7 @@ static char	*read_line(int fd, char *buffer, char *remainder)
 
 char	*get_next_line(int fd)
 {
-	static char	*remainder = NULL;
+	static char	*remainder;
 	char		*buffer;
 	char		*line;
 
