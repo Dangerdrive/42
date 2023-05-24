@@ -1,0 +1,115 @@
+#include "get_next_line.h"
+#include <stdio.h> // printf
+#include <stdlib.h> // realloc
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 3
+#endif
+
+static char	*read_line(int fd, char **buffer, char *remainder)
+{
+	int		bytes_read;
+	char	*line_break;
+	char	*temp;
+	int		buffer_size = BUFFER_SIZE;
+
+	bytes_read = read(fd, *buffer, buffer_size);
+	while (bytes_read > 0)
+	{
+		(*buffer)[bytes_read] = '\0';
+		if ((line_break = ft_strchr(*buffer, '\n')) != NULL)
+		{
+			*line_break = '\0';
+			temp = remainder;
+			remainder = ft_strdup(line_break + 1);
+			free(temp);
+			return (*buffer);
+		}
+		buffer_size *= 2; // Double the buffer size
+		*buffer = realloc(*buffer, buffer_size + 1);
+		if (*buffer == NULL)
+		{
+			free(remainder);
+			return (NULL);
+		}
+		temp = remainder;
+		remainder = ft_strjoin(remainder, *buffer);
+		free(temp);
+		bytes_read = read(fd, *buffer + buffer_size / 2, buffer_size / 2);
+	}
+	free(remainder);
+	return (NULL);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*remainder;
+	char		*buffer;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		printf("fd is negative or BUFFER_SIZE is negative or read() failed\n");
+		return (NULL);
+	}
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buffer == NULL)
+	{
+		printf("buffer is NULL\n");
+		return (NULL);
+	}
+	if (remainder != NULL)
+	{
+		printf("remainder is not NULL\n");
+		if ((line = ft_strchr(remainder, '\n')) != NULL)
+		{
+			printf("line break found\n");
+			printf("line(ft_strchr): %s\n", line);
+			*line = '\0';
+			line = ft_strdup(remainder);
+			printf("line(after ft_strdup remainder): %s\n", line);
+			ft_strcpy(remainder, line + ft_strlen(line) + 1);
+			printf("remainder(after ft_strcpy): %s\n", remainder);
+			printf("line(after ft_strcpy): %s\n", line);
+			free(buffer);
+			return (line);
+		}
+		free(buffer);
+		buffer = ft_strdup(remainder);
+		free(remainder);
+		remainder = NULL;
+	}
+	return (read_line(fd, &buffer, remainder));
+}
+
+#include <fcntl.h>
+#include "get_next_line.h"
+
+int main(void)
+{
+	int fd;
+	char *line;
+
+	fd = open("fucker.txt", O_RDONLY);  // Replace "example.txt" with the file you want to read
+	if (fd == -1)
+	{
+		printf("Failed to open the file.\n");
+		return 1;
+	}
+
+	line = get_next_line(fd);
+	int i = 0;
+	while (line != NULL)
+	{
+		printf("%s\n", line);
+		free(line);
+		line = get_next_line(fd);
+		i++;
+		if (i >= 3) // Print only the first 3 lines
+			break;
+	}
+
+	close(fd);
+
+	return 0;
+}

@@ -10,7 +10,8 @@
 		"sstream": "c",
 		"algorithm": "c",
 		"bit": "c",
-		"string": "c"
+		"string": "c",
+		"unistd.h": "c"
 	},
 	"diffEditor.codeLens": true,
 	"editor.wordWrap": "wordWrapColumn",
