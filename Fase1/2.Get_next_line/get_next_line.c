@@ -29,10 +29,15 @@ char	*get_next_line(int fd)
 	}
 	//printf("\n");
 	i = 0;
+	//int j = 0; //fix
 	while (arr[i])
 	{
 		printf("%s", arr[i]);
-		//printf("\ti de arr: %d\t", i);
+		// while (arr[i][j] != '\0' && arr[i][j] != '\n')
+		// {
+		// 	write(1, &arr[i][j], 1);
+		// 	 j++;
+		// }
 		i++;
 	}
 	printf("\n");
