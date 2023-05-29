@@ -3,11 +3,40 @@
 #include <stdlib.h> // realloc
 #include <fcntl.h>	// open
 #include <unistd.h> // read, close
+#include <string.h> // strlcpy - substituir
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 3
 #endif
 
+char* concatenateStrings(char** arr, int size)
+{
+    int totalLength = 0;
+
+    // Calculate the total length of the concatenated string
+    for (int i = 0; i < size; i++) {
+        totalLength += ft_strlen(arr[i]);
+    }
+
+    // Allocate memory for the concatenated string (+1 for null terminator)
+    char* result = (char*)malloc((totalLength + 1) * sizeof(char));
+    if (result == NULL) {
+        printf("Failed to allocate memory for concatenated string.\n");
+        return NULL;
+    }
+
+    // Concatenate the strings
+    int currentIndex = 0;
+    for (int i = 0; i < size; i++) {
+        strcpy(result + currentIndex, arr[i]);
+        currentIndex += ft_strlen(arr[i]);
+    }
+
+    // Null terminate the concatenated string
+    result[totalLength] = '\0';
+
+    return result;
+}
 
 char	*get_next_line(int fd)
 {
@@ -30,7 +59,7 @@ char	*get_next_line(int fd)
 	//printf("\n");
 	i = 0;
 	//int j = 0; //fix
-	while (arr[i] && arr[i] != '\n')
+	while (arr[i])
 	{
 		printf("%s", arr[i]);
 		// while (arr[i][j] != '\0' && arr[i][j] != '\n')
@@ -41,7 +70,9 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	printf("\n");
-	return (0);
+	int arrSize = sizeof(arr) / sizeof(arr[0]);
+
+	return (concatenateStrings(arr, arrSize + 1));
 }
 
 int	main(int argc, char **argv)
@@ -62,7 +93,8 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	fd = open(argv[1], 00);
-	get_next_line(fd);
+	/*char * result = */get_next_line(fd);
+	//printf("char result: %s", result);
 	// //if (fd == -1 || get_next_line(fd) == NULL)
 	// {
 	// 	error = "Cannot read file.\n";

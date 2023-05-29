@@ -12,7 +12,7 @@ int	main()
 	// else
 	// 	printf("test is not NULL\n");
 
-	char *test2 = calloc(4294967295*2, 1);
+	char *test2 = calloc(4294967295*8, 1);
 	if (test2 == NULL)
 		printf("test2 is NULL\n");
 	else
