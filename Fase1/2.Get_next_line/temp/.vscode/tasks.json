@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "C/C++: gcc build active",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+          "-g",
+          "-o",
+          "${workspaceFolder}/a.out",
+          "${workspaceFolder}/get_next_line.c",
+          "${workspaceFolder}/get_next_line_utils.c"
+        ],
+        "problemMatcher": ["$gcc"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }

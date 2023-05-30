@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (*str != '\0')
+	{
+		i++;
+		str++;
+	}
+	return (i);
+}
+size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
+{
+	unsigned int	i;
+	unsigned int	srclen;
+
+	i = 0;
+	srclen = 0;
+	while (src[srclen])
+		srclen++;
+	if (destsize > 0)
+	{
+		while (src[i] && i < destsize - 1)
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (srclen);
+}
+
+size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
+{
+	size_t	dest_len;
+	size_t	src_len;
+	size_t	i;
+
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
+	if (destsize <= dest_len)
+		return (src_len + destsize);
+	i = 0;
+	while (src[i] && dest_len + i + 1 < destsize)
+	{
+		dest[dest_len + i] = src[i];
+		i++;
+	}
+	dest[dest_len + i] = '\0';
+	return (src_len + dest_len);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*strjoin;
+	size_t	size;
+
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	strjoin = (char *)malloc(sizeof(char) * size);
+	if (strjoin == NULL)
+		return (NULL);
+	ft_strlcpy(strjoin, s1, size);
+	ft_strlcat(strjoin, s2, size);
+	return (strjoin);
+}
+
+size_t	ft_linelen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (*str != '\0' && *str != '\n')
+	{
+		i++;
+		str++;
+	}
+	return (i);
+}
+
+int	main()
+{
+	char	*str2 = "Hello World!\nGoodbye World!\n";
+	int	line = ft_linelen(str2);
+	printf("line: %d\n", line);
+
+
+	return (0);
+}

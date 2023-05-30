@@ -8,14 +8,15 @@
 # define BUFFER_SIZE 3
 #endif
 
-
 char	*get_next_line(int fd)
 {
 	char	*buffer;
 	int		buffer_size = BUFFER_SIZE;
 	char	*arr[3000];
+	char	*next_line = "\0";
 	int		i = 0;
-	//ultimo ponto funcionando3.
+
+	//ultimo ponto funcionando4.
 
 	buffer = (char *)malloc(sizeof(char) * (buffer_size + 1));
 	while (read(fd, buffer, buffer_size))
@@ -27,27 +28,32 @@ char	*get_next_line(int fd)
 		//printf("%d\n", i);
 
 	}
+	arr[i] = NULL;
 	//printf("\n");
 	i = 0;
-	//int j = 0; //fix
-	while (arr[i] && arr[i] != '\n')
+	int j = 0;
+
+	while (arr[i])
 	{
-		printf("%s", arr[i]);
-		// while (arr[i][j] != '\0' && arr[i][j] != '\n')
-		// {
-		// 	write(1, &arr[i][j], 1);
-		// 	 j++;
-		// }
+		//printf("%s", arr[i]);
+		while (/* arr[i][j] != '\0' && */ arr[i][j] != '\n')
+		{
+			write(1, &arr[i][j], 1);
+			 j++;
+		}
+		next_line = ft_strjoin(next_line, arr[i]);
+
 		i++;
 	}
 	printf("\n");
-	return (0);
+	return (next_line);
 }
 
 int	main(int argc, char **argv)
 {
 	char	*error;
 	int		fd;
+	char	*result = NULL;
 
 	if (argc == 1)
 	{
@@ -62,7 +68,8 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	fd = open(argv[1], 00);
-	get_next_line(fd);
+	result = get_next_line(fd);
+	printf("\nresult: %s\n", result);
 	// //if (fd == -1 || get_next_line(fd) == NULL)
 	// {
 	// 	error = "Cannot read file.\n";
