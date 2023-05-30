@@ -13,7 +13,7 @@
 //#include <stdio.h>
 //#include <fcntl.h>
 
-char	*ft_read_to_left_str(int fd, char *remaining)
+char	*ft_read_to_remaining(int fd, char *remaining)
 {
 	char	*buffer;
 	int		bytes_read;
@@ -44,40 +44,40 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	remaining = ft_read_to_left_str(fd, remaining);
+	remaining = ft_read_to_remaining(fd, remaining);
 	if (!remaining)
 		return (NULL);
 	line = ft_get_line(remaining);
-	remaining = ft_new_left_str(remaining);
+	remaining = ft_new_remaining(remaining);
 	return (line);
 }
 
-/*int	main(void)
+int	main(void)
 {
 	char	*line;
 	int		i;
 	int		fd1;
-	int		fd2;
-	int		fd3;
-	fd1 = open("tests/test.txt", O_RDONLY);
-	fd2 = open("tests/test2.txt", O_RDONLY);
-	fd3 = open("tests/test3.txt", O_RDONLY);
+	// int		fd2;
+	// int		fd3;
+	fd1 = open("fucker.txt", O_RDONLY);
+	// fd2 = open("tests/test2.txt", O_RDONLY);
+	// fd3 = open("tests/test3.txt", O_RDONLY);
 	i = 1;
 	while (i < 7)
 	{
 		line = get_next_line(fd1);
 		printf("line [%02d]: %s", i, line);
 		free(line);
-		line = get_next_line(fd2);
-		printf("line [%02d]: %s", i, line);
-		free(line);
-		line = get_next_line(fd3);
-		printf("line [%02d]: %s", i, line);
-		free(line);
+		// line = get_next_line(fd2);
+		// printf("line [%02d]: %s", i, line);
+		// free(line);
+		// line = get_next_line(fd3);
+		// printf("line [%02d]: %s", i, line);
+		// free(line);
 		i++;
 	}
 	close(fd1);
-	close(fd2);
-	close(fd3);
+	// close(fd2);
+	// close(fd3);
 	return (0);
-}*/
+}
