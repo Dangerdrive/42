@@ -6,11 +6,23 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:34 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/30 21:46:38 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:16:14 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char *left_str, char *buff)
 {
@@ -38,18 +50,6 @@ char	*ft_strjoin(char *left_str, char *buff)
 	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
 	free(left_str);
 	return (str);
-}
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 char	*ft_strchr(char *s, int c)

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:24 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/30 22:05:09 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:18:50 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-char	*new_line(int fd, char *static_buffer);
-char	*fixed_line(char *static_buffer);
-char	*next_line(char *static_buffer);
 char	*get_next_line(int fd);
+char	*read_text(int fd, char *line_buffer);
+char	*extract_line(char *line_buffer);
+char	*extract_remaining(char *line_buffer);
 char	*ft_strjoin(char *left_str, char *buff);
 size_t	ft_strlen(char *s);
 char	*ft_strchr(char *s, int c);
-char	*ft_strdup(char *s1);
-char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
