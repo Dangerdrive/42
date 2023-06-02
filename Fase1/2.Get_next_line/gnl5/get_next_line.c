@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/31 22:24:23 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:20:30 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 char	*read_text(int fd, char *line_buffer)
 {
 	char	*read_buffer;
-	int		size;
+	int		read_size;
 
 	read_buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_buffer)
 		return (NULL);
-	size = 1;
-	while (!ft_strchr(line_buffer, '\n') && size != 0)
+	read_size = 1;
+	while (!ft_strchr(line_buffer, '\n') && read_size != 0)
 	{
-		size = read(fd, read_buffer, BUFFER_SIZE);
-		if (size == -1)
+		read_size = read(fd, read_buffer, BUFFER_SIZE);
+		if (read_size == -1)
 		{
 			free(line_buffer);
 			free(read_buffer);
 			return (NULL);
 		}
-		read_buffer[size] = '\0';
+		read_buffer[read_size] = '\0';
 		line_buffer = ft_strjoin(line_buffer, read_buffer);
 	}
 	free(read_buffer);
@@ -40,29 +40,29 @@ char	*read_text(int fd, char *line_buffer)
 char	*extract_line(char *line_buffer)
 {
 	int		i;
-	char	*line;
+	char	*extracted_line;
 
 	i = 0;
 	if (!line_buffer[i])
-		return (NULL);
+		return (0);
 	while (line_buffer[i] && line_buffer[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	if (!line)
+	extracted_line = (char *)malloc(sizeof(char) * (i + 2));
+	if (!extracted_line)
 		return (NULL);
 	i = 0;
 	while (line_buffer[i] && line_buffer[i] != '\n')
 	{
-		line[i] = line_buffer[i];
+		extracted_line[i] = line_buffer[i];
 		i++;
 	}
 	if (line_buffer[i] == '\n')
 	{
-		line[i] = line_buffer[i];
+		extracted_line[i] = line_buffer[i];
 		i++;
 	}
-	line[i] = '\0';
-	return (line);
+	extracted_line[i] = '\0';
+	return (extracted_line);
 }
 
 char	*extract_remaining(char *line_buffer)
@@ -96,6 +96,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*line_buffer;
 
+	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	line_buffer = read_text(fd, line_buffer);
@@ -105,3 +106,34 @@ char	*get_next_line(int fd)
 	line_buffer = extract_remaining(line_buffer);
 	return (line);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	char	*error;
+// 	int		fd;
+// 	char	*result = NULL;
+
+// 	if (argc == 1)
+// 	{
+// 		error = "File name missing.\n";
+// 		printf("%s\n", error);
+// 		return (1);
+// 	}
+// 	if (argc > 2)
+// 	{
+// 		error = "Too many arguments.\n";
+// 		printf("%s\n", error);
+// 		return (2);
+// 	}
+// 	fd = open(argv[1], 00);
+// 	result = get_next_line(fd);
+// 	printf("\nresult: %s\n", result);
+// 	// //if (fd == -1 || get_next_line(fd) == NULL)
+// 	// {
+// 	// 	error = "Cannot read file.\n";
+// 	// 	printf("%s\n", error);
+// 	// 	return (3);
+// 	// }
+// 	close(fd);
+// 	return (0);
+// }

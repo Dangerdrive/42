@@ -2,6 +2,11 @@
 	"files.associations": {
 		"functional": "c",
 		"stdlib.h": "c",
-		"get_next_line_bonus.h": "c"
+		"get_next_line_bonus.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c",
+		"utility": "c"
 	}
 }

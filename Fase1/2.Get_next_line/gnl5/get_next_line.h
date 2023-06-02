@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:39 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/31 22:16:47 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:43:23 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*read_text(int fd, char *line_buffer);
 char	*extract_line(char *line_buffer);
 char	*extract_remaining(char *line_buffer);
 char	*ft_strjoin(char *left_str, char *buff);
-size_t	ft_strlen(char *s);
-char	*ft_strchr(char *s, int c);
+size_t	ft_strlen(const char *str);
+char	*ft_strchr(const char *str, int c);
 
 #endif

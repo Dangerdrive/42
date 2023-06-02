@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:38:40 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/04/28 19:00:37 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:29:45 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (*str != '\0')
 	{
