@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:34 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/01 21:54:24 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:05:07 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,23 @@ char	*ft_strjoin(char *left_str, char *buff)
 	return (str);
 }
 
-// char	*ft_strchr(const char *str, int c)
-// {
-// 	int	i;
+char	*ft_strchr(const char *str, int c)
+{
+	int	i;
 
-// 	i = 0;
-// 	if (!str)
-// 		return (0);
-// 	if (c == '\0')
-// 		return ((char *)&str[ft_strlen(str)]);
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == (unsigned char) c)
-// 			return ((char *)&str[i]);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	if (!str)
+		return (0);
+	if (c == '\0')
+		return ((char *)&str[ft_strlen(str)]);
+	while (str[i] != '\0')
+	{
+		if (str[i] == (unsigned char) c)
+			return ((char *)&str[i]);
+		i++;
+	}
+	return (0);
+}
 
 char	*ft_strchr(const char *str, int c)
 {
