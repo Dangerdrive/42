@@ -6,13 +6,13 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/01 21:20:30 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:48:12 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_text(int fd, char *line_buffer)
+static char	*read_text(int fd, char *line_buffer)
 {
 	char	*read_buffer;
 	int		read_size;
@@ -37,7 +37,7 @@ char	*read_text(int fd, char *line_buffer)
 	return (line_buffer);
 }
 
-char	*extract_line(char *line_buffer)
+static char	*extract_line(char *line_buffer)
 {
 	int		i;
 	char	*extracted_line;
@@ -65,7 +65,7 @@ char	*extract_line(char *line_buffer)
 	return (extracted_line);
 }
 
-char	*extract_remaining(char *line_buffer)
+static char	*extract_remaining(char *line_buffer)
 {
 	int		i;
 	int		j;
@@ -107,6 +107,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+// #include <stdio.h>
 // int	main(int argc, char **argv)
 // {
 // 	char	*error;

@@ -1,26 +1,43 @@
-UNITY_DIR = ./Unity
-CC = gcc
-CFLAG = -Wall -Wextra -Werror -std=c99
-RM = rm -f
-COLOR_TESTS =-D UNITY_OUTPUT_COLOR
+# Name of the library
+NAME = get_next_line.a
 
-NAME_TESTE = gnl_test
+# Directories for source and header files
+SRCDIR = .
+INCDIR = .
 
-SRC_FILES =\
-	$(UNITY_DIR)/src/unity.c \
-	$(UNITY_DIR)/extras/fixture/src/unity_fixture.c \
-	~/Documents/42/Fase1/2.Get_next_line/*.c \
-	~/Documents/42/Fase1/2.Get_next_line/test/*.c \
-	~/Documents/42/Fase1/2.Get_next_line/test/test_group/*.c
+# Compiler and flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-INCLUDE_DIR =-Isrc -I$(UNITY_DIR)/src -I$(UNITY_DIR)/extras/fixture/src -I ~/Documents/42/Fase1/2.Get_next_line
-SYMBOLS =-DUNITY_FIXTURE_NO_EXTRAS
+# Source files and object files
+SRCS = $(addprefix $(SRCDIR)/, get_next_line.c \
+		  get_next_line_utils.c)
+  
+OBJS = $(SRCS:.c=.o)
 
-all: clean default
+B_SRCS = $(addprefix $(SRCDIR)/, get_next_line_bonus.c \
+get_next_line_utils_bonus.c)
 
-default:
-	$(CC)$(CFlAGS)  $(INCLUDE_DIR) $(SYMBOLS) $(SRC_FILES) -o $(NAME_TESTE) $(COLOR_TESTS)
-	- ./$(NAME_TESTE) -v
+B_OBJS = $(B_SRCS:.c=.o)
+
+# Rules
+.PHONY: all clean fclean re bonus
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
+
+$(SRCDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
+
+bonus: $(B_OBJS)
+	ar rc $(NAME) $(B_OBJS)
 
 clean:
-	$(RM) $(NAME_TESTE)
+	rm -f $(OBJS) $(B_OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
