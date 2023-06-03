@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:34 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/02 19:30:02 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/02 20:19:22 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*ft_strchr(const char *str, int c)
 {
 	if (str == NULL)
 		return (NULL);
-
 	if (c == '\0')
 		return ((char *)(str + ft_strlen(str)));
 	while (*str != '\0')
