@@ -6,13 +6,13 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/01 21:20:30 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:52:31 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_text(int fd, char *line_buffer)
+static char	*read_text(int fd, char *line_buffer)
 {
 	char	*read_buffer;
 	int		read_size;
@@ -34,10 +34,11 @@ char	*read_text(int fd, char *line_buffer)
 		line_buffer = ft_strjoin(line_buffer, read_buffer);
 	}
 	free(read_buffer);
+	printf("\nread text: %s\n\n", line_buffer)
 	return (line_buffer);
 }
 
-char	*extract_line(char *line_buffer)
+static char	*extract_line(char *line_buffer)
 {
 	int		i;
 	char	*extracted_line;
@@ -65,7 +66,7 @@ char	*extract_line(char *line_buffer)
 	return (extracted_line);
 }
 
-char	*extract_remaining(char *line_buffer)
+static char	*extract_remaining(char *line_buffer)
 {
 	int		i;
 	int		j;
@@ -88,6 +89,7 @@ char	*extract_remaining(char *line_buffer)
 		remaining_buffer[j++] = line_buffer[i++];
 	remaining_buffer[j] = '\0';
 	free(line_buffer);
+	printf("\nremaining buffer: %s\n\n", remaining_buffer);
 	return (remaining_buffer);
 }
 
@@ -107,33 +109,33 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	char	*error;
-// 	int		fd;
-// 	char	*result = NULL;
+int	main(int argc, char **argv)
+{
+	char	*error;
+	int		fd;
+	char	*result = NULL;
 
-// 	if (argc == 1)
-// 	{
-// 		error = "File name missing.\n";
-// 		printf("%s\n", error);
-// 		return (1);
-// 	}
-// 	if (argc > 2)
-// 	{
-// 		error = "Too many arguments.\n";
-// 		printf("%s\n", error);
-// 		return (2);
-// 	}
-// 	fd = open(argv[1], 00);
-// 	result = get_next_line(fd);
-// 	printf("\nresult: %s\n", result);
-// 	// //if (fd == -1 || get_next_line(fd) == NULL)
-// 	// {
-// 	// 	error = "Cannot read file.\n";
-// 	// 	printf("%s\n", error);
-// 	// 	return (3);
-// 	// }
-// 	close(fd);
-// 	return (0);
-// }
+	if (argc == 1)
+	{
+		error = "File name missing.\n";
+		printf("%s\n", error);
+		return (1);
+	}
+	if (argc > 2)
+	{
+		error = "Too many arguments.\n";
+		printf("%s\n", error);
+		return (2);
+	}
+	fd = open(argv[1], 00);
+	result = get_next_line(fd);
+	printf("\nresult: %s\n", result);
+	// //if (fd == -1 || get_next_line(fd) == NULL)
+	// {
+	// 	error = "Cannot read file.\n";
+	// 	printf("%s\n", error);
+	// 	return (3);
+	// }
+	close(fd);
+	return (0);
+}
