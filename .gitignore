@@ -1,5 +1,6 @@
 *.pdf
 a.out
+*.bak
 retirardepois_main.c
 retirardepois_ft_putchar.c
 */libftTester/
