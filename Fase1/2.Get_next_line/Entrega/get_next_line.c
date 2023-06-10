@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/06 21:34:53 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:27:21 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,21 @@ char	*get_next_line(int fd)
 	line = extract_line(line_buffer);
 	line_buffer = extract_remaining(line_buffer);
 	return (line);
+}
+#include <stdio.h>
+#include "get_next_line.h"
+
+int main(void) {
+    char *line;
+
+    printf("Enter lines of text (press Ctrl+D to stop):\n");
+
+    while ((line = get_next_line(0)) != NULL) {
+        printf("Line: %s\n", line);
+        free(line);
+    }
+
+    printf("End of input.\n");
+
+    return 0;
 }

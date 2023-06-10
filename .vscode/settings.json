@@ -11,7 +11,8 @@
 		"algorithm": "c",
 		"bit": "c",
 		"string": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"mlx.h": "c"
 	},
 	"diffEditor.codeLens": true,
 	"editor.wordWrap": "wordWrapColumn",

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:39 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/02 20:17:46 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:44:29 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@
 #  define BUFFER_SIZE 3000
 # endif
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *left_str, char *buff);
 size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char *str1, char *str2);
 char	*ft_strchr(const char *str, int c);
 
 #endif

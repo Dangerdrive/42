@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/02 19:53:07 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:42:35 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,62 @@
 
 static char	*read_text(int fd, char *line_buffer)
 {
-	char	*buffer;
-	int		size;
+	char	*read_buffer;
+	int		read_size;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
+	read_buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!read_buffer)
 		return (NULL);
-	size = 1;
-	while (!ft_strchr(line_buffer, '\n') && size != 0)
+	read_size = 1;
+	while (!ft_strchr(line_buffer, '\n') && read_size != 0)
 	{
-		size = read(fd, buffer, BUFFER_SIZE);
-		if (size == -1)
+		read_size = read(fd, read_buffer, BUFFER_SIZE);
+		if (read_size == -1)
 		{
 			free(line_buffer);
-			free(buffer);
+			free(read_buffer);
 			return (NULL);
 		}
-		buffer[size] = '\0';
-		line_buffer = ft_strjoin(line_buffer, buffer);
+		read_buffer[read_size] = '\0';
+		line_buffer = ft_strjoin(line_buffer, read_buffer);
 	}
-	free(buffer);
+	free(read_buffer);
 	return (line_buffer);
 }
 
 static char	*extract_line(char *line_buffer)
 {
 	int		i;
-	char	*line;
+	char	*extracted_line;
 
 	i = 0;
 	if (!line_buffer[i])
 		return (NULL);
 	while (line_buffer[i] && line_buffer[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	if (!line)
+	extracted_line = (char *)malloc(sizeof(char) * (i + 2));
+	if (!extracted_line)
 		return (NULL);
 	i = 0;
 	while (line_buffer[i] && line_buffer[i] != '\n')
 	{
-		line[i] = line_buffer[i];
+		extracted_line[i] = line_buffer[i];
 		i++;
 	}
 	if (line_buffer[i] == '\n')
 	{
-		line[i] = line_buffer[i];
+		extracted_line[i] = line_buffer[i];
 		i++;
 	}
-	line[i] = '\0';
-	return (line);
+	extracted_line[i] = '\0';
+	return (extracted_line);
 }
 
 static char	*extract_remaining(char *line_buffer)
 {
 	int		i;
 	int		j;
-	char	*tab;
+	char	*remaining_buffer;
 
 	i = 0;
 	while (line_buffer[i] && line_buffer[i] != '\n')
@@ -79,22 +79,22 @@ static char	*extract_remaining(char *line_buffer)
 		free(line_buffer);
 		return (NULL);
 	}
-	tab = (char *)malloc(sizeof(char) * (ft_strlen(line_buffer) - i + 1));
-	if (!tab)
+	remaining_buffer = malloc(sizeof(char) * (ft_strlen(line_buffer) - i + 1));
+	if (!remaining_buffer)
 		return (NULL);
 	i++;
 	j = 0;
 	while (line_buffer[i])
-		tab[j++] = line_buffer[i++];
-	tab[j] = '\0';
+		remaining_buffer[j++] = line_buffer[i++];
+	remaining_buffer[j] = '\0';
 	free(line_buffer);
-	return (tab);
+	return (remaining_buffer);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*line_buffer[16384];
+	static char	*line_buffer[4096];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
