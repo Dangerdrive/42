@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/10 19:07:57 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/10 22:34:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FRACTOL_H
 # define WIN_WIDTH 720
 # define WIN_HEIGHT 480
+# define ESC_KEY 0xFF1B
 
 typedef struct s_data {
     void *mlx;
@@ -48,3 +49,6 @@ typedef struct s_data {
 // CUDA is a parallel computing platform and application programming interface model created by Nvidia.
 // OpenCL (Open Computing Language) is a framework for writing programs that execute across heterogeneous platforms consisting of central processing units (CPUs), graphics processing units (GPUs), digital signal processors (DSPs), field-programmable gate arrays (FPGAs) and other processors or hardware accelerators. OpenCL specifies programming languages (based on C99 and C++11) for programming these devices and application programming interfaces (APIs) to control the platform and execute programs on the compute devices. OpenCL provides a standard interface for parallel computing using task- and data-based parallelism.
 // Overall, OpenCL serves as an open and standard framework for parallel computing across different GPU architectures, similar to how CUDA is specific to NVIDIA GPUs.
+// https://github.com/paulo-santana/fractol-gpu
+//https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+// https://github.com/librity/ft_fractol
