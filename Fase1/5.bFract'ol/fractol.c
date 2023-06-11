@@ -32,10 +32,11 @@ int	main(void)
 int handle_esc(int keycode, t_data *data)
 {
     // Check if ESC key is pressed
-    if (keycode == 53) // 53 is the keycode for ESC key
+    if (keycode == 65307) // 53 is the keycode for ESC key
     {
         // Exit the program
-        mlx_destroy_window(data->mlx, data->mlx_win);
+        //mlx_destroy_window(data->mlx, data->mlx_win);
+        printf("ESC key was pressed\n");
         exit(0);
     }
 
@@ -44,9 +45,11 @@ int handle_esc(int keycode, t_data *data)
 
 int main(void)
 {
-    t_data data;
+    t_data  data;
+
+    char    *win_name = "Fract'ol (soon)!";
     data.mlx = mlx_init();
-    data.mlx_win = mlx_new_window(data.mlx, 720, 480, "Hello world!");
+    data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, win_name);
 
     // Register key press callback function
     mlx_key_hook(data.mlx_win, handle_esc, &data);
