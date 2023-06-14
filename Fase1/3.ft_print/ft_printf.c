@@ -35,12 +35,13 @@ int ft_putnbr(int n)
 	return count;
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	va_start(args, format);
+	va_list	args;
+	int		count;
 
-	int count = 0;
+	count = 0;
+	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
@@ -63,15 +64,11 @@ int ft_printf(const char *format, ...)
 			}
 		}
 		else
-		{
 			count += ft_putchar(*format);
-		}
 		format++;
 	}
-
 	va_end(args);
-
-	return count;
+	return (count);
 }
 
 int main()

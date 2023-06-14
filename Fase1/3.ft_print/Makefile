@@ -1,83 +1,63 @@
 # Name of the library
-NAME = libftprintf.a
+NAME 		= 		libftprintf.a
 
-# Directories for source and header files
-SRCDIR = .
-INCDIR = .
+# Directories
+SRCDIR 		= 		./source
+INCDIR 		= 		./include
+OBJDIR 		= 		./.object
+LIBFTDIR 	= 		./libft
 
 # Compiler and flags
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC 			= 		cc
+CFLAGS 		= 		-Wall -Wextra -Werror
+AR 			= 		ar
+ARFLAGS 	= 		rcs
 
-# Source files and object files
-SRCS = $(addprefix $(SRCDIR)/, ft_atoi.c \
-		  ft_bzero.c \
-		  ft_calloc.c \
-		  ft_isalnum.c \
-		  ft_isalpha.c \
-		  ft_isascii.c \
-		  ft_isdigit.c \
-		  ft_isprint.c \
-		  ft_itoa.c \
-		  ft_memchr.c \
-		  ft_memcmp.c \
-		  ft_memcpy.c \
-		  ft_memmove.c \
-		  ft_memset.c \
-		  ft_putchar_fd.c \
-		  ft_putendl_fd.c \
-		  ft_putnbr_fd.c \
-		  ft_putstr_fd.c \
-		  ft_split.c \
-		  ft_strchr.c \
-		  ft_strdup.c \
-		  ft_striteri.c \
-		  ft_strjoin.c \
-		  ft_strlcat.c \
-		  ft_strlcpy.c \
-		  ft_strlen.c \
-		  ft_strmapi.c \
-		  ft_strncmp.c \
-		  ft_strnstr.c \
-		  ft_strrchr.c \
-		  ft_strtrim.c \
-		  ft_substr.c \
-		  ft_tolower.c \
-		  ft_toupper.c)
+# Source files
+SRCS 		= 		$(addprefix $(SRCDIR)/, ft_printf.c \
+					ft_printf_utils.c \)
 
-OBJS = $(SRCS:.c=.o)
+LIBFT			=	$(LIBFTDIR)/libft.a
 
-B_SRCS = $(addprefix $(SRCDIR)/, ft_lstnew.c \
-ft_lstadd_front.c \
-ft_lstsize.c \
-ft_lstlast.c \
-ft_lstadd_back.c \
-ft_lstdelone.c \
-ft_lstclear.c \
-ft_lstiter.c \
-ft_lstmap.c \
-)
+OBJS		=		$(SRCS:%.c=$(OBJDIR)/%.o)
 
-B_OBJS = $(B_SRCS:.c=.o)
 
-# Rules
-.PHONY: all clean fclean re bonus
+# $(SRCDIR)/%.o: 		$(SRCDIR)/%.c
+# 					$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
 
-all: $(NAME)
+$(OBJDIR)/%.o:		%.c
+					$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+all: 				$(NAME)
 
-$(SRCDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
+# bonus:			all
 
-bonus: $(B_OBJS)
-	ar rc $(NAME) $(B_OBJS)
+$(NAME):			$(LIBFT) $(OBJDIR) $(OBJS)
+					cp	$(LIBFT) $(NAME)
+					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+
+$(LIBFT):
+					make -C $(LIBFTDIR) all
+
+$(OBJDIR):
+					mkdir -p $(OBJDIR)
+
+
+
+# bonus: 				$(B_OBJS)
+# 					$(AR) $(ARFLAGS) $(B_OBJS)
 
 clean:
-	rm -f $(OBJS) $(B_OBJS)
+					make -C $(LIBFTDIR) clean
+					rm -rf $(OBJDIR)
 
-fclean: clean
-	rm -f $(NAME)
+fclean: 			clean
+					make -C $(LIBFTDIR) fclean
+					rm -rf $(NAME)
 
-re: fclean all
+re: 				fclean all
+
+libft:				$(LIBFT)
+					
+# Rules
+.PHONY: 			all clean fclean re libft

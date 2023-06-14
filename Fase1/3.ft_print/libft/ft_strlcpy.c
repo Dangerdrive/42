@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:43 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/19 16:06:29 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/09 12:30:39 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include "libft/libft.h"
+size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
+{
+	unsigned int	i;
+	unsigned int	srclen;
 
-int		ft_printf(const char *format, ...);
-
-#endif
+	i = 0;
+	srclen = 0;
+	while (src[srclen])
+		srclen++;
+	if (destsize > 0)
+	{
+		while (src[i] && i < destsize - 1)
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (srclen);
+}

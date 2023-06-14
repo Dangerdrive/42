@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   P2-02.ft_strjoin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:43 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/05/08 18:26:40 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/08 18:36:31 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include "libft/libft.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*strjoin;
+	size_t	size;
 
-int		ft_printf(const char *format, ...);
-
-#endif
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	strjoin = (char *)malloc(sizeof(char) * size);
+	if (strjoin == NULL)
+		return (NULL);
+	ft_strlcpy(strjoin, s1, size);
+	ft_strlcat(strjoin, s2, size);
+	return (strjoin);
+}

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   P1-07.ft_memset.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:43 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/08 18:29:10 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include "libft/libft.h"
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*tmp_str;
+	unsigned char	tmp_char;
 
-int		ft_printf(const char *format, ...);
-
-#endif
+	tmp_str = s;
+	tmp_char = c;
+	while (n-- > 0)
+	{
+		*tmp_str++ = tmp_char;
+	}
+	return (s);
+}

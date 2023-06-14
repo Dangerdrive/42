@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/13 15:02:43 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/03/17 18:59:21 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/05/09 13:02:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include "libft/libft.h"
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	const unsigned char	*p1 = s1;
+	const unsigned char	*p2 = s2;
 
-int		ft_printf(const char *format, ...);
-
-#endif
+	while (n--)
+	{
+		if (*p1 != *p2)
+		{
+			if (*p1 - *p2 > 0)
+				return (1);
+			return (-1);
+		}
+		p1++;
+		p2++;
+	}
+	return (0);
+}
