@@ -1,0 +1,206 @@
+You must create at least 2 encrypted partitions using LVM. Below is an example of the
+expected partitioning:
+
+wil@wil:"$ Isblk
+NAME 			MAJ:MIN	RM	SIZE	RO	TYPE	MOUNTPOINT
+sda 			8:0 	0 	8G 	0 	disk 
+ sda1 			8:1 	0 	487M 	0 	part	/boot
+ sda2			8:2	0	1K	0	part
+ sda5			8:5	0	7.5G	0	part	
+  sda5_crypt 		254:0 	0 	7.5G 	0 	crypt 
+   wil--vg-root		254:1 	0	2.8G	0	lvm	/ 
+   wil--vg-swap_1 	254:2 	0 	976M	0 	lvm 	[SWAP] 
+   wil--vg-home		254:3 	0	3.8G	0 	lvm 	/home
+sr0 			11:0 	1 	1024M 	0 	rom 
+wil@wil:~$ _ 
+
+AppArmor
+for Debian must be running at startup too.
+
+A SSH service will be running on port 4242 only. For security reasons, it must not be
+possible to connect using SSH as root.
+
+You have to configure your operating system with the UFW (or firewalld for Rocky)
+firewall and thus leave only port 4242 open.
+Firewall must be active when launch virtual machine
+
+The hostname of your virtual machine must be your login ending with 42 (e.g.,
+wil42). You will have to modify this hostname during your evaluation.
+• You have to implement a strong password policy.
+• You have to install and configure sudo following strict rules.
+• In addition to the root user, a user with your login as username has to be present.
+• This user has to belong to the user42 and sudo groups.
+
+During the defense, you will have to create a new user and assign it
+to a group.
+
+To set up a strong password policy, you have to comply with the following require-
+ments:
+• Your password has to expire every 30 days.
+• The minimum number of days allowed before the modification of a password will
+be set to 2.
+• The user has to receive a warning message 7 days before their password expires.
+• Your password must be at least 10 characters long. It must contain an uppercase
+letter, a lowercase letter, and a number. Also, it must not contain more than 3
+consecutive identical characters.
+• The password must not include the name of the user.
+• The following rule does not apply to the root password: The password must have
+at least 7 characters that are not part of the former password.
+• Of course, your root password has to comply with this policy.
+After setting up your configuration files, you will have to change
+all the passwords of the accounts present on the virtual machine,
+including the root account.
+To set up a strong configuration for your sudo group, you have to comply with the
+following requirements:
+• Authentication using sudo has to be limited to 3 attempts in the event of an incor-
+rect password.
+• A custom message of your choice has to be displayed if an error due to a wrong
+password occurs when using sudo.
+• Each action using sudo has to be archived, both inputs and outputs. The log file
+has to be saved in the /var/log/sudo/ folder.
+• The TTY mode has to be enabled for security reasons.
+• For security reasons too, the paths that can be used by sudo must be restricted.
+Example:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+
+Finally, you have to create a simple script called monitoring.sh. It must be devel-
+oped in bash.
+At server startup, the script will display some information (listed below) on all ter-
+minals every 10 minutes (take a look at wall). The banner is optional. No error must
+be visible.
+Your script must always be able to display the following information:
+• The architecture of your operating system and its kernel version.
+• The number of physical processors.
+• The number of virtual processors.
+• The current available RAM on your server and its utilization rate as a percentage.
+• The current available memory on your server and its utilization rate as a percentage.
+• The current utilization rate of your processors as a percentage.
+• The date and time of the last reboot.
+• Whether LVM is active or not.
+• The number of active connections.
+• The number of users using the server.
+• The IPv4 address of your server and its MAC (Media Access Control) address.
+• The number of commands executed with the sudo program.
+During the defense, you will be asked to explain how this script
+works. You will also have to interrupt it without modifying it.
+Take a look at cron.
+
+This is an example of how the script is expected to work:
+
+Broadcast message from root@wil (tty1) (Sun Apr 25 15:45:00 2021):
+#Architecture: Linux wil 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64 GNU/Linux
+#CPU physical : 1
+#vCPU : 1
+#Memory Usage: 74/987MB (7.50%)
+#Disk Usage: 1009/2Gb (39%)
+#CPU load: 6.7%
+#Last boot: 2021-04-25 14:45
+#LVM use: yes
+#Connections TCP : 1 ESTABLISHEDS
+#User log: 1
+#Network: IP 10.0.2.15 (08:00:27:51:9b:a5)
+#Sudo : 42 cmd
+
+Below are two commands you can use to check some of the subject’s requirements:
+
+root@wil:"# head -n 2 /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+NAME="Debian GNU/Linux" root@wil:/home/wil# /usr/sbin/aa-status
+apparmor module is loaded.
+root@wil:/home/wil# ss -tunlp
+Netid State Recv-Q Send-4 Local Address:Port Peer Address:Port 
+
+tcp LISTEN 0 128 0.0.0.0:4242 0.0.0.0:* users:(("sshd",pid=523,fd=3)) 
+tcp LISTEN 0 128 [::]:4242 [::]:* users:(("sshd",pid=523,fd=4)) 
+root@wil:/home/wil# /usr/sbin/ufw status Status: active
+ 
+To 		Action		From 
+--		------		----
+4242 		ALLOW 		Anywhere 
+4242 (v6) 	ALLOW 		Anywhere (v6) 
+
+
+
+"You should know the differences between aptitude and apt"
+
+Functionality: apt is a command-line package management tool primarily used for managing packages on Debian-based Linux distributions. It provides a simplified interface for handling package installation, removal, and upgrades. On the other hand, aptitude is a more advanced command-line package management tool that offers additional features such as a text-based interface, advanced package search capabilities, and dependency resolution algorithms.
+
+User Interface: apt provides a simple and straightforward command-line interface, while aptitude offers a text-based interface with more interactive features. aptitude allows you to browse and search packages, view package details, and perform various package management tasks within the text-based interface.
+
+Dependency Resolution: apt relies on the underlying package management system, dpkg, for dependency resolution. It automatically resolves dependencies when installing or removing packages. aptitude, on the other hand, has a more sophisticated dependency resolution algorithm that can handle complex dependency scenarios, including recommending package solutions and resolving conflicts.
+
+Package Tracking: aptitude keeps track of packages that were explicitly installed and automatically installed as dependencies. This helps in identifying and removing unused or orphaned packages. apt does not track packages in the same way by default, but you can achieve similar functionality using other tools like apt autoremove or apt-get autoremove.
+
+In summary, while apt is a simpler and more commonly used command-line tool for basic package management tasks, aptitude provides a more feature-rich and interactive interface with advanced dependency resolution capabilities. The choice between apt and aptitude depends on your specific needs and preferences.
+
+
+
+"what SELinux or AppArmor is."
+
+SELinux (Security-Enhanced Linux) and AppArmor are two security frameworks commonly used in Linux systems to enforce mandatory access control (MAC) policies. They provide an additional layer of protection by restricting the actions and permissions of processes and users, beyond the traditional discretionary access controls (DAC) provided by file system permissions.
+
+Here's a brief explanation of each:
+
+SELinux (Security-Enhanced Linux):
+SELinux is a security framework developed by the National Security Agency (NSA) and integrated into the Linux kernel. It enforces mandatory access control policies based on security labels assigned to files, processes, and other system resources. SELinux uses a set of predefined policies that determine which actions and operations are allowed or denied for each process and user. It provides fine-grained control over access permissions and helps protect the system against unauthorized access, privilege escalation, and various security vulnerabilities.
+
+AppArmor:
+AppArmor, short for Application Armor, is a Linux security module (LSM) that provides an additional layer of access control by confining individual applications. It works by defining security profiles or "profiles" for specific applications. These profiles define the resources an application can access, such as files, network resources, and system capabilities. AppArmor profiles can be created for both system services and user applications, allowing administrators to restrict the actions and privileges of individual programs. AppArmor helps prevent unauthorized access, restricts applications from performing malicious actions, and mitigates the impact of potential security vulnerabilities.
+
+Both SELinux and AppArmor aim to enhance the security of Linux systems by enforcing stricter access controls and reducing the attack surface. They offer different approaches to achieve this goal, with SELinux focusing on a broader system-wide policy enforcement and AppArmor providing application-level confinement.
+
+It's worth noting that while both frameworks provide valuable security features, they require proper configuration and management. The choice between SELinux and AppArmor often depends on the specific Linux distribution, the level of control desired, and the expertise of the administrators or users responsible for maintaining the system's security.
+
+
+
+"The use of SSH will be tested during the defense by setting up a new
+account. You must therefore understand how it works."
+
+SSH (Secure Shell) is a network protocol used for secure remote access to systems over an unsecured network. It provides a secure channel for communication between a client and a server, allowing users to log in remotely and execute commands securely.
+
+When the SSH service is running on a system, it listens for incoming connections on a designated port, which is typically port 22 by default. However, in the given context, the SSH service is configured to listen on port 4242 specifically.
+
+To establish an SSH connection, a client application (such as OpenSSH) initiates a connection request to the SSH server running on the remote system. The client and server negotiate the connection using cryptographic algorithms and keys to ensure secure communication.
+
+Here's a simplified overview of how the SSH connection process works:
+
+Client initiates a connection: The SSH client sends a connection request to the SSH server, specifying the server's IP address and the port number (4242 in this case) to connect to.
+
+Server authentication: The SSH server responds to the connection request, presenting its public key to the client for verification. The client checks the authenticity of the server's key to ensure it is connecting to the intended server and not a malicious one.
+
+User authentication: Once the server is authenticated, the client prompts the user for authentication. Typically, this involves entering a username and password, but other authentication methods such as public key authentication or two-factor authentication can also be used.
+
+Encryption and session establishment: After successful authentication, the client and server establish an encrypted session. This ensures that all subsequent communication between the client and server is encrypted and secure.
+
+Command execution and data exchange: With the SSH session established, the client can execute commands on the remote server, and the server sends back the output or results. The client and server can securely exchange data and perform various operations within the established session.
+
+In the given project context, it is specified that connecting to the SSH service as the root user is not allowed for security reasons. This is a recommended security practice as it limits potential risks by requiring users to authenticate with non-root accounts and then use the "sudo" command or other privilege escalation mechanisms to perform administrative tasks.
+
+By not allowing SSH connections as the root user, it adds an extra layer of security and reduces the likelihood of unauthorized access or accidental misconfigurations that could have severe consequences on the system.
+
+It's important to note that the exact configuration of the SSH service and the steps involved in the connection process can vary depending on the SSH server software and the specific settings and policies implemented on the system.
+
+
+
+
+
+
+
+
+Bonus
+# lsblk
+NAME 			MAJ:MIN	RM	SIZE	RO	TYPE	MOUNTPOINT
+sda 			8:0	0	30.8G	0	disk	
+ sda1			8:1	0	500M	0	part	/boot
+ sda2 			8:2	0	1K 	0	part 	
+ sda5 			8:5	0	30.3G	0	part 
+  sda5_crypt 		254:0	0	30.3G	0	crypt 
+   LVMGroup-root 	254:1	0	10G	0	lvm	/ 
+   LVMGroup-swap 	254:2	0	2.3G	0	lvm	[SWAP]
+   LVMGroup-home 	254:3	0	5G	0	lvm	/home 
+   LVMGroup-var 	254:4	0	3G	0	lvm	/var 
+   LVMGroup-sry 	254:5	0	3G	0	lvm	/sry 
+   LVMGroup-tmp 	254:6	0	3G	0	lvm	/tmp
+   LVMGroup-var--log	254:7	0	4G	0	lvm	/var/log 
+sr0 			11:0	1	1024M	0	rom 
+
