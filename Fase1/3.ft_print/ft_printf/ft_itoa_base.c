@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:42:51 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/17 21:10:40 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:00:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*ft_itoa_base(long long num, int base)
 	int		len;
 	int		sign;
 
+	printf("num: %lld\n", num);
 	if (num < 0)
 		sign = -1;
 	else
@@ -50,4 +51,12 @@ char	*ft_itoa_base(long long num, int base)
 	if (sign == -1)
 		str[0] = '-';
 	return (str);
+}
+
+int	main()
+{
+	char	*str = ft_itoa_base(9223372036854775808, 16);
+	printf("%s\n", str);
+	str = ft_itoa_base(18446744073709551615, 16);
+	printf("%s\n", str);
 }

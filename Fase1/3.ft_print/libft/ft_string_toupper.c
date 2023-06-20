@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_string_toupper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:22:34 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/19 16:34:01 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/06/19 16:44:49 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/06/19 18:54:35 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include libft.h
 
-void	ft_striteri(char *str, void (*f)(unsigned int, char*))
+void	ft_string_toupper(char *str)
 {
-	unsigned int	i;
-
-	if (!str || !f)
-		return ;
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		f(i, &str[i]);
-		i++;
+		if (*str >= 'a' && *str <= 'z')
+		{
+			*str = *str + ('A' - 'a');
+		}
+		str++;
 	}
 }

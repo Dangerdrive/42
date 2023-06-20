@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/17 22:04:50 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:18:26 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@ int	ft_printchar(char c)
 	write(1, &c, 1);
 	return (1);
 }
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
 
 int	ft_printstr(char *str)
 {
@@ -35,10 +24,7 @@ int	ft_printstr(char *str)
 
 	i = 0;
 	if (!str)
-	{
-		ft_putstr("(null)");
-		return (6);
-	}
+		return (write(1, "(null)", 6));
 	while (str[i])
 	{
 		write(1, &str[i], 1);
@@ -59,4 +45,16 @@ int	ft_printnbr(int num)
 	i = ft_printstr(str);
 	free(str);
 	return (i);
+}
+
+void	ft_string_toupper(char *str)
+{
+	while (*str)
+	{
+		if (*str >= 'a' && *str <= 'z')
+		{
+			*str = *str + ('A' - 'a');
+		}
+		str++;
+	}
 }

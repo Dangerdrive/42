@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:09:15 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/17 22:05:49 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:48:30 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int			ft_putnbr(int n);
 int			ft_print_unsigned(unsigned int n);
 int			ft_printchar(char c);
 int			ft_print_hex(unsigned int num, const char format);
-int			ft_print_ptr(unsigned long long n);
+int			ft_print_ptr(unsigned long long num);
 int			ft_printf(const char *format, ...);
-void		ft_putstr(char *str);
+//void		ft_putstr(char *str);
 void		ft_put_hex(unsigned int n, const char format);
+void		ft_string_toupper(char *str);
+
 
 #endif
