@@ -6,12 +6,16 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:09:15 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/19 18:48:30 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:34:32 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# define FLAG_HASH (1 << 0) // Flag A is stored in the first bit position
+# define FLAG_SPACE (1 << 1) // Flag B is stored in the second bit position
+# define FLAG_PLUS (1 << 2) // Flag C is stored in the third bit position
 
 # include <stdio.h>
 # include <unistd.h>
@@ -23,7 +27,7 @@ char		*ft_itoa(int n);
 char		*ft_itoa_base(long long num, int base);
 int			ft_numlen_base(long long num, int base);
 int			ft_printstr(char *str);
-int			ft_printnbr(int n);
+int			ft_print_nbr(int n);
 int			ft_putnbr(int n);
 int			ft_print_unsigned(unsigned int n);
 int			ft_printchar(char c);

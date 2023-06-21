@@ -6,11 +6,25 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:17:50 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/20 22:22:26 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:54:06 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	set_flags(const char flag)
+{
+	int	flag_set;
+
+	flag_set = 0;
+	if (flag == '#')
+		return (flag_set |= FLAG_HASH);
+	else if (flag == ' ')
+		return (flag_set |= FLAG_SPACE);
+	else if (flag == '+')
+		return (flag_set |= FLAG_PLUS);
+	return (0);
+}
 
 int	parse_flags(va_list args, const char flag)
 {
@@ -36,23 +50,23 @@ int	parse_flags(va_list args, const char flag)
 	return (0);
 }
 
-int	parse_format_type(va_list args, const char type) //colocar outra varíavel pra ser a flag. modificar as funções print pra receber a flag e printar de acordo.
+int	parse_format_type(va_list args, const char type, const char flag) //colocar outra varíavel pra ser a flag. modificar as funções print pra receber a flag e printar de acordo.
 {
 	int	len;
 
 	len = 0;
+	else if (type == '%')
+		len += ft_printchar('%');
 	if (type == 'c')
 		len += ft_printchar(va_arg(args, int));
 	else if (type == 's')
 		len += ft_printstr(va_arg(args, char *));
 	else if (type == 'd' || type == 'i')
-		len += ft_printnbr(va_arg(args, int));
-	else if (type == '%')
-		len += ft_printchar('%');
+		len += ft_print_nbr(va_arg(args, int), flag);
 	else if (type == 'u')
 		len += ft_print_unsigned(va_arg(args, unsigned int));
 	else if (type == 'x' || type == 'X')
-		len += ft_print_hex(va_arg(args, unsigned int), type);
+		len += ft_print_hex(va_arg(args, unsigned int), type, flag);
 	else if (type == 'p')
 		len += ft_print_ptr(va_arg(args, unsigned long));
 	// else if (type == '#' || type == ' ' || type == '+')
@@ -61,6 +75,7 @@ int	parse_format_type(va_list args, const char type) //colocar outra varíavel p
 	// 	len += 1;
 	return (len);
 }
+
 
 
 int	ft_printf(const char *format, ...)
@@ -76,14 +91,15 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			// if (format[i + 1] == '#' || format[i + 1] == ' ' || format[i + 1] == ' ')
-			// 	{
-			// 		//len += parse_flags(args,format[i + 1])
-			// 		i++;
-			// 	}
+			if (format[i + 1] == '#' || format[i + 1] == ' '
+				|| format[i + 1] == ' ')
+			{
+				len += parse_flags(args, format[i + 1])
+				i++;
+			}
 			// if (format[i + 1] == '0' || format[i + 1] == '.' || format[i + 1] == '-')
 			// 	i++;
-			len += parse_format_type(args, format[i + 1]); //colocar outra varíavel pra ser a flag.
+			len += parse_format_type(args, format[i + 1], ); //colocar outra varíavel pra ser a flag.
 			i++;
 		}
 		else
@@ -130,10 +146,10 @@ int	ft_printf(const char *format, ...)
 
 
 
-// #include <limits.h>
-// int	main()
-// {
-// 	ft_printf("\n %p %p \n", LONG_MIN, LONG_MAX);
-// 	ft_printf("\n %p %p \n", ULONG_MAX, -ULONG_MAX);
-// 	//ft_printf(" %p %p \n", 0, 0);
-// }
+#include <limits.h>
+int	main()
+{
+	ft_printf("\n %p %p \n", LONG_MIN, LONG_MAX);
+	ft_printf("\n %p %p \n", ULONG_MAX, -ULONG_MAX);
+	//ft_printf(" %p %p \n", 0, 0);
+}

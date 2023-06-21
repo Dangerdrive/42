@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 20:15:11 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/21 19:45:12 by fde-alen         ###   ########.fr       */
+/*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
+/*   Updated: 2023/06/21 19:57:40 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_hex(unsigned int num, const char format, int *flags)
+int	ft_print_nbr(int num, int *flags)
 {
+	int		count;
 	char	*str;
-	char	*prefix;
 
-	prefix = "0x";
-	if (//flag #)
+	count = 0;
+	if (//flag == +)
 	{
-		if (format == 'x')
-		ft_printstr(prefix);
-		if (format == 'X')
-		{
-			ft_string_toupper(prefix);
-			ft_printstr(prefix);
-		}
+		if (num >= 0)
+			count += write(1, "+", 1);
+		else
+			count += write(1, "-", 1);
 	}
-	str = ft_itoa_base(num, 16);
-	if (format == 'x')
-		ft_printstr(str);
-	if (format == 'X')
+	if (num == 0)
+		return (write(1, "0", 1));
+	else if (num != 0)
 	{
-		ft_string_toupper(str);
-		ft_printstr(str);
+		if (flag == ' ')
+			count += write(1, " ", 1);
 	}
+	str = ft_itoa_base(num, 10);
+	count = ft_printstr(str);
 	free(str);
-	return (ft_numlen_base(num, 16));
+	return (count);
 }
