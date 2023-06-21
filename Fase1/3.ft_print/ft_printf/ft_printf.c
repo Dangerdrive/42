@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:17:50 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/19 22:09:42 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:22:26 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse_flags(va_list args, const char flag)
 	return (0);
 }
 
-int	parse_format_type(va_list args, const char type)
+int	parse_format_type(va_list args, const char type) //colocar outra varíavel pra ser a flag. modificar as funções print pra receber a flag e printar de acordo.
 {
 	int	len;
 
@@ -55,8 +55,13 @@ int	parse_format_type(va_list args, const char type)
 		len += ft_print_hex(va_arg(args, unsigned int), type);
 	else if (type == 'p')
 		len += ft_print_ptr(va_arg(args, unsigned long));
+	// else if (type == '#' || type == ' ' || type == '+')
+	// 	len += parse_flags(args, type
+	// else if (type == '0' || type == '.' || type == '-')
+	// 	len += 1;
 	return (len);
 }
+
 
 int	ft_printf(const char *format, ...)
 {
@@ -71,14 +76,14 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '#' || format[i + 1] == ' ' || format[i + 1] == ' ')
-				{
-					//len += parse_flags(args,format[i + 1])
-					i++;
-				}
-			if (format[i + 1] == '0' || format[i + 1] == '.' || format[i + 1] == '-')
-				i++;
-			len += parse_format_type(args, format[i + 1]);
+			// if (format[i + 1] == '#' || format[i + 1] == ' ' || format[i + 1] == ' ')
+			// 	{
+			// 		//len += parse_flags(args,format[i + 1])
+			// 		i++;
+			// 	}
+			// if (format[i + 1] == '0' || format[i + 1] == '.' || format[i + 1] == '-')
+			// 	i++;
+			len += parse_format_type(args, format[i + 1]); //colocar outra varíavel pra ser a flag.
 			i++;
 		}
 		else
