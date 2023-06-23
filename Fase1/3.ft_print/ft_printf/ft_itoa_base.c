@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:42:51 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/19 22:00:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:44:13 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char	*ft_itoa_base(long long num, int base)
 	return (str);
 }
 
-int	main()
-{
-	char	*str = ft_itoa_base(9223372036854775808, 16);
-	printf("%s\n", str);
-	str = ft_itoa_base(18446744073709551615, 16);
-	printf("%s\n", str);
-}
+// int	main()
+// {
+// 	char	*str = ft_itoa_base(9223372036854775808, 16);
+// 	printf("%s\n", str);
+// 	str = ft_itoa_base(18446744073709551615, 16);
+// 	printf("%s\n", str);
+// }

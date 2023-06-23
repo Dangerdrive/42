@@ -6,19 +6,19 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/21 19:57:40 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:23:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_nbr(int num, int *flags)
+int	ft_print_nbr(int num, const char flag)
 {
 	int		count;
 	char	*str;
 
 	count = 0;
-	if (//flag == +)
+	if (flag == '+')
 	{
 		if (num >= 0)
 			count += write(1, "+", 1);
