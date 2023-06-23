@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/23 18:06:47 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:58:16 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_print_nbr(int num, const char flag)
 {
 	int		count;
-	char	*str = NULL;
+	char	*str/*  = NULL */;
 
 	count = 0;
 	if (flag == '+')
@@ -28,13 +28,14 @@ int	ft_print_nbr(int num, const char flag)
 			num *= -1;
 		}
 	}
-	if (num == 0)
-		return (write(1, "0", 1));
+	// if (num == 0)
+	// 	return (write(1, "0", 1));
 	else if (num != 0)
 	{
 		if (flag == ' ')
 			count += write(1, " ", 1);
-	}
+	}// colocar printf("num: %d\n", num); para debugar
+	//vamos encontrar onde entra um numero a mais
 	str = ft_itoa_base(num, 10);
 	count = ft_printstr(str);
 	free(str);

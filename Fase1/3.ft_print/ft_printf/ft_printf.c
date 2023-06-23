@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:17:50 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/23 18:02:04 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:55:33 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,19 @@ int main()
     ft_printf("Decimal: %d\n", 12345);
 
     // Testing %i - Prints an integer in base 10
-    ft_printf("Unsigned Decimal: %i\n", -94967295);
+    ft_printf("negative Decimal: %i\n", -94967295);
 
 	    // Testing %+d - Prints a decimal (base 10) number
-    ft_printf("Decimal: %+d\n", 12345);
+    ft_printf("ft_Decimal: %+d\n", 12345);
+    printf("printf_Decimal: %+d\n", 12345);
 
     // Testing %+i - Prints an integer in base 10
-    ft_printf("Unsigned Decimal: %+i\n", -94967295);
+    ft_printf("ft_negative Decimal: %+i\n", -94967295);
+    printf("printf_negative Decimal: %+i\n", -94967295);
+	
+    // Testing %+i - i = 0
+    ft_printf("ft_0: %+i\n", 0);
+    printf("printf_0: %+i\n", 0);
 
 //     // Testing %x - Prints a number in hexadecimal (base 16) lowercase format
 //     ft_printf("Hexadecimal (lowercase): %x\n", 255);
