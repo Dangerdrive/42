@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/23 18:06:47 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:49:27 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_print_nbr(int num, const char flag)
 {
 	int		count;
-	char	*str = NULL;
+	char	*str;
 
 	count = 0;
 	if (flag == '+')
@@ -40,10 +40,3 @@ int	ft_print_nbr(int num, const char flag)
 	free(str);
 	return (count);
 }
-
-// int	main()
-// {
-// 	// ft_print_nbr(0, ' ');
-// 	ft_print_nbr(12312, '+');
-// 	ft_print_nbr(-12312, '+');
-// }

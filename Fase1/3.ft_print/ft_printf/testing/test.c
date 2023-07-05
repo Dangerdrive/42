@@ -107,8 +107,9 @@
 // }
 
 #include <stdio.h>
+#include <limits.h>
 
-int	main()
-{
-	printf("teste %#+x\n", 0);	
-}
+// int	main()
+// {
+// 	printf("teste %llu\n", -9223372036854775808);	
+// }

@@ -1,46 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:31 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/24 15:41:50 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:58:16 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printchar(char c)
+int	ft_print_nbr(int num, const char flag)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_printstr(char *str)
-{
-	int	count;
+	int		count;
+	char	*str/*  = NULL */;
 
 	count = 0;
-	if (!str)
-		return (write(1, "(null)", 6));
-	while (str[count])
+	if (flag == '+')
 	{
-		write(1, &str[count], 1);
-		count++;
+		if (num >= 0)
+			count += write(1, "+", 1);
+		else
+		{	
+			count += write(1, "-", 1);
+			num *= -1;
+		}
 	}
+	// if (num == 0)
+	// 	return (write(1, "0", 1));
+	else if (num != 0)
+	{
+		if (flag == ' ')
+			count += write(1, " ", 1);
+	}// colocar printf("num: %d\n", num); para debugar
+	//vamos encontrar onde entra um numero a mais
+	str = ft_itoa_base(num, 10);
+	count = ft_printstr(str);
+	free(str);
 	return (count);
 }
 
-void	ft_string_toupper(char *str)
-{
-	while (*str)
-	{
-		if (*str >= 'a' && *str <= 'z')
-		{
-			*str = *str + ('A' - 'a');
-		}
-		str++;
-	}
-}
+// int	main()
+// {
+// 	// ft_print_nbr(0, ' ');
+// 	ft_print_nbr(12312, '+');
+// 	ft_print_nbr(-12312, '+');
+// }

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:14:56 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/21 19:53:56 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:47:13 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_print_ptr(unsigned long long num)
 	}
 	str = ft_itoa_base(num, 16);
 	len += write(1, "0x", 2);
-
 	len += ft_printstr(str);
 	free(str);
 	return (len);
