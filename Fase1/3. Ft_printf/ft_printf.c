@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:17:50 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/07/06 15:56:41 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:05:11 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int	ft_printf(const char *frmt, ...)
 	return (len);
 }
 
-#include <limits.h>
-int	main()
-{
-	ft_printf("\n %p %p \n", LONG_MIN, LONG_MAX);
-	ft_printf("\n %p %p \n", ULONG_MAX, -ULONG_MAX);
-	printf("\n %p %p \n", LONG_MIN, LONG_MAX);
-	printf("\n %p %p \n", ULONG_MAX, -ULONG_MAX);
-	//ft_printf(" %p %p \n", 0, 0);
-}
+// #include <limits.h>
+// int	main()
+// {
+// 	ft_printf("\n ft long min: %p \n", LONG_MIN);
+// 	ft_printf("\n ft -ulong max: %p \n", -ULONG_MAX);
+// 	printf("\n printf long min: %p \n", LONG_MIN);
+// 	printf("\n printf-ulong max: %p \n", -ULONG_MAX);
+// 	//ft_printf(" %p %p \n", 0, 0);
+// }

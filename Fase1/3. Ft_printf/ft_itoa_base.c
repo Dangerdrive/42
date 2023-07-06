@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:42:51 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/07/06 15:42:20 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/06/24 14:25:25 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_unumlen_base(unsigned long num, int base)
+int	ft_numlen_base(long long num, int base)
 {
 	int	len;
 
@@ -25,8 +25,38 @@ int	ft_unumlen_base(unsigned long num, int base)
 	return (len);
 }
 
-char	*ft_uitoa_base(unsigned long num, int base)
+
+// char	*ft_itoa_base(long long num, int base)
+// {
+// 	char	*str;
+// 	int		len;
+// 	int		sign;
+
+// 	if (num < 0)
+// 		sign = -1;
+// 	else
+// 		sign = 1;
+// 	len = ft_numlen_base(num, base);
+// 	if (sign == -1)
+// 		len++;
+// 	//printf("\nlen: %d\n", len);//debug
+// 	str = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (!str)
+// 		return (NULL);
+// 	str[len--] = '\0';
+// 	while (len >= 0)
+// 	{
+// 		str[len--] = "0123456789abcdef"[num % base];
+// 		num /= base;
+// 	}
+// 	if (sign == -1)
+// 		str[0] = '-';
+// 	return (str);
+// }
+
+char	*ft_itoa_base(long long int num, int base)
 {
+	//printf("-----\nnum: %lld\n----|\n", num);//debug
 	char	*str;
 	int		len;
 	int		sign;
@@ -35,7 +65,7 @@ char	*ft_uitoa_base(unsigned long num, int base)
 		sign = -1;
 	else
 		sign = 1;
-	len = ft_unumlen_base(num, base);
+	len = ft_numlen_base(num, base);
 	if (sign == -1)
 		len++;
 	str = (char *)malloc(sizeof(char) * (len + 1));
@@ -52,14 +82,11 @@ char	*ft_uitoa_base(unsigned long num, int base)
 	return (str);
 }
 
-// #include <stdio.h>
+
 // int	main()
 // {
-// 	// char	*str = ft_uitoa_base(-1, 16);
-// 	// printf("%s\n", str);
-// 	// str = ft_uitoa_base(-27, 16);
-// 	// printf("%s\n", str);
-// 	printf("%p\n", -1);
+// 	char	*str = ft_itoa_base(9223372036854775808, 16);
+// 	printf("%s\n", str);
+// 	str = ft_itoa_base(18446744073709551615, 16);
+// 	printf("%s\n", str);
 // }
-
-
