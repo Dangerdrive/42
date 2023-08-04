@@ -1,28 +1,117 @@
+pass In42!ternet
+
+root/scripts/monitoring.sh
+
 You must create at least 2 encrypted partitions using LVM.
 # feito pro bonus
 
 AppArmor
 for Debian must be running at startup too.
 # checado 
-systemctl status apparmor
+$ systemctl status apparmor
 
 A SSH service will be running on port 4242 only. For security reasons, it must not be
 possible to connect using SSH as root.
+Installing & Configuring SSH
+Install openssh-server via 
+$ sudo apt install openssh-server
+Verify whether openssh-server was successfully installed via dpkg -l | grep ssh.
+$ dpkg -l | grep ssh
+Configure SSH via sudo vi /etc/ssh/sshd_config.
+$ sudo vi /etc/ssh/sshd_config
+To set up SSH using Port 4242, replace below line:
+13 #Port 22
+with:
+13 Port 4242
+
+
+#checar status com 
+$ sudo systemctl status sshd
+-> mostra que sshd está rodando na porta 4242
+# modify SSH server configuration file using
+sudo nano /etc/ssh/sshd_config
+change the line with 'PermitRootLogin' to "PermitRootLogin no"
+
+Add forward rule for VirtualBox
+1. Go to VirtualBox-> Choose the VM->Select Settings
+2. Choose “Network”-> “Adapter 1"->”Advanced”->”Port Forwarding”
+add rule and write the port number "4242" on "Host Port" and "Guest Port"
+
+save and restart to apply changes
+    Use the command 
+    $ ssh -p 4242 user@<server-ip> 
+    in the terminal of your physical machine to connect to the SSH server from the virtual machine, replacing <server-ip> with the actual IP address of the server and user with a valid user account.
+    Verify that the connection is successful, and you are able to log in using the specified user account.
+    You can type $ exit
+    to logout.
+    Attempt to log in as the root user via SSH 
+    $ ssh -p 4242 root@<server-ip>
+    If the configuration is correct, permition should be denied.
+ server ip is the IP address associated with the network interface "enp0s3". 
+ i got the address with "ip address". In mine the result was
+ 1: lo <[...]
+	[...]
+ 2: enp0s3: [...]
+	link/loopback [...]
+	inet 10.12.200.92/16 brd [...]
+	[...]
+	
+So for me, the ip was 10.12.200.92.
 
 
 You have to configure your operating system with the UFW (or firewalld for Rocky)
 firewall and thus leave only port 4242 open.
-Firewall must be active when launch virtual machine
+#Install UFW
+$ apt-get install ufw
+#Enable UFW
+$ sudo ufw enable
+#Check the status
+$ sudo ufw status numbered
+#Configure the rules to allow incoming SSH connections:
+$ sudo ufw allow ssh
+#Configure the port rules using
+$ sudo ufw allow 4242
 
-The hostname of your virtual machine must be your login ending with 42 (e.g.,
-wil42). You will have to modify this hostname during your evaluation.
+#Delete the new rule: (This is for when you defend your Born2beroot)
+$ sudo ufw status numbered
+$ sudo ufw delete (that number, for example 5 or 6)
+#Firewall must be active when launch virtual machine
+
+#The hostname of your virtual machine must be your login ending with 42 (e.g.,
+fde-alen42). You will have to modify this hostname during your evaluation.
 • You have to implement a strong password policy.
+The policy is valid for new users only. It does not change password policy for current users.
+check the policy with 
+$ sudo chage -l user
 • You have to install and configure sudo following strict rules.
 • In addition to the root user, a user with your login as username has to be present.
 • This user has to belong to the user42 and sudo groups.
+#to check it:
+$ getent group user42
+$ getent group sudo
 
 During the defense, you will have to create a new user and assign it
 to a group.
+
+Creating a Group
+
+    First type sudo groupadd user42 to create a group
+    Then type sudo groupadd evaluating to create an evaluating group
+    Lastly type getent group to check if the group has been created
+
+Part 6.3 - Creating a User and Assigning Them Into The Group
+
+    First type cut -d: -f1 /etc/passwd to check all local users
+    Type sudo adduser new_username to create a username - write down your new_username, as you will need this later on.
+
+    2.1 Type sudo usermod -aG user42 your_username
+    2.2 Type sudo usermod -aG evaluating your_new_username
+
+    Type getent group user42 to check if the user is the group
+    Type getent group evaluating to check the group
+    Type groups to see which groups the user account belongs to
+  
+
 
 To set up a strong password policy, you have to comply with the following require-
 ments:
@@ -36,6 +125,9 @@ consecutive identical characters.
 • The password must not include the name of the user.
 • The following rule does not apply to the root password: The password must have
 at least 7 characters that are not part of the former password.
+  Lastly type 
+  $ chage -l your_new_username 
+  to check if the password rules are working in users
 • Of course, your root password has to comply with this policy.
 After setting up your configuration files, you will have to change
 all the passwords of the accounts present on the virtual machine,
@@ -53,8 +145,18 @@ has to be saved in the /var/log/sudo/ folder.
 Example:
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
-Finally, you have to create a simple script called monitoring.sh. It must be devel-
-oped in bash.
+
+# 
+$ nano /etc/network/interfaces
+
+$ route -n
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.11.254.254   0.0.0.0         UG    0      0        0 enp0s3
+10.11.0.0       0.0.0.0         255.255.0.0     U     0      0        0 enp0s3
+
+
+
+Finally, you have to create a simple script called monitoring.sh. It must be developed in bash.
 At server startup, the script will display some information (listed below) on all ter-
 minals every 10 minutes (take a look at wall). The banner is optional. No error must
 be visible.
@@ -194,3 +296,24 @@ sda 			8:0	0	30.8G	0	disk
    LVMGroup-var--log	254:7	0	4G	0	lvm	/var/log 
 sr0 			11:0	1	1024M	0	rom 
 
+
+sudo ufw allow samba
+
+configure samba editing its configuration file 
+nano /etc/samba/smb.conf
+
+define your shares by adding a section
+[shared_folder]
+(example of section name)
+path = /home/shared_folder
+(example of path)
+read only = no
+valid users = @fde-alen42,@candidate
+(group from VM and group from our "physical machine")
+
+Defense
+
+
+Delete the new rule: (This is for when you defend your Born2beroot)
+$ sudo ufw status numbered
+$ sudo ufw delete (that number, for example 5 or 6)
