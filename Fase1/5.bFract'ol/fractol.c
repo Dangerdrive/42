@@ -50,6 +50,7 @@ int main(void)
     char    *win_name = "Fract'ol (soon)!";
     data.mlx = mlx_init();
     data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, win_name);
+    img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
 
     // Register key press callback function
     mlx_key_hook(data.mlx_win, handle_esc, &data);
