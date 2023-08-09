@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define WIN_WIDTH 720
-# define WIN_HEIGHT 480
+# define WIN_HEIGHT 720
 # define ESC_KEY 0xFF1B
 
 typedef struct s_data {
