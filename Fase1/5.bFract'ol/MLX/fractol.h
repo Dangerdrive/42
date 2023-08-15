@@ -88,6 +88,15 @@ typedef struct s_data {
     int		endian;
 } t_data;
 
+typedef struct s_mlx
+{
+    void*		window;
+    void*		context;
+    int32_t		width;
+    int32_t		height;
+    double		delta_time;
+}	t_mlx;
+
 //int					ft_atoi(const char *nptr);
 
 

@@ -15,9 +15,22 @@
 # define WIN_WIDTH 720
 # define WIN_HEIGHT 720
 # define ESC_KEY 0xFF1B
+# define LEFT
+# define UP
+# define RIGHT
+# define DOWN
+# define R
+# define Z
+# define PLUS
+# define MINUS
+
+typedef struct s_complex {
+    double real;
+    double imag;
+} t_complex;
 
 typedef struct s_data {
-    void *mlx;
+    void *mlx;s
     void *mlx_win;
     void	*img;
     char	*addr;
