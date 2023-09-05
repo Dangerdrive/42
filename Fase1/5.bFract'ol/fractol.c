@@ -67,13 +67,24 @@ int main(void)
                                  &data.endian);
     while (x < 400)
     {
-            while (y < 400)
+            while (y < 200)
             {
                 my_mlx_pixel_put(&data, x, y, color);
                 y++;
             }
         x++;
     }
+//	x = 2;
+//	y = 2;
+//	while (y < 400)
+//	{
+//		while (x < 400)
+//		{
+//			my_mlx_pixel_put(&data, x, y, color);
+//			x++;
+//		}
+//		y++;
+//	}
     mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 
     // Register key press callback function
