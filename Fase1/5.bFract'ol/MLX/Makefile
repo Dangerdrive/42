@@ -1,28 +1,28 @@
-# Name of the program
-NAME = fractol
+# # Name of the program
+# NAME = fractol
 
-# Directories for source and header files
-SRCDIR = .
-INCDIR = .
+# # Directories for source and header files
+# SRCDIR = .
+# INCDIR = .
 
-# Compiler and flags
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# # Compiler and flags
+# CC = cc
+# CFLAGS = -Wall -Wextra -Werror
 
-# Source files and object files
-SRCS = $(addprefix $(SRCDIR)/, fractol.c)
-#		  ft_tolower.c \
-#		  ft_toupper.c)
+# # Source files and object files
+# SRCS = $(addprefix $(SRCDIR)/, fractol.c)
+# #		  ft_tolower.c \
+# #		  ft_toupper.c)
 
-OBJS = $(SRCS:.c=.o)
+# OBJS = $(SRCS:.c=.o)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+# %.o: %.c
+# 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -lm -lmlx -lXext -lX11 -L minilibx-linux -o $(NAME)
+# $(NAME): $(OBJ)
+# 	$(CC) $(OBJ) -lm -lmlx -lXext -lX11 -L minilibx-linux -o $(NAME)
 
-
+##########################
 
 # Rules
 #.PHONY: all clean fclean re bonus
@@ -46,3 +46,35 @@ $(NAME): $(OBJ)
 #	rm -f $(NAME)
 #
 #re: fclean all
+
+
+NAME	:= fractol
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./lib/MLX42
+
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS	:= $(shell find ./src -iname "*.c")
+OBJS	:= ${SRCS:.c=.o}
+
+all: libmlx $(NAME)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+
+clean:
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
+
+fclean: clean
+	@rm -rf $(NAME)
+
+re: clean all
+
+.PHONY: all, clean, fclean, re, libmlx

@@ -74,8 +74,18 @@ static void ft_error(void)
 static void ft_hook(void* param)
 {
     const mlx_t* mlx = param;
+    if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+		mlx_close_window(param);
+	// if (mlx_is_key_down(param, MLX_KEY_UP)) //implement
+	// 	g_img->instances[0].y -= 5;
+	// if (mlx_is_key_down(param, MLX_KEY_DOWN))
+	// 	g_img->instances[0].y += 5;
+	// if (mlx_is_key_down(param, MLX_KEY_LEFT))
+	// 	g_img->instances[0].x -= 5;
+	// if (mlx_is_key_down(param, MLX_KEY_RIGHT))
+	// 	g_img->instances[0].x += 5;
 
-    printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+    //printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 }
 
 int32_t	main(void)
@@ -91,8 +101,9 @@ int32_t	main(void)
 
     // Create and display the image.
     mlx_image_t* img = mlx_new_image(mlx, 256, 256);
-    if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+    if (!img || (mlx_image_to_window(mlx, img, 1, 1) < 0))
         ft_error();
+    puts("Press ESC to exit.");
 
     // Even after the image is being displayed, we can still modify the buffer.
     mlx_put_pixel(img, 0, 0, 0xFF0000FF);

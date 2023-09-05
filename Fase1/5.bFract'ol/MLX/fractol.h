@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/10 22:34:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/04 21:04:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ typedef struct s_mlx
     int32_t		height;
     double		delta_time;
 }	t_mlx;
+
+typedef struct s_complex
+{
+    double		real;
+    double		imaginary;
+}	t_complex;
 
 //int					ft_atoi(const char *nptr);
 

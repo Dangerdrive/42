@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/10 22:34:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:50:58 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define Z
 # define PLUS
 # define MINUS
+# define ERROR_MESSAGE "Wrong number of arguments\n\t Usage:\n ./fractol"
 
 typedef struct s_complex {
     double real;
