@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/04 21:04:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/04 21:41:50 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@
 # include <string.h>   // for strerror
 # include <math.h>
 # include "MLX42/MLX42.h"
-//# include "libft/libft.h"
+//# include "libft/libft.h" //for ft_putstr_fd, ft_strcmp
 
 typedef struct s_data {
     void *mlx;
@@ -104,6 +104,8 @@ typedef struct s_complex
 }	t_complex;
 
 //int					ft_atoi(const char *nptr);
+t_complex	complex_add(t_complex a, t_complex b);
+t_complex	complex_sqr(t_complex a);
 
 
 #endif

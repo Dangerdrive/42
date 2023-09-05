@@ -9,12 +9,12 @@ t_complex	complex_add(t_complex a, t_complex b)
 	return (c);
 }
 
-t_complex	complex_multiply(t_complex a, t_complex b)
+t_complex	complex_sqr(t_complex a)
 {
 	t_complex	c;
 
-	c.real = a.real * b.real - a.imaginary * b.imaginary;
-	c.imaginary = a.real * b.imaginary + a.imaginary * b.real;
+	c.real = a.real * a.real - a.imaginary * a.imaginary;
+	c.imaginary = 2 * a.real * a.imaginary;
 	return (c);
 }
 
