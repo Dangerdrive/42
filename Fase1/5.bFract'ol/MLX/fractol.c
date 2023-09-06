@@ -103,7 +103,7 @@ int32_t	main(void)
     mlx_image_t* img = mlx_new_image(mlx, 256, 256);
     if (!img || (mlx_image_to_window(mlx, img, 1, 1) < 0))
         ft_error();
-    puts("Press ESC to exit.");
+    mlx_put_string(mlx, "Press ESC to exit.", 10, 10);
 
     // Even after the image is being displayed, we can still modify the buffer.
     mlx_put_pixel(img, 0, 0, 0xFF0000FF);
@@ -115,3 +115,16 @@ int32_t	main(void)
     mlx_terminate(mlx);
     return (EXIT_SUCCESS);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	t_fractal		fractal;
+
+// 	if (argc == 2)
+// 	{
+
+// 	}
+// 	else
+// 		ft_putstr_fd(ERROR_MSG, 2);
+// 	return (0);
+//}

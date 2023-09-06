@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/04 21:41:50 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/05 21:47:04 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 # define FRACTOL_H
 # define WIDTH 720
 # define HEIGHT 720
+# define ERROR_MSG "Error - incorrect params\n" //include options
 
 # include <fcntl.h>    // for open
 # include <unistd.h>   // for close, read, write
@@ -77,16 +78,6 @@
 # include <math.h>
 # include "MLX42/MLX42.h"
 //# include "libft/libft.h" //for ft_putstr_fd, ft_strcmp
-
-typedef struct s_data {
-    void *mlx;
-    void *mlx_win;
-    void	*img;
-    char	*addr;
-    int		bits_per_pixel;
-    int		line_length;
-    int		endian;
-} t_data;
 
 typedef struct s_mlx
 {
@@ -103,9 +94,47 @@ typedef struct s_complex
     double		imaginary;
 }	t_complex;
 
+typedef struct s_data {
+    void    *mlx;
+    void    *mlx_win;
+    void	*img;
+    char	*addr;
+    int		bits_per_pixel;
+    int		line_length;
+    int		endian;
+} t_data;
+
+typedef struct s_fractal {
+	char		*name;
+	//void		*img;
+    mlx_image_t* img;
+	void		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	void		*mlx;
+	void		*win;
+	int			width;
+	int			height;
+	t_complex	c;
+	double		zoom;
+	double		x;
+	double		y;
+	double		xarrow;
+	double		yarrow;
+	double		radius;
+	int			iterations;
+	int			color;
+}				t_fractal;
+
 //int					ft_atoi(const char *nptr);
 t_complex	complex_add(t_complex a, t_complex b);
 t_complex	complex_sqr(t_complex a);
 
+int	        strcmp(const char *str1, const char *str2);
+void	    ft_putstr_fd(char *str, int fd);
 
 #endif
+
+//git@github.com:Xyckens/fract-ol.git
+//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
