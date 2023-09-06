@@ -125,6 +125,7 @@ int32_t	main(void)
 
 // 	}
 // 	else
-// 		ft_putstr_fd(ERROR_MSG, 2);
+// 		puts(ERROR_MSG);
+// 		//ft_putstr_fd(ERROR_MSG, 2);
 // 	return (0);
 //}
