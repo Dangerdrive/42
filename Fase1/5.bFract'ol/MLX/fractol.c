@@ -64,11 +64,12 @@
 
 
 // Exit the program as failure.
-static void ft_error(void)
+static void error(void)
 {
-    fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-    exit(EXIT_FAILURE);
+	puts(mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
 }
+
 
 // Print the window width and height.
 static void ft_hook(void* param)
@@ -129,3 +130,32 @@ int32_t	main(void)
 // 		//ft_putstr_fd(ERROR_MSG, 2);
 // 	return (0);
 //}
+
+
+//adaptar pra MLX codam
+int	main(int argc, char **argv)
+{
+	t_fractal		fractal;
+
+	if (argc == 2)
+	{
+		if (!ft_strncmp(argv[1], "mandelbrot", 10) && ft_strlen(argv[1]) == 10)
+			mandelbrot_param(&fractal, argv[1]);
+		else if (!ft_strncmp(argv[1], "julia", 5) && ft_strlen(argv[1]) == 5)
+			julia_param(&fractal, argv[1]);
+		else if (!ft_strncmp(argv[1], "burning", 7) && ft_strlen(argv[1]) == 7)
+			burning_param(&fractal, argv[1]);
+		fractal.mlx = mlx_init(WIDTH, HEIGHT, fractal.name, true); //adaptado
+		//fractal.win = mlx_new_window(fractal.mlx, fractal.width, //acho que nao precisa de new_window
+		//		fractal.height, fractal.name);
+		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height); //igual
+		fractalsetup(&fractal);
+		mlx_key_hook(fractal.win, key_hook, &fractal);
+		mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
+		mlx_hook(fractal.win, 17, 1L << 17, close_game, &fractal);
+		mlx_loop(fractal.mlx);
+	}
+	else
+		wronginputs();
+	return (0);
+}
