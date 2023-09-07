@@ -117,19 +117,25 @@ int32_t	main(void)
     return (EXIT_SUCCESS);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	t_fractal		fractal;
+int	main(int argc, char **argv)
+{
+	t_fractal		fractal;
 
-// 	if (argc == 2)
-// 	{
+	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10)) 
+		|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
+	{
+		fractal.name = argv[1];
 
-// 	}
-// 	else
-// 		puts(ERROR_MSG);
-// 		//ft_putstr_fd(ERROR_MSG, 2);
-// 	return (0);
-//}
+		fractal.mlx = mlx_init(WIDTH, HEIGHT, fractal.name, true);
+		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height);
+
+
+	}
+	else
+		puts(ERROR_MSG);
+		//ft_putstr_fd(ERROR_MSG, 2);
+	return (0);
+}
 
 
 //adaptar pra MLX codam

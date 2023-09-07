@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/05 21:47:04 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:44:27 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef struct s_fractal {
 //int					ft_atoi(const char *nptr);
 t_complex	complex_add(t_complex a, t_complex b);
 t_complex	complex_sqr(t_complex a);
+
+
 
 int	        strcmp(const char *str1, const char *str2);
 void	    ft_putstr_fd(char *str, int fd);
