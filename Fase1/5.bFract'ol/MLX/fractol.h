@@ -68,7 +68,27 @@
 # define FRACTOL_H
 # define WIDTH 720
 # define HEIGHT 720
-# define ERROR_MSG "Error - incorrect params\n" //include options
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
+# define MAGENTA 0xFF00FF   // Magenta
+# define CYAN 0x00FFFF   // Cyan
+# define YELLOW 0xFFFF00   // Yellow
+# define ORANGE 0xFFA500   // Orange
+# define PURPLE 0x800080   // Purple
+# define PINK 0xFFC0CB   // Pink
+# define LIME 0x32CD32   // Lime Green
+# define DEEP 0xFF1493   // Deep Pink
+# define GREEN 0x00FF00   // Green
+# define VIOLET 0x8A2BE2   // Blue Violet
+# define ORANGER 0xFF4500   // Orange Red
+# define TOMATO 0xFF6347   // Tomato
+# define AQUA        0x00FFFF
+# define TEAL        0x008080
+# define GOLD        0xFFD700
+# define SILVER      0xC0C0C0
+# define GRAY        0x808080
+# define BROWN       0xA52A2A
+# define PARAM_MSG "Error - incorrect params\n" //include options
 
 # include <fcntl.h>    // for open
 # include <unistd.h>   // for close, read, write
@@ -88,6 +108,15 @@ typedef struct s_mlx
     double		delta_time;
 }	t_mlx;
 
+/**
+ * @struct t_complex
+ * @brief A complex number.
+ *
+ * This struct represents a complex number. It has two members:
+ *
+ *   @param real: The real part of the number and X axis of the complex plane.
+ *   @param imaginary: The imaginary part of the number and Y axis of the complex plane.
+ */
 typedef struct s_complex
 {
     double		real;
@@ -108,15 +137,16 @@ typedef struct s_fractal {
 	char		*name;
 	//void		*img;
     mlx_image_t* img;
-	void		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
+	//void		*addr;
+	//int			bits_per_pixel;
+	//int			line_length;
+	//int			endian;
 	void		*mlx;
-	void		*win;
+	//void		*win;
 	int			width;
 	int			height;
 	t_complex	c;
+	double		escape_value;
 	double		zoom;
 	double		x;
 	double		y;
@@ -127,14 +157,70 @@ typedef struct s_fractal {
 	int			color;
 }				t_fractal;
 
-//int					ft_atoi(const char *nptr);
-t_complex	complex_add(t_complex a, t_complex b);
-t_complex	complex_sqr(t_complex a);
 
 
 
-int	        strcmp(const char *str1, const char *str2);
-void	    ft_putstr_fd(char *str, int fd);
+
+int		ft_strncmp(const char *str1, const char *str2, size_t n);
+
+/**
+ * Lets you set a custom image as the program icon.
+ *
+ * @param[t_] fractal The image to use as icon.
+ *
+ */
+void 		fractal_init(t_fractal *fractal);
+
+/**
+ * Lets you set a custom image as the program icon.
+ *
+ * @param[in] x The MLX instance handle.
+ * @param[in] y The MLX instance handle.
+ * @param[t_] fractal The image to use as icon.
+ *
+ */
+void fractal_render(t_fractal *fractal);
+
+/**
+ * Maps a value from one range to another using linear interpolation.
+ *
+ * This function takes an unscaled number and maps it from an old range
+ * defined by old_max and old_min to a new range defined by new_max and new_min.
+ * The result is the scaled number within the new range.
+ *
+ * @param[in] unscaled_num The value to be mapped from the old range to the new range.
+ * @param[in] new_max The maximum value of the new range.
+ * @param[in] new_min The minimum value of the new range.
+ *
+ * @return The scaled number within the new range.
+ */
+double	map(double unscaled_num, double old_max, double new_min, double new_max);
+
+/**
+ * Adds two complex numbers together.
+ *
+ * This function takes two complex numbers 'a' and 'b' and computes their sum,
+ * resulting in a new complex number 'sum'.
+ *
+ * @param[in] a The first complex number to be added.
+ * @param[in] b The second complex number to be added.
+ *
+ * @return The sum of the two complex numbers 'a' and 'b'.
+ */
+t_complex complex_sum(t_complex a, t_complex b);
+
+/**
+ * Computes the square of a complex number.
+ *
+ * This function takes a complex number 'a' and computes its square,
+ * resulting in a new complex number 'squared'.
+ *
+ * @param[in] a The complex number to be squared.
+ *
+ * @return The square of the complex number 'a'.
+ */
+t_complex complex_sqr(t_complex a);
+
 
 #endif
 

@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	strncmp(const char *str1, const char *str2, size_t n)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
 	size_t	i;
 
@@ -14,15 +14,4 @@ int	strncmp(const char *str1, const char *str2, size_t n)
 		i++;
 	}
 	return (1);
-}
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	if (str == NULL || fd < 0)
-		return;
-	while (str)
-		{
-			write(fd, str, 1);
-			str++;
-		}
 }

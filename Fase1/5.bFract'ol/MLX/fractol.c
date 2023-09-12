@@ -88,80 +88,85 @@ static void ft_hook(void* param)
 
     //printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 }
-
-int32_t	main(void)
-{
-
-    // MLX allows you to define its core behaviour before startup.
-    mlx_set_setting(MLX_MAXIMIZED, false);
-    mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Fract'ol (soon)", true);
-    if (!mlx)
-        ft_error();
-
-    /* Do stuff */
-
-    // Create and display the image.
-    mlx_image_t* img = mlx_new_image(mlx, 256, 256);
-    if (!img || (mlx_image_to_window(mlx, img, 1, 1) < 0))
-        ft_error();
-    mlx_put_string(mlx, "Press ESC to exit.", 10, 10);
-
-    // Even after the image is being displayed, we can still modify the buffer.
-    mlx_put_pixel(img, 0, 0, 0xFF0000FF);
-
-    // Register a hook and pass mlx as an optional param.
-    // NOTE: Do this before calling mlx_loop!
-    mlx_loop_hook(mlx, ft_hook, mlx);
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
-    return (EXIT_SUCCESS);
-}
+//
+//int32_t	main(void)
+//{
+//
+//    // MLX allows you to define its core behaviour before startup.
+//    mlx_set_setting(MLX_MAXIMIZED, false);
+//    mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Fract'ol (soon)", true);
+//    if (!mlx)
+//        ft_error();
+//
+//    /* Do stuff */
+//
+//    // Create and display the image.
+//    mlx_image_t* img = mlx_new_image(mlx, 256, 256);
+//    if (!img || (mlx_image_to_window(mlx, img, 1, 1) < 0))
+//        ft_error();
+//    mlx_put_string(mlx, "Press ESC to exit.", 10, 10);
+//
+//    // Even after the image is being displayed, we can still modify the buffer.
+//    mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+//
+//    // Register a hook and pass mlx as an optional param.
+//    // NOTE: Do this before calling mlx_loop!
+//    mlx_loop_hook(mlx, ft_hook, mlx);
+//    mlx_loop(mlx);
+//    mlx_terminate(mlx);
+//    return (EXIT_SUCCESS);
+//}
 
 int	main(int argc, char **argv)
 {
 	t_fractal		fractal;
 
-	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10)) 
-		|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
+	//
+	int strc = ft_strncmp(argv[1], "m", 10);
+	printf("%d", strc);
+
+	if ((argc == 2 && !strncmp(argv[1], "m", 10))
+		|| (argc == 4 && !strncmp(argv[1], "julia", 5)))
 	{
 		fractal.name = argv[1];
-
-		fractal.mlx = mlx_init(WIDTH, HEIGHT, fractal.name, true);
-		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height);
-
-
+		fractal_init(&fractal);
+		fractal_render(&fractal);
+		mlx_loop(fractal.mlx);
 	}
 	else
-		puts(ERROR_MSG);
+	{
+		puts(PARAM_MSG);
 		//ft_putstr_fd(ERROR_MSG, 2);
-	return (0);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
 
 //adaptar pra MLX codam
-int	main(int argc, char **argv)
-{
-	t_fractal		fractal;
-
-	if (argc == 2)
-	{
-		if (!ft_strncmp(argv[1], "mandelbrot", 10) && ft_strlen(argv[1]) == 10)
-			mandelbrot_param(&fractal, argv[1]);
-		else if (!ft_strncmp(argv[1], "julia", 5) && ft_strlen(argv[1]) == 5)
-			julia_param(&fractal, argv[1]);
-		else if (!ft_strncmp(argv[1], "burning", 7) && ft_strlen(argv[1]) == 7)
-			burning_param(&fractal, argv[1]);
-		fractal.mlx = mlx_init(WIDTH, HEIGHT, fractal.name, true); //adaptado
-		//fractal.win = mlx_new_window(fractal.mlx, fractal.width, //acho que nao precisa de new_window
-		//		fractal.height, fractal.name);
-		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height); //igual
-		fractalsetup(&fractal);
-		mlx_key_hook(fractal.win, key_hook, &fractal);
-		mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
-		mlx_hook(fractal.win, 17, 1L << 17, close_game, &fractal);
-		mlx_loop(fractal.mlx);
-	}
-	else
-		wronginputs();
-	return (0);
-}
+//int	main(int argc, char **argv)
+//{
+//	t_fractal		fractal;
+//
+//	if (argc == 2)
+//	{
+//		if (!ft_strncmp(argv[1], "mandelbrot", 10) && ft_strlen(argv[1]) == 10)
+//			mandelbrot_param(&fractal, argv[1]);
+//		else if (!ft_strncmp(argv[1], "julia", 5) && ft_strlen(argv[1]) == 5)
+//			julia_param(&fractal, argv[1]);
+//		else if (!ft_strncmp(argv[1], "burning", 7) && ft_strlen(argv[1]) == 7)
+//			burning_param(&fractal, argv[1]);
+//		fractal.mlx = mlx_init(WIDTH, HEIGHT, fractal.name, true); //adaptado
+//		//fractal.win = mlx_new_window(fractal.mlx, fractal.width, //acho que nao precisa de new_window
+//		//		fractal.height, fractal.name);
+//		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height); //igual
+//		fractalsetup(&fractal);
+//		mlx_key_hook(fractal.win, key_hook, &fractal);
+//		mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
+//		mlx_hook(fractal.win, 17, 1L << 17, close_game, &fractal);
+//		mlx_loop(fractal.mlx);
+//	}
+//	else
+//		wronginputs();
+//	return (EXIT_SUCCESS);
+//}
