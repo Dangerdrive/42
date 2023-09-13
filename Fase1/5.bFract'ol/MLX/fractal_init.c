@@ -3,7 +3,7 @@
 static void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4;
-	fractal->iterations = 5000;
+	fractal->iterations = 4000;
 }
 
 void	fractal_init(t_fractal *fractal)

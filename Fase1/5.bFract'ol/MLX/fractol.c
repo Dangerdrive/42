@@ -117,30 +117,7 @@ static void ft_hook(void* param)
 //    return (EXIT_SUCCESS);
 //}
 
-int	main(int argc, char **argv)
-{
-	t_fractal		fractal;
 
-	//
-	int strc = ft_strncmp(argv[1], "m", 10);
-	printf("%d", strc);
-
-	if ((argc == 2 && !strncmp(argv[1], "m", 10))
-		|| (argc == 4 && !strncmp(argv[1], "julia", 5)))
-	{
-		fractal.name = argv[1];
-		fractal_init(&fractal);
-		fractal_render(&fractal);
-		mlx_loop(fractal.mlx);
-	}
-	else
-	{
-		puts(PARAM_MSG);
-		//ft_putstr_fd(ERROR_MSG, 2);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
 
 
 //adaptar pra MLX codam
@@ -170,3 +147,38 @@ int	main(int argc, char **argv)
 //		wronginputs();
 //	return (EXIT_SUCCESS);
 //}
+
+
+
+int	main(int argc, char **argv)
+{
+	t_fractal		fractal;
+
+	//
+	int strc = ft_strncmp(argv[1], "mandelbrot", 10);
+	printf("%d", strc);
+
+	if ((argc == 2 && !strncmp(argv[1], "mandelbrot", 10))
+		|| (argc == 4 && !strncmp(argv[1], "julia", 5)))
+	{
+		fractal.name = argv[1];
+		fractal_init(&fractal);
+		fractal_render(&fractal);
+		mlx_loop(fractal.mlx);
+	}
+	else
+	{
+		puts(PARAM_MSG);
+		//ft_putstr_fd(ERROR_MSG, 2);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+//map test
+// int	main()
+// {
+// 	double test;
+// 	test = map(1, HEIGHT, -2, 2);
+// 	printf("%f", test);
+// }

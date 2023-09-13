@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/07 18:44:27 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:21:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 
 //link with -lmlx -lXext -lX11 -L path/to/libs/
 // gcc myfile.c -o myfile -lm // -lm is for math.h
-// -lmlx -lXext -lX11 -L 
+// -lmlx -lXext -lX11 -L
 // https://github.com/codam-coding-college/MLX42
-// AMD ROCm (Radeon Open Compute) is an open-source software foundation for GPU computing on Linux. 
+// AMD ROCm (Radeon Open Compute) is an open-source software foundation for GPU computing on Linux.
 //Install it to try running fractol on GPU
 // CUDA is a parallel computing platform and application programming interface model created by Nvidia.
 // OpenCL (Open Computing Language) is a framework for writing programs that execute across heterogeneous platforms consisting of central processing units (CPUs), graphics processing units (GPUs), digital signal processors (DSPs), field-programmable gate arrays (FPGAs) and other processors or hardware accelerators. OpenCL specifies programming languages (based on C99 and C++11) for programming these devices and application programming interfaces (APIs) to control the platform and execute programs on the compute devices. OpenCL provides a standard interface for parallel computing using task- and data-based parallelism.
@@ -68,26 +68,26 @@
 # define FRACTOL_H
 # define WIDTH 720
 # define HEIGHT 720
-# define BLACK 0x000000
-# define WHITE 0xFFFFFF
-# define MAGENTA 0xFF00FF   // Magenta
-# define CYAN 0x00FFFF   // Cyan
-# define YELLOW 0xFFFF00   // Yellow
-# define ORANGE 0xFFA500   // Orange
-# define PURPLE 0x800080   // Purple
-# define PINK 0xFFC0CB   // Pink
-# define LIME 0x32CD32   // Lime Green
-# define DEEP 0xFF1493   // Deep Pink
-# define GREEN 0x00FF00   // Green
-# define VIOLET 0x8A2BE2   // Blue Violet
-# define ORANGER 0xFF4500   // Orange Red
-# define TOMATO 0xFF6347   // Tomato
-# define AQUA        0x00FFFF
-# define TEAL        0x008080
-# define GOLD        0xFFD700
-# define SILVER      0xC0C0C0
-# define GRAY        0x808080
-# define BROWN       0xA52A2A
+# define BLACK 0x000000FF
+# define WHITE 0xFFFFFFFF
+# define MAGENTA 0xFF00FFFF   // Magenta
+# define CYAN 0x00FFFFFF   // Cyan
+# define YELLOW 0xFFFF00FF   // Yellow
+# define ORANGE 0xFFA500FF   // Orange
+# define PURPLE 0x800080FF   // Purple
+# define PINK 0xFFC0CBFF   // Pink
+# define LIME 0x32CD32FF   // Lime Green
+# define DEEP 0xFF1493FF   // Deep Pink
+# define GREEN 0x00FF00FF   // Green
+# define VIOLET 0x8A2BE2FF   // Blue Violet
+# define ORANGER 0xFF4500FF   // Orange Red
+# define TOMATO 0xFF6347FF   // Tomato
+# define AQUA        0x00FFFFFF
+# define TEAL        0x008080FF
+# define GOLD        0xFFD700FF
+# define SILVER      0xC0C0C0FF
+# define GRAY        0x808080FF
+# define BROWN       0xA52A2AFF
 # define PARAM_MSG "Error - incorrect params\n" //include options
 
 # include <fcntl.h>    // for open
