@@ -166,6 +166,22 @@ static void error(void)
 // 	//printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
+void scrollhook(double xdelta, double ydelta, void* param)
+{
+	// Simple up or down detection.
+	t_fractal* fractal_ptr = (t_fractal*)param;
+	if (ydelta > 0)
+	{
+		fractal_ptr->zoom *=0.9;
+		puts("Up!");
+	}
+	else if (ydelta < 0)
+	{
+		fractal_ptr->zoom *=1.1;
+		puts("Down!");
+	}
+}
+
 static void ft_hook(void* fractal)
 {
     t_fractal* fractal_ptr = (t_fractal*)fractal;
@@ -201,6 +217,7 @@ int	main(int argc, char **argv)
 		fractal.name = argv[1];
 		fractal_init(&fractal);
 		fractal_render(&fractal);
+		mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
 		mlx_loop_hook(fractal.mlx, ft_hook, &fractal);
 		mlx_loop(fractal.mlx);
 	}

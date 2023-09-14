@@ -6,6 +6,7 @@ static void	data_init(t_fractal *fractal)
 	fractal->iterations = 4000;
 	fractal->x_shift = 0.0;
 	fractal->y_shift = 0.0;
+	fractal->zoom = 1.0;
 }
 
 void	fractal_init(t_fractal *fractal)
