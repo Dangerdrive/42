@@ -4,6 +4,8 @@ static void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4;
 	fractal->iterations = 4000;
+	fractal->x_shift = 0.0;
+	fractal->y_shift = 0.0;
 }
 
 void	fractal_init(t_fractal *fractal)

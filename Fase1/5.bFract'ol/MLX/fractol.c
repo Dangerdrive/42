@@ -72,22 +72,23 @@ static void error(void)
 
 
 // Print the window width and height.
-static void ft_hook(void* param)
-{
-    const mlx_t* mlx = param;
-    if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
-		mlx_close_window(param);
-	// if (mlx_is_key_down(param, MLX_KEY_UP)) //implement
-	// 	g_img->instances[0].y -= 5;
-	// if (mlx_is_key_down(param, MLX_KEY_DOWN))
-	// 	g_img->instances[0].y += 5;
-	// if (mlx_is_key_down(param, MLX_KEY_LEFT))
-	// 	g_img->instances[0].x -= 5;
-	// if (mlx_is_key_down(param, MLX_KEY_RIGHT))
-	// 	g_img->instances[0].x += 5;
+// static void ft_hook(void* param)
+// {
+//     const mlx_t* mlx = param;
+//     if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+// 		mlx_close_window(param);
+// 	// if (mlx_is_key_down(param, MLX_KEY_UP)) //implement
+// 	// 	g_img->instances[0].y -= 5;
+// 	// if (mlx_is_key_down(param, MLX_KEY_DOWN))
+// 	// 	g_img->instances[0].y += 5;
+// 	// if (mlx_is_key_down(param, MLX_KEY_LEFT))
+// 	// 	g_img->instances[0].x -= 5;
+// 	// if (mlx_is_key_down(param, MLX_KEY_RIGHT))
+// 	// 	g_img->instances[0].x += 5;
 
-    //printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
-}
+//     //printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+// }
+
 //
 //int32_t	main(void)
 //{
@@ -148,7 +149,43 @@ static void ft_hook(void* param)
 //	return (EXIT_SUCCESS);
 //}
 
+// static void ft_hook(void* fractal)
+// {
+// 	const mlx_t* temp = (mlx_t*)fractal->mlx;
+// 	if (mlx_is_key_down(fractal.mlx, MLX_KEY_ESCAPE))
+// 		mlx_close_window(fractal.mlx);
+// 	// if (mlx_is_key_down(fractal.mlx, MLX_KEY_UP))
+// 	// 	fractal->shift_y -= 0.5;
+// 	// if (mlx_is_key_down(fractal.mlx, MLX_KEY_DOWN))
+// 	// 	fractal->shift_y += 0.5;
+// 	// if (mlx_is_key_down(fractal.mlx, MLX_KEY_LEFT))
+// 	// 	fractal->shift_x += 0.5;
+// 	// if (mlx_is_key_down(fractal.mlx, MLX_KEY_RIGHT))
+// 	// 	fractal->shift_x -= 0.5;
 
+// 	//printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+// }
+
+static void ft_hook(void* fractal)
+{
+    t_fractal* fractal_ptr = (t_fractal*)fractal;
+    const mlx_t* temp = fractal_ptr->mlx;
+    if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_ESCAPE))
+        mlx_close_window(fractal_ptr->mlx);
+    if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_UP))
+    {
+		fractal_ptr->y_shift -= 0.5;
+		printf("up key =)\n");
+		printf("ptr: %f\n",fractal_ptr->y_shift);
+		//printf("fract: %f\n",fractal->y_shift);
+	}
+    if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_DOWN))
+        fractal_ptr->y_shift += 0.5;
+    if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT))
+        fractal_ptr->x_shift += 0.5;
+    if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
+        fractal_ptr->x_shift -= 0.5;
+}
 
 int	main(int argc, char **argv)
 {
@@ -164,14 +201,16 @@ int	main(int argc, char **argv)
 		fractal.name = argv[1];
 		fractal_init(&fractal);
 		fractal_render(&fractal);
+		mlx_loop_hook(fractal.mlx, ft_hook, &fractal);
 		mlx_loop(fractal.mlx);
 	}
 	else
 	{
 		puts(PARAM_MSG);
-		//ft_putstr_fd(ERROR_MSG, 2);
 		return (EXIT_FAILURE);
 	}
+	mlx_delete_image(fractal.mlx, fractal.img);
+	mlx_terminate(fractal.mlx);
 	return (EXIT_SUCCESS);
 }
 

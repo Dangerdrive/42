@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/12 22:21:42 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:56:57 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,20 +123,21 @@ typedef struct s_complex
     double		imaginary;
 }	t_complex;
 
-typedef struct s_data {
-    void    *mlx;
-    void    *mlx_win;
-    void	*img;
-    char	*addr;
-    int		bits_per_pixel;
-    int		line_length;
-    int		endian;
-} t_data;
+// typedef struct s_data {
+//     void    *mlx;
+//     void    *mlx_win;
+//     void	*img;
+//     char	*addr;
+//     int		bits_per_pixel;
+//     int		line_length;
+//     int		endian;
+// } t_data;
 
-typedef struct s_fractal {
+typedef struct s_fractal
+{
 	char		*name;
 	//void		*img;
-    mlx_image_t* img;
+	mlx_image_t* img;
 	//void		*addr;
 	//int			bits_per_pixel;
 	//int			line_length;
@@ -150,8 +151,8 @@ typedef struct s_fractal {
 	double		zoom;
 	double		x;
 	double		y;
-	double		xarrow;
-	double		yarrow;
+	double		x_shift;
+	double		y_shift;
 	double		radius;
 	int			iterations;
 	int			color;
