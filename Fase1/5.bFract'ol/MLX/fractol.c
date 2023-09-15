@@ -189,18 +189,13 @@ static void ft_hook(void* fractal)
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(fractal_ptr->mlx);
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_UP))
-    {
-		fractal_ptr->y_shift -= 0.5;
-		printf("up key =)\n");
-		printf("ptr: %f\n",fractal_ptr->y_shift);
-		//printf("fract: %f\n",fractal->y_shift);
-	}
+    	fractal_ptr->img->instances[0].y -= 5;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_DOWN))
-        fractal_ptr->y_shift += 0.5;
+        fractal_ptr->img->instances[0].y += 5;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT))
-        fractal_ptr->x_shift += 0.5;
+        fractal_ptr->img->instances[0].x -= 5;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
-        fractal_ptr->x_shift -= 0.5;
+        fractal_ptr->img->instances[0].x += 5;
 }
 
 int	main(int argc, char **argv)

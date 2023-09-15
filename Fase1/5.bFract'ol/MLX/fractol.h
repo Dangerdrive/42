@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/13 18:56:57 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:58:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,3 +227,4 @@ t_complex complex_sqr(t_complex a);
 
 //git@github.com:Xyckens/fract-ol.git
 //gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+//valgrind --leak-check=full -s ./a.out mandelbrot

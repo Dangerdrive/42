@@ -12,7 +12,7 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	z.imaginary = 0.0;
 
 	c.real = map(x, WIDTH, -2, +2) + fractal->x_shift;
-	printf("x_shift %f\n", c.real);
+	//printf("x_shift %f\n", c.real);
 	c.imaginary = map(y, HEIGHT, +2, -2) + fractal->y_shift;
 
 	while (i < fractal->iterations)
