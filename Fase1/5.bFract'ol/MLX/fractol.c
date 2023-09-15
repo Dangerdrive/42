@@ -166,6 +166,13 @@ static void error(void)
 // 	//printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
+void	zoom(t_fractal *fractal)
+{
+	fractal->x_shift = fractal->mouse_x / fractal->zoom;
+	fractal->y_shift = fractal->mouse_y / fractal->zoom;
+	fractal_render(fractal);
+}
+
 void scrollhook(double xdelta, double ydelta, void* param)
 {
 	// Simple up or down detection.
@@ -180,11 +187,14 @@ void scrollhook(double xdelta, double ydelta, void* param)
 		fractal_ptr->zoom *=1.1;
 		puts("Down!");
 	}
+	//TODO update_mouse_pos(fractal_ptr);
+	zoom(fractal_ptr);
 }
 
 static void ft_hook(void* fractal)
 {
-    t_fractal* fractal_ptr = (t_fractal*)fractal;
+    t_fractal* fractal_ptr;
+	fractal_ptr = (t_fractal*)fractal;
     const mlx_t* temp = fractal_ptr->mlx;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(fractal_ptr->mlx);
