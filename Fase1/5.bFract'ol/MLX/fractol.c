@@ -180,14 +180,16 @@ void scrollhook(double xdelta, double ydelta, void* param)
 	if (ydelta > 0)
 	{
 		fractal_ptr->zoom *=0.9;
-		puts("Up!");
+		//puts("Up!%f", fractal_ptr->zoom);
+
 	}
 	else if (ydelta < 0)
 	{
 		fractal_ptr->zoom *=1.1;
-		puts("Down!");
+		//puts("Down!");
 	}
 	//TODO update_mouse_pos(fractal_ptr);
+	printf("%f\n", fractal_ptr->zoom);
 	zoom(fractal_ptr);
 }
 

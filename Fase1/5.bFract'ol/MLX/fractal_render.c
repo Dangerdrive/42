@@ -11,9 +11,9 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	z.real = 0.0;
 	z.imaginary = 0.0;
 
-	c.real = map(x, WIDTH, -2, +2) + fractal->x_shift;
+	c.real = map(x, WIDTH, -2.0, +2.0)*0.2 + fractal->x_shift;
 	//printf("x_shift %f\n", c.real);
-	c.imaginary = map(y, HEIGHT, +2, -2) + fractal->y_shift;
+	c.imaginary = map(y, HEIGHT, +2.0 , -2.0 )*0.2 + fractal->y_shift;
 
 	while (i < fractal->iterations)
 	{
@@ -25,7 +25,7 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 			//printf("real2 %f, im2 %f\n", z.real * z.real, z.imaginary * z.imaginary);
 			//color = map(i,fractal->iterations, SILVER, SILVER);
 			//printf("%d", color);
-			mlx_put_pixel(fractal->img, x, y, rand() % RAND_MAX);
+			mlx_put_pixel(fractal->img, x, y, MAGENTA);//rand() % RAND_MAX);
 			//printf("color %f\n", z.color);
 
 			return;

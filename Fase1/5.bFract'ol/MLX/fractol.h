@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/14 20:58:44 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:17:06 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ typedef struct s_fractal
 	double		y;
 	double		x_shift;
 	double		y_shift;
+	double		mouse_x;
+	double		mouse_y;
 	double		radius;
 	int			iterations;
 	int			color;
