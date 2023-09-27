@@ -1,10 +1,11 @@
 #include "fractol.h"
 
+
+
 void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
-	//int		color;
 	int 		i;
 
 	i = 0;

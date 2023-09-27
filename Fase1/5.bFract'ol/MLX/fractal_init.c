@@ -1,12 +1,22 @@
 #include "fractol.h"
 
+// void	select_fractal(t_fractal *fractal)
+// {
+// 	if (fractal->name == MANDELBROT)
+// 		fractal->name = JULIA;
+// 	else if (fractal->name == JULIA)
+// 		fractal->name = BURNINGSHIP;
+// 	else
+// 		fractal->name = MANDELBROT;
+// }
+
 static void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
-	fractal->x_shift = 0.0;
+	fractal->x_shift = -0.5;
 	fractal->y_shift = 0.0;
-	fractal->zoom = 1.0;
+	fractal->zoom = 0.79;
 }
 
 void	fractal_init(t_fractal *fractal)

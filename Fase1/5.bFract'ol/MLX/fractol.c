@@ -211,18 +211,10 @@ static void ft_hook(void* fractal)
     	fractal_ptr->x_shift += 0.1;
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
     	guide();
-	// 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_TAB))
-	// 	 func pra mudar fractal
-	// {
-	// 	if (fractal->name == MANDELBROT)
-	// 		fractal->name = JULIA;
-	// 	else if (fractal->name == JULIA)
-	// 		fractal->name = BURNINGSHIP;
-	//  else
-	// 		fractal->name = MANDELBROT;
-	// }
+	// if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_TAB))
+	// 		select_fractal(fractal_ptr);
 	// if (mlx_is_key_down(data->mlx, MLX_KEY_R))
-	// 	reset_cords(data);
+	// 		reset_fractal(fractal_ptr);
 	fractal_render(fractal_ptr);
 }
 
@@ -230,17 +222,16 @@ int	main(int argc, char **argv)
 {
 	t_fractal		fractal;
 
-	//
-	int strc = ft_strncmp(argv[1], "mandelbrot", 10);
-	printf("%d", strc);
-
 	if ((argc == 2 && !strncmp(argv[1], "mandelbrot", 10))
 		|| (argc == 4 && !strncmp(argv[1], "julia", 5)))
 	{
 		fractal.name = argv[1];
+		// fractal.arg_x = ft_atod(argv[2]);
+		// fractal.arg_y = ft_atod(argv[3]);
 		fractal_init(&fractal);
 		fractal_render(&fractal);
 		mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
+		//mlx_mouse_hook(fractal.mlx, &mouse_hook, &fractal);
 		mlx_loop_hook(fractal.mlx, ft_hook, &fractal);
 		mlx_loop(fractal.mlx);
 	}

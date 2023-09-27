@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/26 22:47:24 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:58:24 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,13 @@
 # include "MLX42/MLX42.h"
 //# include "libft/libft.h" //for ft_putstr_fd, ft_strcmp
 
-typedef struct s_mlx
+typedef enum sets
 {
-    void*		window;
-    void*		context;
-    int32_t		width;
-    int32_t		height;
-    double		delta_time;
-}	t_mlx;
+	MANDELBROT,
+	JULIA,
+	VELA,
+	MOUSE
+}	t_sets;
 
 /**
  * @struct t_complex
@@ -143,14 +142,8 @@ typedef struct s_map
 typedef struct s_fractal
 {
 	char		*name;
-	//void		*img;
 	mlx_image_t* img;
-	//void		*addr;
-	//int			bits_per_pixel;
-	//int			line_length;
-	//int			endian;
 	void		*mlx;
-	//void		*win;
 	int			width;
 	int			height;
 	t_complex	c;
@@ -162,6 +155,8 @@ typedef struct s_fractal
 	double		y_shift;
 	double		mouse_x;
 	double		mouse_y;
+	double		arg_x;
+	double		arg_y;
 	double		radius;
 	int			iterations;
 	int			color;
@@ -234,6 +229,9 @@ t_complex complex_sum(t_complex a, t_complex b);
 t_complex complex_sqr(t_complex a);
 
 void	guide(void);
+void	select_fractal(t_fractal *fractal);
+double	ft_atod(char *str);
+
 
 #endif
 
