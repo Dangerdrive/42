@@ -3,7 +3,7 @@
 static void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4.0;
-	fractal->iterations = 400.0;
+	fractal->iterations = 100.0;
 	fractal->x_shift = 0.0;
 	fractal->y_shift = 0.0;
 	fractal->zoom = 1.0;
@@ -11,6 +11,7 @@ static void	data_init(t_fractal *fractal)
 
 void	fractal_init(t_fractal *fractal)
 {
+	puts("press G for guide");
 fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, true);//tentar ver com alguem qual a diferença, já que o init aqui já cria a janela. Criar um item mlx connection na struct?
 	if(!fractal->mlx)
 		exit(EXIT_FAILURE); // (da documentação)

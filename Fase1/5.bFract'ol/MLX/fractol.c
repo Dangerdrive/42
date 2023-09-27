@@ -170,7 +170,7 @@ void	zoom(t_fractal *fractal)
 {
 	fractal->x_shift = fractal->mouse_x / fractal->zoom;
 	fractal->y_shift = fractal->mouse_y / fractal->zoom;
-	fractal_render(fractal);
+	//fractal_render(fractal);
 }
 
 void scrollhook(double xdelta, double ydelta, void* param)
@@ -189,8 +189,9 @@ void scrollhook(double xdelta, double ydelta, void* param)
 		//puts("Down!");
 	}
 	//TODO update_mouse_pos(fractal_ptr);
-	printf("%f\n", fractal_ptr->zoom);
+	//printf("%f\n", fractal_ptr->zoom);
 	zoom(fractal_ptr);
+	fractal_render(fractal_ptr);
 }
 
 static void ft_hook(void* fractal)
@@ -201,13 +202,28 @@ static void ft_hook(void* fractal)
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(fractal_ptr->mlx);
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_UP))
-    	fractal_ptr->img->instances[0].y -= 5;
+    	fractal_ptr->y_shift += 0.1;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_DOWN))
-        fractal_ptr->img->instances[0].y += 5;
+    	fractal_ptr->y_shift -= 0.1;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT))
-        fractal_ptr->img->instances[0].x -= 5;
+    	fractal_ptr->x_shift -= 0.1;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
-        fractal_ptr->img->instances[0].x += 5;
+    	fractal_ptr->x_shift += 0.1;
+	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
+    	guide();
+	// 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_TAB))
+	// 	 func pra mudar fractal
+	// {
+	// 	if (fractal->name == MANDELBROT)
+	// 		fractal->name = JULIA;
+	// 	else if (fractal->name == JULIA)
+	// 		fractal->name = BURNINGSHIP;
+	//  else
+	// 		fractal->name = MANDELBROT;
+	// }
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+	// 	reset_cords(data);
+	fractal_render(fractal_ptr);
 }
 
 int	main(int argc, char **argv)
@@ -245,3 +261,10 @@ int	main(int argc, char **argv)
 // 	test = map(1, HEIGHT, -2, 2);
 // 	printf("%f", test);
 // }
+
+//criar função pra definir a cor
+
+//incluir variavel na função map - criei uma struct pra isso
+
+//trabalhar com a posição do mouse
+

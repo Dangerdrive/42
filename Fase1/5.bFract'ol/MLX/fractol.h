@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/25 20:17:06 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/26 22:47:24 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,13 @@ typedef struct s_complex
 //     int		line_length;
 //     int		endian;
 // } t_data;
+typedef struct s_map
+{
+	double		old_min;
+	double		old_max;
+	double		new_min;
+	double		new_max;
+}	t_map;
 
 typedef struct s_fractal
 {
@@ -199,6 +206,8 @@ void fractal_render(t_fractal *fractal);
  */
 double	map(double unscaled_num, double old_max, double new_min, double new_max);
 
+double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
+
 /**
  * Adds two complex numbers together.
  *
@@ -224,6 +233,7 @@ t_complex complex_sum(t_complex a, t_complex b);
  */
 t_complex complex_sqr(t_complex a);
 
+void	guide(void);
 
 #endif
 
