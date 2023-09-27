@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/27 19:58:24 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:21:04 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_map
 typedef struct s_fractal
 {
 	char		*name;
+	int			id;
 	mlx_image_t* img;
 	void		*mlx;
 	int			width;

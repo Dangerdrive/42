@@ -173,10 +173,41 @@ void	zoom(t_fractal *fractal)
 	//fractal_render(fractal);
 }
 
+/**
+ * @brief Function to update the mouse position so the zoom can be centered
+ *
+ * @param data The data struct
+ */
+static void	update_mouse_pos(t_fractal *fractal)
+{
+	int32_t	x;
+	int32_t	y;
+
+	mlx_get_mouse_pos(fractal->mlx, &x, &y);
+	if (x < 0)
+		x = 0;
+	else if (x > fractal->width)
+		x = fractal->width;
+	if (y < 0)
+		y = 0;
+	else if (y > fractal->height)
+		y = fractal->height;
+	fractal->mouse_x = x;
+	fractal->mouse_y = y;
+	printf("mouse x: %f\n", fractal->mouse_x);
+}
+
 void scrollhook(double xdelta, double ydelta, void* param)
 {
 	// Simple up or down detection.
 	t_fractal* fractal_ptr = (t_fractal*)param;
+	// 	if (data->frctl == JULIA && mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+	// {
+	// 	data->complex.i += xdelta / 1000;
+	// 	data->complex.r += xdelta / 1000;
+	// 	data->renderer.changed = true;
+	// 	return ;
+	// }
 	if (ydelta > 0)
 	{
 		fractal_ptr->zoom *=0.9;
@@ -258,4 +289,7 @@ int	main(int argc, char **argv)
 //incluir variavel na função map - criei uma struct pra isso
 
 //trabalhar com a posição do mouse
+	//onde pega mouse position?
+	//mlx_mouse_hook(fractal.mlx, &mouse_hook, &fractal);
+//testar atod
 
