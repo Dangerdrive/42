@@ -168,9 +168,8 @@ static void error(void)
 
 void	zoom(t_fractal *fractal)
 {
-	fractal->x_shift = fractal->mouse_x / fractal->zoom;
-	fractal->y_shift = fractal->mouse_y / fractal->zoom;
-	//fractal_render(fractal);
+	fractal->x_shift = fractal->mouse_x * fractal->zoom;
+	fractal->y_shift = fractal->mouse_y * fractal->zoom;
 }
 
 /**
@@ -194,7 +193,7 @@ static void	update_mouse_pos(t_fractal *fractal)
 		y = fractal->height;
 	fractal->mouse_x = x;
 	fractal->mouse_y = y;
-	printf("mouse x: %f\n", fractal->mouse_x);
+	//printf("mouse x: %d\n", fractal->mouse_x);
 }
 
 void scrollhook(double xdelta, double ydelta, void* param)
@@ -219,7 +218,7 @@ void scrollhook(double xdelta, double ydelta, void* param)
 		fractal_ptr->zoom *=1.1;
 		//puts("Down!");
 	}
-	//TODO update_mouse_pos(fractal_ptr);
+	update_mouse_pos(fractal_ptr);
 	//printf("%f\n", fractal_ptr->zoom);
 	zoom(fractal_ptr);
 	fractal_render(fractal_ptr);
@@ -233,13 +232,13 @@ static void ft_hook(void* fractal)
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(fractal_ptr->mlx);
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_UP))
-    	fractal_ptr->y_shift += 0.1;
+    	fractal_ptr->y_shift += 0.1 * fractal_ptr->zoom;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_DOWN))
-    	fractal_ptr->y_shift -= 0.1;
+    	fractal_ptr->y_shift -= 0.1 * fractal_ptr->zoom;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT))
-    	fractal_ptr->x_shift -= 0.1;
+    	fractal_ptr->x_shift -= 0.1 * fractal_ptr->zoom;
     if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
-    	fractal_ptr->x_shift += 0.1;
+    	fractal_ptr->x_shift += 0.1 * fractal_ptr->zoom;
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
     	guide();
 	// if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_TAB))
