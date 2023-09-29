@@ -2,6 +2,34 @@
 
 
 
+// void	handle_pixel(int x, int y, t_fractal *fractal)
+// {
+// 	t_complex	z;
+// 	t_complex	c;
+// 	int 		i;
+
+// 	i = 0;
+// 	z.real = 0.0;
+// 	z.imaginary = 0.0;
+
+// 	c.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
+// 	c.imaginary = map(y, HEIGHT, +2.0 , -2.0) * fractal->zoom + fractal->y_shift;
+
+// 	while (i < fractal->iterations)
+// 	{
+// 		z = complex_sum(complex_sqr(z), c);
+// 		if ((((z.real * z.real) + (z.imaginary * z.imaginary)) < fractal->escape_value))
+// 			mlx_put_pixel(fractal->img, x, y, WHITE);
+// 		if (((z.real * z.real) + (z.imaginary * z.imaginary)) > fractal->escape_value)
+// 		{
+// 			//fractal->color = map_color(i,fractal->iterations, TOMATO*0.1, WHITE*0.2);
+// 			fractal->color = map_color(calculate_mu(z),fractal->iterations, TOMATO, GOLD);
+// 			mlx_put_pixel(fractal->img, x, y, fractal->color);
+// 			return;
+// 		}
+// 		i++;
+// 	}
+// }
 void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
@@ -22,7 +50,8 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 			mlx_put_pixel(fractal->img, x, y, WHITE);
 		if (((z.real * z.real) + (z.imaginary * z.imaginary)) > fractal->escape_value)
 		{
-			fractal->color = map_color(i,fractal->iterations, TOMATO*0.1, WHITE*0.2);
+			fractal->color = map_color(((z.real * z.real) + (z.imaginary * z.imaginary)),i,fractal->iterations, TOMATO*0.1, WHITE*0.2);
+			//fractal->color = map_color(calculate_mu(z),fractal->iterations, TOMATO, GOLD);
 			mlx_put_pixel(fractal->img, x, y, fractal->color);
 			return;
 		}
