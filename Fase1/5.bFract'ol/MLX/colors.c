@@ -66,16 +66,16 @@
 //     return ESCAPE_COUNT + 1 - log_magnitude / log(2.0);
 // }
 
-// // Function to map a value from one range to another
-// static double mapp(double value, double from_min, double from_max, double to_min, double to_max)
-// {
-//     return (value - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
-// }
+// Function to map a value from one range to another
+static double mapp(double value, double from_min, double from_max, double to_min, double to_max)
+{
+    return (value - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
+}
 
 // // Function to map the fractional escape count (mu) to a color
 // uint32_t map_color(double mu, double max_iterations, uint32_t color_start, uint32_t color_end)
 // {
-    
+
 // 	// Normalize mu to the range [0, 1]
 //     double mu_normalized = mu / max_iterations;
 
@@ -94,7 +94,22 @@
 // }
 
 
-int map_color(double pei,int iteration, int max_iteration, int color1, int color2)
+// double map_color(double pei,int iteration, int max_iteration, int color1, int color2)
+// {
+//     double mu;
+//     //double modulus;
+
+//     // Calculate mu
+//     mu = iteration + 1 - log(log(fabs(pei))) / log(2);
+
+//     // Map mu to color
+//     double color = (double)((1 - mu) * color1 + mu * color2);
+
+//     return color;
+// }
+
+
+double map_color(double pei,int iteration, int max_iteration, int color1, int color2)
 {
     double mu;
     //double modulus;
@@ -102,8 +117,30 @@ int map_color(double pei,int iteration, int max_iteration, int color1, int color
     // Calculate mu
     mu = iteration + 1 - log(log(fabs(pei))) / log(2);
 
-    // Map mu to color
-    int color = (int)((1 - mu) * color1 + mu * color2);
+	// Normalize mu to the range [0, 1]
+    double mu_normalized = mu / max_iteration;
 
-    return color;
+    // Interpolate between color_start and color_end based on mu_normalized
+    int red = (int)(mapp(mu_normalized, 0.0, 1.0, (WHITE >> 16) & 0xFF, (TOMATO >> 16) & 0xFF));
+    //printf("a%d\n",(WHITE >> 16) & 0xFF);
+
+    int green = (int)(mapp(mu_normalized, 0.0, 1.0, (color1 >> 8) & 0xFF, (color2 >> 8) & 0xFF));
+    int blue = (int)(mapp(mu_normalized, 0.0, 1.0, color1 & 0xFF, color2 & 0xFF));
+
+    // Ensure RGB values are in the valid range [0, 255]
+    red = fmin(255, fmax(0, red));
+   // printf("b%d\n",red);
+    green = fmin(255, fmax(0, green));
+    blue = fmin(255, fmax(0, blue));
+
+    // Pack the RGB values into an RGBA color
+    return ((uint32_t)red << 16) | ((uint32_t)green << 8) | (uint32_t)blue | 0xFF000000; // Alpha set to 255 (opaque)
 }
+
+//     // Map mu to color
+//     double color = (double)((1 - mu) * color1 + mu * color2);
+
+//     return color;
+// }
+
+

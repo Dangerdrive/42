@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/09/28 22:01:32 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/04 21:27:58 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,6 @@ typedef struct s_fractal
 	double		y_shift;
 	int		mouse_x;
 	int		mouse_y;
-	double		arg_x;
-	double		arg_y;
 	double		radius;
 	int			iterations;
 	int			color;
@@ -185,7 +183,9 @@ void 		fractal_init(t_fractal *fractal);
  * @param[t_] fractal The image to use as icon.
  *
  */
-void fractal_render(t_fractal *fractal);
+
+void mandelbrot_render(t_fractal *fractal);
+void julia_render(t_fractal *fractal);
 
 /**
  * Maps a value from one range to another using linear interpolation.
@@ -204,7 +204,7 @@ double	map(double unscaled_num, double old_max, double new_min, double new_max);
 
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);
-int map_color(double pei, int iteration, int max_iteration, int color1, int color2);
+double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
 
 
 /**

@@ -166,10 +166,22 @@ static void error(void)
 // 	//printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
+void	update_render(t_fractal *fractal)
+{
+	if(fractal->id == MANDELBROT)
+	{
+		mandelbrot_render(fractal);
+	}
+	if(fractal->id == JULIA)
+	{
+		julia_render(fractal);
+	}
+}
+
 void	zoom(t_fractal *fractal)
 {
-	fractal->x_shift = fractal->mouse_x * fractal->zoom;
-	fractal->y_shift = fractal->mouse_y * fractal->zoom;
+//	fractal->x_shift = fractal->mouse_x * fractal->zoom;
+//	fractal->y_shift = fractal->mouse_y * fractal->zoom;
 }
 
 /**
@@ -221,7 +233,7 @@ void scrollhook(double xdelta, double ydelta, void* param)
 	update_mouse_pos(fractal_ptr);
 	//printf("%f\n", fractal_ptr->zoom);
 	zoom(fractal_ptr);
-	fractal_render(fractal_ptr);
+	update_render(fractal_ptr);
 }
 
 static void ft_hook(void* fractal)
@@ -245,7 +257,7 @@ static void ft_hook(void* fractal)
 	// 		select_fractal(fractal_ptr);
 	// if (mlx_is_key_down(data->mlx, MLX_KEY_R))
 	// 		reset_fractal(fractal_ptr);
-	fractal_render(fractal_ptr);
+	update_render(fractal_ptr);
 }
 
 int	main(int argc, char **argv)
@@ -255,11 +267,15 @@ int	main(int argc, char **argv)
 	if ((argc == 2 && !strncmp(argv[1], "mandelbrot", 10))
 		|| (argc == 4 && !strncmp(argv[1], "julia", 5)))
 	{
-		fractal.name = argv[1];
+		if(argc == 2 && !strncmp(argv[1], "mandelbrot", 10))
+			fractal.id = MANDELBROT;
+		if(argc == 4 && !strncmp(argv[1], "julia", 5))
+			fractal.id = JULIA;
+		//fractal.name = argv[1];
 		// fractal.arg_x = ft_atod(argv[2]);
 		// fractal.arg_y = ft_atod(argv[3]);
 		fractal_init(&fractal);
-		fractal_render(&fractal);
+		update_render(&fractal);
 		mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
 		//mlx_mouse_hook(fractal.mlx, &mouse_hook, &fractal);
 		mlx_loop_hook(fractal.mlx, ft_hook, &fractal);

@@ -10,8 +10,9 @@
 // 		fractal->name = MANDELBROT;
 // }
 
-static void	data_init(t_fractal *fractal)
+static void	mandelbrot_data_init(t_fractal *fractal)
 {
+	fractal->name = "Mandelbrot";
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = -0.5;
@@ -19,10 +20,24 @@ static void	data_init(t_fractal *fractal)
 	fractal->zoom = 0.79;
 }
 
+static void	julia_data_init(t_fractal *fractal)
+{
+	fractal->name = "Julia";
+	fractal->escape_value = 4.0;
+	fractal->iterations = 100.0;
+	fractal->x_shift = 0.0;
+	fractal->y_shift = 0.0;
+	fractal->zoom = 1;
+}
+
 void	fractal_init(t_fractal *fractal)
 {
+	if(fractal->id == MANDELBROT)
+		mandelbrot_data_init(fractal);
+	if(fractal->id == JULIA)
+		julia_data_init(fractal);
 	puts("press G for guide");
-fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, true);//tentar ver com alguem qual a diferença, já que o init aqui já cria a janela. Criar um item mlx connection na struct?
+fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, true);
 	if(!fractal->mlx)
 		exit(EXIT_FAILURE); // (da documentação)
 fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
@@ -33,8 +48,8 @@ fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 			exit(EXIT_FAILURE);// confirmar se esse seria o jeito certo de dar free
 		}
 //events_init(fractal);
-data_init(fractal);
 }
+
 
 
 
