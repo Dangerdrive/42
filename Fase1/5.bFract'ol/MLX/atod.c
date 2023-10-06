@@ -74,3 +74,17 @@ while ((*str >= '0' && *str <= '9') && *str && *str != '.')
 	}
 	return ((integer_part + decimal_part) * sign);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	double	d;
+
+// 	if (argc != 2)
+// 	{
+// 		printf("Usage: %s <number>\n", argv[0]);
+// 		return (1);
+// 	}
+// 	d = ft_atod(argv[1]);
+// 	printf("d: %f\n", d);
+// 	return (0);
+// }

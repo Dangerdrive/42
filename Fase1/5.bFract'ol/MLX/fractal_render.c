@@ -60,11 +60,10 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 	}
 }
 
-void	handle_julia_pixel(int x, int y, t_fractal *fractal, t_complex c)
+void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	int 		i;
-	printf("%d",fractal->id);
 
 	i = 0;
 	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
@@ -72,12 +71,13 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal, t_complex c)
 
 	while (i < fractal->iterations)
 	{
-		z = complex_sum(complex_sqr(z), c);
-		if ((((z.real * z.real) + (z.imaginary * z.imaginary)) < fractal->escape_value))
-			mlx_put_pixel(fractal->img, x, y, WHITE);
+		z = complex_sum(complex_sqr(z), fractal->c);
+		// if ((((z.real * z.real) + (z.imaginary * z.imaginary)) < fractal->escape_value))
+		// 	mlx_put_pixel(fractal->img, x, y, WHITE);
 		if (((z.real * z.real) + (z.imaginary * z.imaginary)) > fractal->escape_value)
 		{
-			mlx_put_pixel(fractal->img, x, y, GOLD);
+		fractal->color = map(i,fractal->iterations, CYAN*0.2, CYAN*0.7);
+			mlx_put_pixel(fractal->img, x, y, fractal->color);
 			return;
 		}
 		i++;
@@ -105,15 +105,12 @@ void julia_render(t_fractal *fractal)
 	int y;
 	int x;
 
-	fractal->c.imaginary = 0.156;
-	fractal->c.real = -0.8;
-
 	y = -1;
 	while (++y < HEIGHT)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			handle_julia_pixel(x, y, fractal, fractal->c);
+			handle_julia_pixel(x, y, fractal);
 	}
 mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/04 21:27:58 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:04:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,6 @@ typedef struct s_complex
     double		imaginary;
 }	t_complex;
 
-// typedef struct s_data {
-//     void    *mlx;
-//     void    *mlx_win;
-//     void	*img;
-//     char	*addr;
-//     int		bits_per_pixel;
-//     int		line_length;
-//     int		endian;
-// } t_data;
 typedef struct s_map
 {
 	double		old_min;
@@ -173,7 +164,7 @@ int		ft_strncmp(const char *str1, const char *str2, size_t n);
  * @param[t_] fractal The image to use as icon.
  *
  */
-void 		fractal_init(t_fractal *fractal);
+void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y);
 
 /**
  * Lets you set a custom image as the program icon.
@@ -242,3 +233,6 @@ double	ft_atod(char *str);
 //git@github.com:Xyckens/fract-ol.git
 //gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 //valgrind --leak-check=full -s ./a.out mandelbrot
+
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia 0.285 0.01
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia -0.8 0.156

@@ -1,18 +1,25 @@
 #include "fractol.h"
 
-// void	select_fractal(t_fractal *fractal)
-// {
-// 	if (fractal->name == MANDELBROT)
-// 		fractal->name = JULIA;
-// 	else if (fractal->name == JULIA)
-// 		fractal->name = BURNINGSHIP;
-// 	else
-// 		fractal->name = MANDELBROT;
-// }
+void	select_fractal(t_fractal *fractal)
+{
+	if (fractal->id == MANDELBROT)
+	{
+		fractal->id = JULIA;
+		fractal->c.real = (drand48()*4) - 2;
+		fractal->c.imaginary = (drand48()*4) - 2;
+		puts("\nJulia set selected - random c values applied\n");
+	printf("c = %f + %fi\n", fractal->c.real, fractal->c.imaginary);
+	}
+	// else if (fractal->id == JULIA)
+	// 	fractal->id = BURNINGSHIP;
+	else
+		fractal->id = MANDELBROT;
+}
 
 static void	mandelbrot_data_init(t_fractal *fractal)
 {
 	fractal->name = "Mandelbrot";
+	fractal->id = MANDELBROT;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = -0.5;
@@ -20,22 +27,33 @@ static void	mandelbrot_data_init(t_fractal *fractal)
 	fractal->zoom = 0.79;
 }
 
-static void	julia_data_init(t_fractal *fractal)
+static void	julia_data_init(t_fractal *fractal,double c_x, double c_y)
 {
+	// if ((c_x < -2.0 || c_x > 2.0) || (c_y < -2.0 || c_y > 2.0))
+	// {
+	// 	puts("c values must be between -2 and 2");
+	// return;
+	// }
+	
+		
+	
 	fractal->name = "Julia";
+	fractal->id = JULIA;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = 0.0;
 	fractal->y_shift = 0.0;
 	fractal->zoom = 1;
+	fractal->c.real = c_x;
+	fractal->c.imaginary = c_y;	
 }
 
-void	fractal_init(t_fractal *fractal)
+void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 {
-	if(fractal->id == MANDELBROT)
+	if(id == MANDELBROT)
 		mandelbrot_data_init(fractal);
-	if(fractal->id == JULIA)
-		julia_data_init(fractal);
+	if(id == JULIA)
+		julia_data_init(fractal, c_x, c_y);
 	puts("press G for guide");
 fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, true);
 	if(!fractal->mlx)
