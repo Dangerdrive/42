@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/05 20:04:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:03:43 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ typedef struct s_fractal
 	double		radius;
 	int			iterations;
 	int			color;
+	int			r;//
+	int			g;//
+	int			b;//
 }				t_fractal;
 
 
@@ -195,7 +198,8 @@ double	map(double unscaled_num, double old_max, double new_min, double new_max);
 
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);
-double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
+//double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
+int    map_color(mlx_image_t *img, int iter, t_fractal *fractal);
 
 
 /**
