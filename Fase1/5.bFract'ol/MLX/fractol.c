@@ -75,7 +75,8 @@ void cursorhook(double xmouse, double ymouse, void* param)
 	int32_t	y;
 
 	mlx_get_mouse_pos(fractal_ptr->mlx, &x, &y);
-
+	fractal_ptr->mouse_x = x;
+	fractal_ptr->mouse_y = y;
 	if (fractal_ptr->id == JULIA 
 		&& mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT_CONTROL))
 	{
@@ -95,16 +96,23 @@ void scrollhook(double xdelta, double ydelta, void* param)
 	if (fractal_ptr->id == JULIA 
 		&& mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT_SHIFT))
 	{
-		fractal_ptr->c.real += ydelta / 1000;
-		fractal_ptr->c.imaginary += ydelta / 1000;
+		fractal_ptr->c.real += (ydelta / 1000) * fractal_ptr->zoom;
+		fractal_ptr->c.imaginary += (ydelta / 1000) * fractal_ptr->zoom;
 	}
 	else if (ydelta > 0)
 	{
+		//fractal_ptr->shift *=0.9;
 		fractal_ptr->zoom *=0.9;
+		//fractal_ptr->x_shift /= map(fractal_ptr->mouse_x, fractal_ptr->width, -2, +2) * fractal_ptr->zoom;
+		printf("x_shift = %f\n", fractal_ptr->x_shift);
+		//fractal_ptr->y_shift /= map(fractal_ptr->mouse_x, fractal_ptr->width, +2, -2)* fractal_ptr->zoom;
+		
 	}
 	else if (ydelta < 0)
 	{
 		fractal_ptr->zoom *=1.1;
+		fractal_ptr->x_shift *= map(fractal_ptr->mouse_x, fractal_ptr->width, -2, +2) * fractal_ptr->zoom;
+		fractal_ptr->y_shift *= map(fractal_ptr->mouse_x, fractal_ptr->width, +2, -2)* fractal_ptr->zoom;
 	}
 	// update_mouse_pos(fractal_ptr);
 	//zoom(fractal_ptr);

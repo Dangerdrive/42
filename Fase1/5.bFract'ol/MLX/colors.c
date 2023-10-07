@@ -152,17 +152,18 @@ int    map_color(mlx_image_t *img, int iter, t_fractal *fractal)
 
     interpolation_factor = (double)iter / (double)fractal->iterations;
     smoothed_factor = pow(interpolation_factor, 0.9);
-    if (interpolation_factor < 0.955)
+    //printf("smoothed_factor = %f\n",smoothed_factor);
+if (interpolation_factor < smoothed_factor/7)
     {
-        fractal->r = smoothed_factor * 200;
-        fractal->g = smoothed_factor * 255;
-        fractal->b = smoothed_factor * 10;
+        fractal->r = (200 * smoothed_factor);
+        fractal->g = (100 * smoothed_factor) ;
+        fractal->b = (200);
     }
     else
     {
-        fractal->r = ((1 - smoothed_factor) * 255);
-        fractal->g = ((1 - smoothed_factor) * 255);
-        fractal->b = ((1 - smoothed_factor) * 255);
+        fractal->r = (int)((smoothed_factor) * 100);
+        fractal->g = (int)((smoothed_factor) * 255);
+        fractal->b = (int)((smoothed_factor) * 255);
     }
     //color = (fractal->r << 24) | (fractal->g << 16) | (fractal->b << 8) | 255;
 

@@ -53,7 +53,7 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 		{
 			//fractal->color = abs(map_color(((z.real * z.real) + (z.imaginary * z.imaginary)),i,fractal->iterations, 0, 0));
 			// fractal->color = map_color(calculate_mu(z),fractal->iterations, TOMATO, GOLD);
-fractal->color = map_color(fractal->img, i, fractal);
+		fractal->color = map_color(fractal->img, i, fractal);
 			mlx_put_pixel(fractal->img, x, y, fractal->color);
 			return;
 		}
@@ -77,7 +77,8 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 		// 	mlx_put_pixel(fractal->img, x, y, WHITE);
 		if (((z.real * z.real) + (z.imaginary * z.imaginary)) > fractal->escape_value)
 		{
-		fractal->color = map(i,fractal->iterations, CYAN*0.2, CYAN*0.7);
+		//fractal->color = map(i,fractal->iterations, CYAN*0.2, CYAN*0.7);
+		fractal->color = map_color(fractal->img, i, fractal);
 			mlx_put_pixel(fractal->img, x, y, fractal->color);
 			return;
 		}
