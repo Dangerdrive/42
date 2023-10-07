@@ -1,0 +1,42 @@
+//https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension
+
+/*
+diferenças minilibx e MLX codam
+mlx_init -> mlx_init_window
+mlx_init da codam já cria a janela, enquanto a da minilibx não. A da minilibx só cria a conexão.
+então ela recebe parametros para a criação da janela também.
+
+as structs de imagem são diferentes. Você nao tem uma mlx_get_address pra modificar valores da imagem.
+
+typedef struct mlx_image
+{
+	const uint32_t	width;
+	const uint32_t	height;
+	uint8_t*		pixels;
+	mlx_instance_t*	instances;
+	size_t			count;
+	bool			enabled;
+	void*			context;
+}	mlx_image_t;
+
+
+*/
+
+
+// -lm -lmlx -lXext -lX11 -L minilibx-linux/
+
+//link with -lmlx -lXext -lX11 -L path/to/libs/
+// gcc myfile.c -o myfile -lm // -lm is for math.h
+// -lmlx -lXext -lX11 -L
+// https://github.com/codam-coding-college/MLX42
+// AMD ROCm (Radeon Open Compute) is an open-source software foundation for GPU computing on Linux.
+//Install it to try running fractol on GPU
+// CUDA is a parallel computing platform and application programming interface model created by Nvidia.
+// OpenCL (Open Computing Language) is a framework for writing programs that execute across heterogeneous platforms consisting of central processing units (CPUs), graphics processing units (GPUs), digital signal processors (DSPs), field-programmable gate arrays (FPGAs) and other processors or hardware accelerators. OpenCL specifies programming languages (based on C99 and C++11) for programming these devices and application programming interfaces (APIs) to control the platform and execute programs on the compute devices. OpenCL provides a standard interface for parallel computing using task- and data-based parallelism.
+// Overall, OpenCL serves as an open and standard framework for parallel computing across different GPU architectures, similar to how CUDA is specific to NVIDIA GPUs.
+// https://github.com/paulo-santana/fractol-gpu
+//https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+// https://github.com/librity/ft_fractol
+
+
+//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm

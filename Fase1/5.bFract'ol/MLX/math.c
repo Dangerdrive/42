@@ -5,7 +5,7 @@ t_complex	complex_sum(t_complex a, t_complex b)
 	t_complex	c;
 
 	c.real = a.real + b.real;
-	c.imaginary = a.imaginary + b.imaginary;
+	c.i = a.i + b.i;
 	return (c);
 }
 
@@ -13,12 +13,14 @@ t_complex	complex_sqr(t_complex a)
 {
 	t_complex	c;
 
-	c.real = a.real * a.real - a.imaginary * a.imaginary;
-	c.imaginary = 2 * a.real * a.imaginary;
+	c.real = a.real * a.real - a.i * a.i;
+	c.i = 2 * a.real * a.i;
 	return (c);
 }
 double	map(double unscaled_num, double old_max, double new_min, double new_max)
 {
+	if (old_max == 0 || new_max == 0)
+    	return 1;
 	double old_min;
 	double	scaled_num;
 
