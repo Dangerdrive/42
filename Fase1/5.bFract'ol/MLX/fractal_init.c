@@ -8,10 +8,10 @@ void	select_fractal(t_fractal *fractal)
 		fractal->c.real = (drand48() * 1.2) - 0.8;
 		fractal->c.i = fractal->c.i = (drand48() * 1.4) - 0.7;
 		puts("\nJulia set selected - random c values applied\n");
-	printf("c = %f + %fi\n", fractal->c.real, fractal->c.i);
+		printf("c = %f + %fi\n", fractal->c.real, fractal->c.i);
 	}
 	// else if (fractal->id == JULIA)
-	// 	fractal->id = BURNINGSHIP;
+	// 	fractal->id = TRICORN;
 	else
 		fractal->id = MANDELBROT;
 }

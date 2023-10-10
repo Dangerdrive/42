@@ -17,6 +17,16 @@ t_complex	complex_sqr(t_complex a)
 	c.i = 2 * a.real * a.i;
 	return (c);
 }
+
+t_complex complex_conjugate(t_complex a)
+{
+	t_complex c;
+
+	c.real = a.real;
+	c.i = -a.i;
+	return c;
+}
+
 double	map(double unscaled_num, double old_max, double new_min, double new_max)
 {
 	if (old_max == 0 || new_max == 0)

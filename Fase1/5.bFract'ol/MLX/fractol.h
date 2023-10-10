@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 19:01:32 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:18:30 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef enum sets
 {
 	MANDELBROT,
 	JULIA,
+	TRICORN,
 	VELA,
 	MOUSE
 }	t_sets;
@@ -151,8 +152,6 @@ double	map(double unscaled_num, double old_max, double new_min, double new_max);
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);
 //double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
-int    map_color(mlx_image_t *img, int iter, t_fractal *fractal);
-
 
 /**
  * Adds two complex numbers together.
@@ -179,18 +178,18 @@ t_complex complex_sum(t_complex a, t_complex b);
  */
 t_complex complex_sqr(t_complex a);
 
-void	guide(void);
-void	select_fractal(t_fractal *fractal);
-double	ft_atod(char *str);
-void	randomize_julia(t_fractal *fractal_ptr);
-void	mandelbrot_data_init(t_fractal *fractal);
-void	randomize_julia(t_fractal *fractal_ptr);
-void keyhook(void* fractal);
-void scrollhook(double xdelta, double ydelta, void* param);
-void cursorhook(double xmouse, double ymouse, void* param);
-void	julia_data_init(t_fractal *fractal,double c_x, double c_y);
-void	update_render(t_fractal *fractal);
-
+void		guide(void);
+void		select_fractal(t_fractal *fractal);
+double		ft_atod(char *str);
+void		randomize_julia(t_fractal *fractal_ptr);
+void		mandelbrot_data_init(t_fractal *fractal);
+void		randomize_julia(t_fractal *fractal_ptr);
+void 		keyhook(void* fractal);
+void 		scrollhook(double xdelta, double ydelta, void* param);
+void		cursorhook(double xmouse, double ymouse, void* param);
+void		julia_data_init(t_fractal *fractal,double c_x, double c_y);
+void		update_render(t_fractal *fractal);
+int 		map_color(int iter, int color, t_fractal *fractal);
 
 #endif
 

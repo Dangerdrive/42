@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_mandelbrot.c                                     :+:      :+:    :+:   */
+/*   f_tricorn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/09 20:13:13 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:27:40 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot_data_init(t_fractal *fractal)
+void	tricorn_data_init(t_fractal *fractal)
 {
-	fractal->name = "❄️ Mandelbrot ❄️";
-	fractal->id = MANDELBROT;
+	fractal->name = "❄️ Tricorn ❄️";
+	fractal->id = TRICORN;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = -0.5;
 	fractal->y_shift = 0.0;
 	fractal->zoom = 1;
 }
-void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
+void handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 {
-	fractal->color = CYAN;
-	t_complex	z;
-	t_complex	c;
-	int 		i;
+	t_complex z;
+	t_complex c;
+	int i;
 
 	i = 0;
 	z.real = 0.0;
@@ -38,19 +37,23 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 
 	while (i < fractal->iterations)
 	{
-		z = complex_sum(complex_sqr(z), c);
-		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-			mlx_put_pixel(fractal->img, x, y, WHITE);
-		else
+		z = (complex_sum(complex_conjugate(complex_sqr(z))),c); // Use complex_conjugate here.
+		// z = complex_sum(z, c);
+		if (((z.real * z.real) + (z.i * z.i)) < fractal->escape_value)
 		{
-		fractal->color = map_color(i, fractal->color, fractal);
-		mlx_put_pixel(fractal->img, x, y, fractal->color);
-		return;
+	        mlx_put_pixel(fractal->img, x, y, WHITE);
+        }
+    	else if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
+		{
+			fractal->color = map_color(i, fractal->color, fractal);
+			mlx_put_pixel(fractal->img, x, y, fractal->color);
+			return;
 		}
 		i++;
 	}
 }
-void mandelbrot_render(t_fractal *fractal)
+
+void tricorn_render(t_fractal *fractal)
 {
 	int y;
 	int x;
@@ -60,7 +63,7 @@ void mandelbrot_render(t_fractal *fractal)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			handle_mandelbrot_pixel(x, y, fractal);
+			handle_tricorn_pixel(x, y, fractal);
 	}
 mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }
