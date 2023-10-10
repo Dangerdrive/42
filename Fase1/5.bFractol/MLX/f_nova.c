@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 00:43:58 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:59:28 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	nova_data_init(t_fractal *fractal)
 {
+	fractal->color = GOLD;
 	fractal->name = "❄️ nova ❄️";
 	fractal->id = NOVA;
 	fractal->escape_value = 4.0;
@@ -22,11 +23,11 @@ void	nova_data_init(t_fractal *fractal)
 	fractal->y_shift = 0.0;
 	fractal->zoom = 1;
 }
-void handle_nova_pixel(int x, int y, t_fractal *fractal)
+void	handle_nova_pixel(int x, int y, t_fractal *fractal)
 {
-	t_complex z;
-	t_complex c;
-	int i;
+	t_complex	z;
+	t_complex	c;
+	int			i;
 
 	i = 0;
 	z.real = 0.0;
@@ -54,10 +55,10 @@ void handle_nova_pixel(int x, int y, t_fractal *fractal)
 }
 
 
-void nova_render(t_fractal *fractal)
+void	nova_render(t_fractal *fractal)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (++y < HEIGHT)
@@ -66,5 +67,5 @@ void nova_render(t_fractal *fractal)
 		while (++x < WIDTH)
 			handle_nova_pixel(x, y, fractal);
 	}
-mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
+	mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }

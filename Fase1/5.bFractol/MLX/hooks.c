@@ -6,12 +6,21 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 00:31:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:32:09 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/**
+ * Handles keyboard input events.
+ *
+ * This function processes keyboard input events and updates the state
+ * of the fractal 'fractal' based on the pressed keys. It supports
+ * actions such as zooming, panning, color selection, and fractal type switching.
+ *
+ * @param[in] fractal A pointer to the fractal structure to be updated.
+ */
 void	keyhook(void *fractal)
 {
 	t_fractal	*fractal_ptr;
@@ -31,8 +40,10 @@ void	keyhook(void *fractal)
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
 		if (fractal_ptr->x_shift <= 2.5)
 			fractal_ptr->x_shift += 0.1 * fractal_ptr->zoom;
-	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
-		guide();
+	// if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
+	// 	guide();
+	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_C))
+		pick_color(fractal_ptr);
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_R))
 		randomize_julia(fractal_ptr);
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_TAB))
@@ -40,6 +51,17 @@ void	keyhook(void *fractal)
 	update_render(fractal_ptr);
 }
 
+/**
+ * Handles scroll wheel input events.
+ *
+ * This function processes scroll wheel input events and updates the state
+ * of the fractal 'fractal' based on the scroll direction and modifiers.
+ * It supports zooming and panning functionalities.
+ *
+ * @param[in] xdelta The horizontal scroll delta.
+ * @param[in] ydelta The vertical scroll delta.
+ * @param[in] param A pointer to the fractal structure to be updated.
+ */
 void	scrollhook(double xdelta, double ydelta, void *param)
 {
 	t_fractal	*fractal_ptr;
@@ -72,6 +94,17 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	update_render(fractal_ptr);
 }
 
+/**
+ * Handles cursor (mouse) position events.
+ *
+ * This function processes cursor (mouse) position events and updates the state
+ * of the fractal 'fractal_ptr' based on the cursor's position and modifiers.
+ * It supports actions such as adjusting the Julia set parameter 'c'.
+ *
+ * @param[in] xmouse The x-coordinate of the cursor.
+ * @param[in] ymouse The y-coordinate of the cursor.
+ * @param[in] param A pointer to the fractal structure to be updated.
+ */
 void	cursorhook(double xmouse, double ymouse, void *param)
 {
 	t_fractal	*fractal_ptr;

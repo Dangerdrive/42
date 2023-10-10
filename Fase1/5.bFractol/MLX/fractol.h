@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 00:53:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:55:32 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@
 # include "MLX42/MLX42.h"
 //# include "libft/libft.h" //for ft_putstr_fd, ft_strcmp
 
+/**
+ * @enum t_sets
+ * @brief Represents different types of fractal sets.
+ *
+ * This enumeration defines symbolic constants representing various types
+ * of fractal sets, including Mandelbrot, Julia, Tricorn, Vela, and Nova.
+ * These constants are used to identify and specify the type of fractal
+ * being rendered or manipulated in the code.
+ */
 typedef enum sets
 {
 	MANDELBROT,
@@ -66,8 +75,9 @@ typedef enum sets
  *
  * This struct represents a complex number. It has two members:
  *
- *   @param real: The real part of the number and X axis of the complex plane.
- *   @param imaginary: The imaginary part of the number and Y axis of the complex plane.
+ *  @param real: The real part of the number and X axis of the complex plane.
+ *  @param imaginary: The imaginary part of the number and 
+ * 	Y axis of the complex plane.
  */
 typedef struct s_complex
 {
@@ -75,38 +85,40 @@ typedef struct s_complex
 	double		i;
 }	t_complex;
 
-typedef struct s_map
-{
-	double		old_min;
-	double		old_max;
-	double		new_min;
-	double		new_max;
-}	t_map;
-
+/**
+ * @struct t_fractal
+ * @brief Represents a fractal rendering configuration.
+ *
+ * This structure stores information related to fractal rendering and
+ * configuration settings. It is used to control the rendering of different
+ * types of fractals and manage their properties.
+ */
 typedef struct s_fractal
 {
 	char		*name;
 	int			id;
-	mlx_image_t*	img;
+	mlx_image_t	*img;
 	void		*mlx;
 	int			width;
 	int			height;
 	t_complex	c;
 	double		escape_value;
 	double		zoom;
-	double		x;
-	double		y;
+	//double		x;
+	//double		y;
 	double		x_shift;
 	double		y_shift;
 	int			mouse_x;
 	int			mouse_y;
-	double		radius;
+	//double		radius;
 	int			iterations;
 	int			color;
 	int			r;
 	int			g;
 	int			b;
 }				t_fractal;
+
+
 
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 
@@ -130,48 +142,15 @@ void		fractal_init(t_fractal *fractal, int id, double c_x, double c_y);
 void		mandelbrot_render(t_fractal *fractal);
 void		julia_render(t_fractal *fractal);
 
-/**
- * Maps a value from one range to another using linear interpolation.
- *
- * This function takes an unscaled number and maps it from an old range
- * defined by old_max and old_min to a new range defined by new_max and new_min.
- * The result is the scaled number within the new range.
- *
- * @param[in] unscaled_num The value to be mapped from the old range to the new range.
- * @param[in] new_max The maximum value of the new range.
- * @param[in] new_min The minimum value of the new range.
- *
- * @return The scaled number within the new range.
- */
+
 double		map(double unscaled_num, double old_max, double new_min, double new_max);
 
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);
 //double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
 
-/**
- * Adds two complex numbers together.
- *
- * This function takes two complex numbers 'a' and 'b' and computes their sum,
- * resulting in a new complex number 'sum'.
- *
- * @param[in] a The first complex number to be added.
- * @param[in] b The second complex number to be added.
- *
- * @return The sum of the two complex numbers 'a' and 'b'.
- */
-t_complex	complex_sum(t_complex a, t_complex b);
 
-/**
- * Computes the square of a complex number.
- *
- * This function takes a complex number 'a' and computes its square,
- * resulting in a new complex number 'squared'.
- *
- * @param[in] a The complex number to be squared.
- *
- * @return The square of the complex number 'a'.
- */
+t_complex	complex_sum(t_complex a, t_complex b);
 t_complex	complex_sqr(t_complex a);
 
 void		guide(void);
@@ -191,6 +170,15 @@ void		tricorn_render(t_fractal *fractal);
 t_complex	complex_conjugate(t_complex a);
 void		vela_render(t_fractal *fractal);
 void		nova_render(t_fractal *fractal);
+void		tricorn_data_init(t_fractal *fractal);
+
+void		vela_data_init(t_fractal *fractal);
+
+void		nova_data_init(t_fractal *fractal);
+
+void		mandelbrot_data_init(t_fractal *fractal);
+void		pick_color(t_fractal *fractal);
+
 
 #endif
 

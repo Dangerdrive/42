@@ -6,12 +6,20 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:44:47 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 22:44:48 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:32:38 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/**
+ * Display a guide with control instructions.
+ *
+ * This function prints a guide to the console, providing instructions
+ * for controlling the fractal rendering program. It includes information
+ * about key controls for exiting, moving, zooming, changing fractal types,
+ * and randomizing the Julia set.
+ */
 void	guide(void)
 {
 	puts("Controls:\n" \

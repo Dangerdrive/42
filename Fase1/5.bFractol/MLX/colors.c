@@ -142,6 +142,49 @@
 
 //     return color;
 // }
+
+/**
+ * Picks a color for the fractal based on its type.
+ *
+ * This function assigns a color value to the fractal's 'color' field
+ * depending on the fractal's type (e.g., Mandelbrot, Julia, Tricorn, etc.).
+ *
+ * @param[in,out] fractal A pointer to the fractal structure to be updated with the selected color.
+ */
+void	pick_color(t_fractal *fractal)
+{
+	if (fractal->id == MANDELBROT)
+	{
+		fractal->color = 0x000000FF;
+	}
+	else if (fractal->id == JULIA)
+	{
+		fractal->color = 0x0000FFFF;
+	}
+	else if (fractal->id == TRICORN)
+	{
+		fractal->color = 0x00FF00FF;
+	}
+	else if (fractal->id == VELA)
+	{
+		fractal->color = 0xFF0000FF;
+	}
+	else
+	{
+		fractal->color = 0x00FFFFFF;
+	}
+}
+
+/**
+ * Splits a 32-bit color value into its red, green, and blue components.
+ *
+ * This function takes a 32-bit color value as input and extracts its red (R),
+ * green (G), and blue (B) components. It then assigns these components to the
+ * respective fields in the given fractal structure.
+ *
+ * @param[in] base_color The 32-bit color value to be split.
+ * @param[in,out] fractal A pointer to the fractal structure where color components will be stored.
+ */
 void	split_rgb(int32_t base_color, t_fractal *fractal)
 {
 	fractal->r = base_color >> 24 & 0xFF;
@@ -149,6 +192,20 @@ void	split_rgb(int32_t base_color, t_fractal *fractal)
 	fractal->b = base_color >> 8 & 0xFF;
 }
 
+/**
+ * Maps an iteration count to a color for smoother gradient-based coloring.
+ *
+ * This function takes an iteration count, a base color, and a fractal 
+ * structure to compute a color based on a smoothed interpolation factor. 
+ * The interpolated color is calculated to create smoother gradient
+ * transitions between colors in the fractal rendering.
+ *
+ * @param[in] iter The current iteration count.
+ * @param[in] color The base color used for interpolation.
+ * @param[in] fractal A pointer to the fractal structure.
+ *
+ * @return The interpolated color based on the iteration count.
+ */
 int	map_color(int iter, int color, t_fractal *fractal)
 {
 	double	interpolation_factor;
@@ -170,8 +227,5 @@ int	map_color(int iter, int color, t_fractal *fractal)
 		fractal->g = (int)((smoothed_factor) * 255);
 		fractal->b = (int)((smoothed_factor) * 255);
 	}
-	//color = (fractal->r << 24) | (fractal->g << 16) | (fractal->b << 8) | 255;
-
-	//mlx_put_pixel(img, fractal->x, fractal->y, color);
 	return ((fractal->r << 24) | (fractal->g << 16) | (fractal->b << 8) | 255);
 }

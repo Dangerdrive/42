@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 00:50:12 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:25:23 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@ void	vela_data_init(t_fractal *fractal)
 	fractal->zoom = 1;
 }
 
+/**
+ * Handles the rendering of a Vela fractal pixel.
+ *
+ * @param[in] x The x-coordinate of the pixel.
+ * @param[in] y The y-coordinate of the pixel.
+ * @param[in] fractal The fractal structure containing rendering parameters.
+ */
 void	handle_vela_pixel(int x, int y, t_fractal *fractal)
 {
+	fractal->color = TOMATO;
 	t_complex	z;
 	t_complex	c;
 	double		z_real_temp;
@@ -54,6 +62,11 @@ void	handle_vela_pixel(int x, int y, t_fractal *fractal)
 	}
 }
 
+/**
+ * Renders the Vela fractal using the provided fractal structure.
+ *
+ * @param[in] fractal The fractal structure containing rendering parameters.
+ */
 void	vela_render(t_fractal *fractal)
 {
 	int	y;

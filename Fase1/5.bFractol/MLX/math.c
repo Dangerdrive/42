@@ -6,12 +6,23 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:56:38 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 00:26:21 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:24:51 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/**
+ * Adds two complex numbers together.
+ *
+ * This function takes two complex numbers 'a' and 'b' and computes their sum,
+ * resulting in a new complex number 'sum'.
+ *
+ * @param[in] a The first complex number to be added.
+ * @param[in] b The second complex number to be added.
+ *
+ * @return The sum of the two complex numbers 'a' and 'b'.
+ */
 t_complex	complex_sum(t_complex a, t_complex b)
 {
 	t_complex	c;
@@ -21,9 +32,11 @@ t_complex	complex_sum(t_complex a, t_complex b)
 	return (c);
 }
 
+
 /**
  * Computes the square of a complex number.
  *
+ * 
  * This function takes a complex number 'a' and computes its square,
  * resulting in a new complex number 'squared'.
  *
@@ -40,6 +53,17 @@ t_complex	complex_sqr(t_complex a)
 	return (c);
 }
 
+/**
+ * @brief Computes the complex conjugate of a complex number.
+ *
+ * This function takes a complex number 'a' and computes its complex conjugate,
+ * resulting in a new complex number 'conjugate':
+ * it mantains the real part and invert the imaginary part.
+ *
+ * @param[in] a The complex number for which to compute the complex conjugate.
+ *
+ * @return The complex conjugate of the complex number 'a'.
+ */
 t_complex	complex_conjugate(t_complex a)
 {
 	t_complex	c;
@@ -49,30 +73,52 @@ t_complex	complex_conjugate(t_complex a)
 	return (c);
 }
 
-t_complex	complex_power(t_complex a, int n)
+/**
+ * Computes the power of a complex number to a positive integer exponent.
+ * 
+ * This function raises a complex number 'a' to the power of a 
+ * positive integer 'exponent',
+ * resulting in a new complex number 'result'.
+ *
+ * @param[in] a The complex number to be raised to the power 'n'.
+ * @param[in] exponent The positive integer exponent.
+ *
+ * @return The result of raising 'a' to the power 'n'.
+ */
+t_complex	complex_power(t_complex a, int exponent)
 {
 	t_complex	result;
 	t_complex	temp;
+	int			i;
 
-	// Initialize result to (1, 0)
 	result.real = 1.0;
 	result.i = 0.0;
-	// Perform the power operation using repeated multiplication
-	int i = 0;
-	while (i < n)
+	i = 0;
+	while (i < exponent)
 	{
-	// Store the current result in temp
 		temp = result;
-
-	// Multiply temp by a and update result
 		result.real = temp.real * a.real - temp.i * a.i;
 		result.i = temp.real * a.i + temp.i * a.real;
-
 		i++;
 	}
 	return (result);
 }
 
+/**
+ * Maps a value from one range to another using linear interpolation.
+ *
+ * This function takes an unscaled number and maps it from an old range
+ * defined by old_max and old_min to a new range defined by 
+ * new_max and new_min.
+ * The result is the scaled number within the new range.
+ *
+ * @param[in] unscaled_num The value to be mapped from the 
+ * old range to the new range.
+ * @param[in] new_max The maximum value of the new range.
+ * @param[in] new_min The minimum value of the new range.
+ *
+ * @return The scaled number within the new range.
+ */
 double	map(double unscaled_num, double old_max, double new_min, double new_max)
 {
 	double	old_min;
