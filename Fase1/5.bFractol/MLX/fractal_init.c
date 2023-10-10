@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 22:39:41 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:10:55 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	select_fractal(t_fractal *fractal)
 		fractal->c.i = (drand48() * 1.4) - 0.7;
 		puts("\nJulia set selected - random c values applied\n");
 	}
-	// else if (fractal->id == JULIA)
-	// 	fractal->id = BURNINGSHIP;
+	else if (fractal->id == JULIA)
+		fractal->id = TRICORN;
+	else if (fractal->id == TRICORN)
+		fractal->id = VELA;
 	else
 		fractal->id = MANDELBROT;
 }

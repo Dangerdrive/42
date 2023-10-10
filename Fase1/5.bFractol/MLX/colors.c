@@ -18,6 +18,10 @@
 
 
 
+
+
+
+
 // int	map_color(int i, int max_iterations, int start_color, int end_color)
 // {
 // 	double mu = i + 1 - log(log(fabs(z))) / log(2.0); // Calculate mu value
@@ -138,20 +142,27 @@
 
 //     return color;
 // }
+void	split_rgb(int32_t base_color, t_fractal *fractal)
+{
+	fractal->r = base_color >> 24 & 0xFF;
+	fractal->g = base_color >> 16 & 0xFF;
+	fractal->b = base_color >> 8 & 0xFF;
+}
 
-int	map_color(mlx_image_t *img, int iter, t_fractal *fractal)
+int	map_color(int iter, int color, t_fractal *fractal)
 {
 	double	interpolation_factor;
 	double	smoothed_factor;
 
+	split_rgb(color, fractal);
 	interpolation_factor = (double)iter / (double)fractal->iterations;
 	smoothed_factor = pow(interpolation_factor, 0.9);
 	//printf("smoothed_factor = %f\n",smoothed_factor);
-	if (interpolation_factor < smoothed_factor / 7)
+	if (interpolation_factor < smoothed_factor * 20)
 	{
-		fractal->r = (200 * smoothed_factor);
-		fractal->g = (100 * smoothed_factor);
-		fractal->b = (200);
+		fractal->r *= smoothed_factor;
+		fractal->g *= smoothed_factor; //C864C8FF
+		fractal->b *= smoothed_factor;
 	}
 	else
 	{
@@ -159,5 +170,8 @@ int	map_color(mlx_image_t *img, int iter, t_fractal *fractal)
 		fractal->g = (int)((smoothed_factor) * 255);
 		fractal->b = (int)((smoothed_factor) * 255);
 	}
+	//color = (fractal->r << 24) | (fractal->g << 16) | (fractal->b << 8) | 255;
+
+	//mlx_put_pixel(img, fractal->x, fractal->y, color);
 	return ((fractal->r << 24) | (fractal->g << 16) | (fractal->b << 8) | 255);
 }

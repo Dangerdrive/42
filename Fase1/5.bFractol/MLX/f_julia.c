@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 23:25:57 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:36:10 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,34 @@
 
 void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 {
+	fractal->color = CYAN;
 	t_complex	z;
-	int			i;
+	int 		i;
 
 	i = 0;
 	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-	z.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
+	z.i = map(y, HEIGHT, +2.0 , -2.0) * fractal->zoom + fractal->y_shift;
+
 	while (i < fractal->iterations)
 	{
 		z = complex_sum(complex_sqr(z), fractal->c);
 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-			mlx_put_pixel(fractal->img, x, y, CYAN*0.99999);
-		if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
+			{
+				//fractal->color = map_color(i, fractal->color * 0.9, fractal);
+				mlx_put_pixel(fractal->img, x, y, fractal->color * 0.9995);
+			}
+		//if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
+		else
 		{
-		//fractal->color = map(i,fractal->iterations, CYAN*0.2, CYAN*0.7);
-			fractal->color = map_color(fractal->img, i, fractal);
+		fractal->color = map_color(i, fractal->color, fractal);
 			mlx_put_pixel(fractal->img, x, y, fractal->color);
-			return ;
+			return;
 		}
 		i++;
 	}
 }
 
-void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
+void	julia_data_init(t_fractal *fractal,double c_x, double c_y)
 {
 	fractal->name = "❄️ Julia ❄️";
 	fractal->id = JULIA;
@@ -52,15 +57,15 @@ void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
 void	randomize_julia(t_fractal *fractal_ptr)
 {
 	fractal_ptr->c.real = (drand48() * 1.2) - 0.8;
-	fractal_ptr->c.i = (drand48() * 1.4) - 0.7;
+	fractal_ptr->c.i = fractal_ptr->c.i = (drand48() * 1.4) - 0.7;
 	puts("\nJulia set selected - random c values applied\n");
 	//printf("c = %f + %fi\n", fractal_ptr->c.real, fractal_ptr->c.i);
 }
 
-void	julia_render(t_fractal *fractal)
+void julia_render(t_fractal *fractal)
 {
-	int	y;
-	int	x;
+	int y;
+	int x;
 
 	y = -1;
 	while (++y < HEIGHT)
@@ -69,5 +74,5 @@ void	julia_render(t_fractal *fractal)
 		while (++x < WIDTH)
 			handle_julia_pixel(x, y, fractal);
 	}
-	mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
+mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }

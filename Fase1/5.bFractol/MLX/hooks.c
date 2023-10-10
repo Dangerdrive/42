@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 23:46:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:31:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	//zoom(fractal_ptr);
 	update_render(fractal_ptr);
 }
+
 void	cursorhook(double xmouse, double ymouse, void *param)
 {
 	t_fractal	*fractal_ptr;
@@ -83,7 +84,7 @@ void	cursorhook(double xmouse, double ymouse, void *param)
 	{
 		fractal_ptr->c.real = map(fractal_ptr->mouse_x, WIDTH, -0.8, +0.4);
 		//printf("c.real = %f\n", fractal_ptr->c.real);
-		fractal_ptr->c.i = map(fractal_ptr->mouse_y, HEIGHT, +0.7 , -0.7);
+		fractal_ptr->c.i = map(fractal_ptr->mouse_y, HEIGHT, +0.7, -0.7);
 		//printf("c.i = %f\n", fractal_ptr->c.i);
 		update_render(fractal_ptr);
 	}

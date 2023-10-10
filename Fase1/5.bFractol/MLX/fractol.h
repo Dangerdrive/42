@@ -6,11 +6,11 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 22:44:15 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:53:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define WIDTH 720
@@ -55,8 +55,9 @@ typedef enum sets
 {
 	MANDELBROT,
 	JULIA,
+	TRICORN,
 	VELA,
-	MOUSE
+	NOVA
 }	t_sets;
 
 /**
@@ -84,28 +85,28 @@ typedef struct s_map
 
 typedef struct s_fractal
 {
-	char			*name;
-	int				id;
+	char		*name;
+	int			id;
 	mlx_image_t*	img;
-	void			*mlx;
-	int				width;
-	int				height;
-	t_complex		c;
-	double			escape_value;
-	double			zoom;
-	double			x;
-	double			y;
-	double			x_shift;
-	double			y_shift;
-	int				mouse_x;
-	int				mouse_y;
-	double			radius;
-	int				iterations;
-	int				color;
-	int				r;
-	int				g;
-	int				b;
-}					t_fractal;
+	void		*mlx;
+	int			width;
+	int			height;
+	t_complex	c;
+	double		escape_value;
+	double		zoom;
+	double		x;
+	double		y;
+	double		x_shift;
+	double		y_shift;
+	int			mouse_x;
+	int			mouse_y;
+	double		radius;
+	int			iterations;
+	int			color;
+	int			r;
+	int			g;
+	int			b;
+}				t_fractal;
 
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 
@@ -147,8 +148,6 @@ double		map(double unscaled_num, double old_max, double new_min, double new_max)
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);
 //double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
-int		map_color(mlx_image_t *img, int iter, t_fractal *fractal);
-
 
 /**
  * Adds two complex numbers together.
@@ -181,10 +180,23 @@ double		ft_atod(char *str);
 void		randomize_julia(t_fractal *fractal_ptr);
 void		mandelbrot_data_init(t_fractal *fractal);
 void		randomize_julia(t_fractal *fractal_ptr);
-void		keyhook(void *fractal);
-void		scrollhook(double xdelta, double ydelta, void *param);
-void		cursorhook(double xmouse, double ymouse, void *param);
+void		keyhook(void	*fractal);
+void		scrollhook(double xdelta, double ydelta, void	*param);
+void		cursorhook(double xmouse, double ymouse, void	*param);
 void		julia_data_init(t_fractal *fractal, double c_x, double c_y);
 void		update_render(t_fractal *fractal);
+int			map_color(int iter, int color, t_fractal *fractal);
+t_complex	complex_power(t_complex a, int n);
+void		tricorn_render(t_fractal *fractal);
+t_complex	complex_conjugate(t_complex a);
+void		vela_render(t_fractal *fractal);
+void		nova_render(t_fractal *fractal);
 
 #endif
+
+//git@github.com:Xyckens/fract-ol.git
+//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+//valgrind --leak-check=full -s ./a.out mandelbrot
+
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia 0.285 0.01
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia -0.8 0.156
