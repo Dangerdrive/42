@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 15:55:32 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:26:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 # define FRACTOL_H
 # define WIDTH 720
 # define HEIGHT 720
-# define BLACK 0x000000FF
-# define WHITE 0xFFFFFFFF
-# define MAGENTA 0xFF00FFFF   // Magenta
-# define CYAN 0x00FFFFFF   // Cyan
-# define YELLOW 0xFFFF00FF   // Yellow
-# define ORANGE 0xFFA500FF   // Orange
-# define PURPLE 0x800080FF   // Purple
-# define PINK 0xFFC0CBFF   // Pink
-# define LIME 0x32CD32FF   // Lime Green
-# define DEEP 0xFF1493FF   // Deep Pink
-# define GREEN 0x00FF00FF   // Green
-# define VIOLET 0x8A2BE2FF   // Blue Violet
-# define ORANGER 0xFF4500FF   // Orange Red
-# define TOMATO 0xFF6347FF   // Tomato
-# define AQUA        0x00FFFFFF
-# define TEAL        0x008080FF
-# define GOLD        0xFFD700FF
-# define SILVER      0xC0C0C0FF
-# define GRAY        0x808080FF
-# define BROWN       0xA52A2AFF
+# define BLACK	0x000000FF
+# define WHITE	0xFFFFFFFF
+# define MAGENTA	0xFF00FFFF   // Magenta
+# define CYAN	0x00FFFFFF   // Cyan
+# define YELLOW	0xFFFF00FF   // Yellow
+# define ORANGE	0xFFA500FF   // Orange
+# define PURPLE	0x800080FF   // Purple
+# define PINK	0xFFC0CBFF   // Pink
+# define LIME	0x32CD32FF   // Lime Green
+# define DEEP	0xFF1493FF   // Deep Pink
+# define GREEN	0x00FF00FF   // Green
+# define VIOLET	0x8A2BE2FF   // Blue Violet
+# define ORANGER	0xFF4500FF   // Orange Red
+# define TOMATO	0xFF6347FF   // Tomato
+# define AQUA	0x00FFFFFF
+# define TEAL	0x008080FF
+# define GOLD	0xFFD700FF
+# define SILVER	0xC0C0C0FF
+# define GRAY	0x808080FF
+# define BROWN 	0xA52A2AFF
 # define PARAM_MSG "Error - incorrect params\n\n" \
 "params:\t \033[1m\033[38;5;110mmandelbrot\n" \
 "\t julia \033[0m\033[38;5;115m<real> <imaginary>\033[0m\n\n" \
@@ -69,6 +69,13 @@ typedef enum sets
 	NOVA
 }	t_sets;
 
+typedef enum colors
+{
+	CYAN,
+	GOLD
+
+}	t_colors;
+
 /**
  * @struct t_complex
  * @brief A complex number.
@@ -76,7 +83,7 @@ typedef enum sets
  * This struct represents a complex number. It has two members:
  *
  *  @param real: The real part of the number and X axis of the complex plane.
- *  @param imaginary: The imaginary part of the number and 
+ *  @param imaginary: The imaginary part of the number and
  * 	Y axis of the complex plane.
  */
 typedef struct s_complex

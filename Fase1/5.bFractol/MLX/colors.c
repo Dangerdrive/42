@@ -195,8 +195,8 @@ void	split_rgb(int32_t base_color, t_fractal *fractal)
 /**
  * Maps an iteration count to a color for smoother gradient-based coloring.
  *
- * This function takes an iteration count, a base color, and a fractal 
- * structure to compute a color based on a smoothed interpolation factor. 
+ * This function takes an iteration count, a base color, and a fractal
+ * structure to compute a color based on a smoothed interpolation factor.
  * The interpolated color is calculated to create smoother gradient
  * transitions between colors in the fractal rendering.
  *

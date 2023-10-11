@@ -49,13 +49,27 @@
 
 
 NAME	:= fractol
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+CC = cc
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O3 -Iinclude
+LDFLAGS = -ldl -lglfw -pthread -lm
+LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+SRCS	:= 	./colors.c \
+			./f_julia.c \
+			./f_mandelbrot.c \
+			./fractal_init.c \
+			./guide.c \
+			./fractals.c \
+			./fractol.c \
+			./hooks.c \
+			./main.c \
+			./math.c \
+			./string_utils.c
+OBJS	:= ${SRCS:.c=.o}s
+
+.PHONY: all, clean, fclean, re, libmlx, bonus
 
 all: libmlx $(NAME)
 
@@ -63,7 +77,7 @@ libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
@@ -76,5 +90,3 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: clean all
-
-.PHONY: all, clean, fclean, re, libmlx

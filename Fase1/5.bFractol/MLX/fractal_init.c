@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 18:25:06 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:03:46 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * the provided 'fractal' structure and initializes its data accordingly.
  * It also prints a message to inform the user about the selected fractal type.
  *
- * @param[in,out] fractal A pointer to the fractal structure to be initialized 
+ * @param[in,out] fractal A pointer to the fractal structure to be initialized
  * and updated.
  */
 void	select_fractal(t_fractal *fractal)
@@ -33,31 +33,27 @@ void	select_fractal(t_fractal *fractal)
 	}
 	else if (fractal->id == JULIA)
 		tricorn_data_init(fractal);
-		//fractal->id = TRICORN;
 	else if (fractal->id == TRICORN)
 		vela_data_init(fractal);
-		//fractal->id = VELA;
 	else if (fractal->id == VELA)
 		nova_data_init(fractal);
-//		fractal->id = NOVA;
 	else
 		mandelbrot_data_init(fractal);
-		//fractal->id = MANDELBROT;
 }
 
 /**
- * Initializes a fractal structure with the specified fractal type and 
+ * Initializes a fractal structure with the specified fractal type and
  * parameters.
  *
- * This function initializes a 'fractal' structure with the provided 'id' 
+ * This function initializes a 'fractal' structure with the provided 'id'
  * parameter representing the fractal type. If 'id' corresponds to MANDELBROT or JULIA,
  * additional parameters 'c_x' and 'c_y' are used to initialize the Julia set.
  * It also prints a message to inform the user to press 'G' for the guide.
  *
  * @param[out] fractal A pointer to the fractal structure to be initialized.
  * @param[in] id The fractal type identifier (MANDELBROT, JULIA, etc.).
- * @param[in] c_x The x-coordinate for Julia set initialization (used for JULIA type).
- * @param[in] c_y The y-coordinate for Julia set initialization (used for JULIA type).
+ * @param[in] c_x The x-coordinate for Julia set initialization.
+ * @param[in] c_y The y-coordinate for Julia set initialization.
  */
 void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 {

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 15:07:43 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:44:52 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,40 +49,6 @@ void	zoom(t_fractal *fractal)
 //	fractal->y_shift = fractal->mouse_y * fractal->zoom;
 }
 
-/**
- * @brief Function to update the mouse position so the zoom can be centered
- *
- * @param data The data struct
- */
-void	update_mouse_pos(t_fractal *fractal)
-{
-	int32_t	x;
-	int32_t	y;
-
-	mlx_get_mouse_pos(fractal->mlx, &x, &y);
-	if (x >= 0 && x <= fractal->width)
-		fractal->mouse_x = x;
-	if (y >= 0 && y <= fractal->height)
-		fractal->mouse_y = y;
-	// if (x < 0)
-	// 	fractal->mouse_x = 0;
-	// else if (x > fractal->width)
-	// 	fractal->mouse_x = fractal->width;
-	// else
-	// 	fractal->mouse_x = x;
-	// if (y > 0)
-	// 	fractal->mouse_y = 0;
-	// else if (y < fractal->height)
-	// 	fractal->mouse_y = fractal->height;
-	// else
-	// 	fractal->mouse_y = y;
-
-	// fractal->mouse_x = x;
-	// fractal->mouse_y = y;
-
-	// printf("mouse_x = %d\n", fractal->mouse_x);
-	//printf("mouse_y = %d\n", fractal->mouse_y);
-}
 
 
 /**
