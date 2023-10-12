@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 21:26:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:00:02 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 # define HEIGHT 720
 # define BLACK	0x000000FF
 # define WHITE	0xFFFFFFFF
-# define MAGENTA	0xFF00FFFF   // Magenta
-# define CYAN	0x00FFFFFF   // Cyan
-# define YELLOW	0xFFFF00FF   // Yellow
-# define ORANGE	0xFFA500FF   // Orange
-# define PURPLE	0x800080FF   // Purple
-# define PINK	0xFFC0CBFF   // Pink
-# define LIME	0x32CD32FF   // Lime Green
-# define DEEP	0xFF1493FF   // Deep Pink
-# define GREEN	0x00FF00FF   // Green
-# define VIOLET	0x8A2BE2FF   // Blue Violet
-# define ORANGER	0xFF4500FF   // Orange Red
-# define TOMATO	0xFF6347FF   // Tomato
+# define MAGENTA	0xFF00FFFF
+# define CYAN	0x00FFFFFF
+# define YELLOW	0xFFFF00FF
+# define ORANGE	0xFFA500FF
+# define PURPLE	0x800080FF
+# define PINK	0xFFC0CBFF
+# define LIME	0x32CD32FF
+# define DEEP	0xFF1493FF
+# define GREEN	0x00FF00FF
+# define VIOLET	0x8A2BE2FF
+# define ORANGER	0xFF4500FF
+# define TOMATO	0xFF6347FF
 # define AQUA	0x00FFFFFF
 # define TEAL	0x008080FF
 # define GOLD	0xFFD700FF
@@ -65,16 +65,15 @@ typedef enum sets
 	MANDELBROT,
 	JULIA,
 	TRICORN,
-	VELA,
-	NOVA
+	BURNING
 }	t_sets;
 
-typedef enum colors
-{
-	CYAN,
-	GOLD
+// typedef enum color
+// {
+// 	CYAN,
+// 	GOLD
 
-}	t_colors;
+// }	t_color;
 
 /**
  * @struct t_complex
@@ -119,7 +118,9 @@ typedef struct s_fractal
 	int			mouse_y;
 	//double		radius;
 	int			iterations;
+	int			color_id;
 	int			color;
+	int			color2;
 	int			r;
 	int			g;
 	int			b;
@@ -148,9 +149,8 @@ void		fractal_init(t_fractal *fractal, int id, double c_x, double c_y);
 
 void		mandelbrot_render(t_fractal *fractal);
 void		julia_render(t_fractal *fractal);
-
-
-double		map(double unscaled_num, double old_max, double new_min, double new_max);
+double		map(double unscaled_num, double old_max, double new_min,
+				double new_max);
 
 //double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
 //int	map_color(int i, int max_iterations, int start_color, int end_color);

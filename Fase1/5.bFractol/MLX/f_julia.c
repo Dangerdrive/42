@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 15:37:00 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:54:53 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
  */
 void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 {
-	fractal->color = CYAN;
 	t_complex	z;
-	int 		i;
+	int			i;
 
 	i = 0;
 	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
@@ -44,11 +43,11 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 				mlx_put_pixel(fractal->img, x, y, fractal->color * 0.9995);
 			}
 		//if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
-		else
+		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
 		{
-		fractal->color = map_color(i, fractal->color, fractal);
-			mlx_put_pixel(fractal->img, x, y, fractal->color);
-			return ;
+		fractal->color2 = map_color(i, fractal->color, fractal);
+		mlx_put_pixel(fractal->img, x, y, fractal->color2);
+		return ;
 		}
 		i++;
 	}
@@ -69,6 +68,7 @@ void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
 {
 	fractal->name = "❄️ Julia ❄️";
 	fractal->id = JULIA;
+	fractal->color = CYAN;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = 0.0;

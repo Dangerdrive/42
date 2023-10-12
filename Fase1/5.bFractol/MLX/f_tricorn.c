@@ -6,30 +6,33 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 18:32:09 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 21:25:02 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /**
- * Initializes the fractal structure with parameters for rendering the Tricorn fractal.
+ * Initializes the fractal structure with parameters for rendering the 
+ * Tricorn fractal.
  *
- * @param[in] fractal The fractal structure to be initialized.
+ * @param[in] fractal The fractal struct to be initialized.
  */
 void	tricorn_data_init(t_fractal *fractal)
 {
 	fractal->name = "❄️ Tricorn ❄️";
+	fractal->color = TOMATO;
 	fractal->id = TRICORN;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
-	fractal->x_shift = -0.5;
+	fractal->x_shift = -0.0;
 	fractal->y_shift = 0.0;
 	fractal->zoom = 1;
 }
 
 /**
- * Renders a Tricorn fractal pixel at coordinates (x, y) within the given fractal structure.
+ * Renders a Tricorn fractal pixel at coordinates (x, y) within the given 
+ * fractal struct.
  *
  * @param[in] x       The x-coordinate of the pixel.
  * @param[in] y       The y-coordinate of the pixel.
@@ -37,7 +40,6 @@ void	tricorn_data_init(t_fractal *fractal)
  */
 void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 {
-	fractal->color = TOMATO;
 	t_complex	z;
 	t_complex	c;
 	int			i;
@@ -57,8 +59,8 @@ void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 		}
 		else if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
 		{
-			fractal->color = map_color(i, fractal->color, fractal);
-			mlx_put_pixel(fractal->img, x, y, fractal->color);
+			fractal->color2 = map_color(i, fractal->color, fractal);
+			mlx_put_pixel(fractal->img, x, y, fractal->color2);
 			return ;
 		}
 		i++;

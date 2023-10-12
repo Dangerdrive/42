@@ -149,30 +149,31 @@
  * This function assigns a color value to the fractal's 'color' field
  * depending on the fractal's type (e.g., Mandelbrot, Julia, Tricorn, etc.).
  *
- * @param[in,out] fractal A pointer to the fractal structure to be updated with the selected color.
+ * @param[in,out] fractal A pointer to the fractal structure to be updated 
+ * with the selected color.
  */
 void	pick_color(t_fractal *fractal)
 {
-	if (fractal->id == MANDELBROT)
-	{
-		fractal->color = 0x000000FF;
-	}
-	else if (fractal->id == JULIA)
-	{
-		fractal->color = 0x0000FFFF;
-	}
-	else if (fractal->id == TRICORN)
-	{
-		fractal->color = 0x00FF00FF;
-	}
-	else if (fractal->id == VELA)
-	{
-		fractal->color = 0xFF0000FF;
-	}
+	if (fractal->color == CYAN)
+		fractal->color = GOLD;
+	else if (fractal->color == GOLD)
+		fractal->color = TOMATO;
+	else if (fractal->color == TOMATO)
+		fractal->color = PINK;
+	else if (fractal->color == PINK)
+		fractal->color = DEEP;
+	else if (fractal->color == DEEP)
+		fractal->color = ORANGER;
+	else if (fractal->color == ORANGER)
+		fractal->color = VIOLET;
+	else if (fractal->color == VIOLET)
+		fractal->color = TEAL;
+	else if (fractal->color == TEAL)
+		fractal->color = BROWN;
+	else if (fractal->color == BROWN)
+		fractal->color = MAGENTA;
 	else
-	{
-		fractal->color = 0x00FFFFFF;
-	}
+		fractal->color = CYAN;
 }
 
 /**
@@ -183,7 +184,8 @@ void	pick_color(t_fractal *fractal)
  * respective fields in the given fractal structure.
  *
  * @param[in] base_color The 32-bit color value to be split.
- * @param[in,out] fractal A pointer to the fractal structure where color components will be stored.
+ * @param[in,out] fractal A pointer to the fractal structure where color 
+ * components will be stored.
  */
 void	split_rgb(int32_t base_color, t_fractal *fractal)
 {
@@ -214,11 +216,10 @@ int	map_color(int iter, int color, t_fractal *fractal)
 	split_rgb(color, fractal);
 	interpolation_factor = (double)iter / (double)fractal->iterations;
 	smoothed_factor = pow(interpolation_factor, 0.9);
-	//printf("smoothed_factor = %f\n",smoothed_factor);
 	if (interpolation_factor < smoothed_factor * 20)
 	{
 		fractal->r *= smoothed_factor;
-		fractal->g *= smoothed_factor; //C864C8FF
+		fractal->g *= smoothed_factor;
 		fractal->b *= smoothed_factor;
 	}
 	else

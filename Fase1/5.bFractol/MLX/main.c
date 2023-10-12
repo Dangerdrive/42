@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 20:44:52 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 21:59:12 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ void	update_render(t_fractal *fractal)
 {
 	if (fractal->id == MANDELBROT)
 	{
+		//mandelbrot_data_init(fractal);
 		mandelbrot_render(fractal);
 	}
 	if (fractal->id == JULIA)
 	{
+		//julia_data_init(fractal);
 		julia_render(fractal);
 	}
 	if (fractal->id == TRICORN)
 	{
+		//tricorn_data_init(fractal);
 		tricorn_render(fractal);
 	}
 	if (fractal->id == VELA)
@@ -61,13 +64,15 @@ bool	check_input(int argc, char **argv, t_fractal *fractal)
 	if (argc == 2 && !strncmp(argv[1], "mandelbrot", 10))
 		fractal_init(fractal, MANDELBROT, 0, 0);
 	else if (argc == 4 && !strncmp(argv[1], "julia", 5))
+	{
 		if (ft_atod(argv[2]) >= -2.0 && ft_atod(argv[2]) <= 2.0
 			&& ft_atod(argv[3]) >= -2.0 && ft_atod(argv[3]) <= 2.0)
 			fractal_init(fractal, JULIA, ft_atod(argv[2]), ft_atod(argv[3]));
+	}
 	else if (argc == 2 && !strncmp(argv[1], "tricorn", 7))
 		fractal_init(fractal, TRICORN, 0, 0);
-	else if (argc == 2 && !strncmp(argv[1], "vela", 4))
-		fractal_init(fractal, VELA, 0, 0);
+	else if (argc == 2 && !strncmp(argv[1], "burningship", 12))
+		fractal_init(fractal, BURNING, 0, 0);
 	else
 		return (false);
 	return (true);

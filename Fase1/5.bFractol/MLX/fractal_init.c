@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 21:03:46 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:00:34 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	select_fractal(t_fractal *fractal)
  * parameters.
  *
  * This function initializes a 'fractal' structure with the provided 'id'
- * parameter representing the fractal type. If 'id' corresponds to MANDELBROT or JULIA,
+ * parameter representing the fractal type. If 'id' corresponds to 
+ * MANDELBROT or JULIA,
  * additional parameters 'c_x' and 'c_y' are used to initialize the Julia set.
  * It also prints a message to inform the user to press 'G' for the guide.
  *
@@ -61,6 +62,10 @@ void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 		mandelbrot_data_init(fractal);
 	if (id == JULIA)
 		julia_data_init(fractal, c_x, c_y);
+	if (id == TRICORN)
+		tricorn_data_init(fractal);
+	if (id == BURNING)
+		burningship_data_init(fractal);
 	puts("press G for guide");
 	fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, false);
 	if (!fractal->mlx)
