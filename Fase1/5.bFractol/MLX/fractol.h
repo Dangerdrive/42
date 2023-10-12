@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:00:02 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:05:04 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,13 +175,10 @@ int			map_color(int iter, int color, t_fractal *fractal);
 t_complex	complex_power(t_complex a, int n);
 void		tricorn_render(t_fractal *fractal);
 t_complex	complex_conjugate(t_complex a);
-void		vela_render(t_fractal *fractal);
-void		nova_render(t_fractal *fractal);
+void		burningship_render(t_fractal *fractal);
 void		tricorn_data_init(t_fractal *fractal);
 
-void		vela_data_init(t_fractal *fractal);
-
-void		nova_data_init(t_fractal *fractal);
+void		burningship_data_init(t_fractal *fractal);
 
 void		mandelbrot_data_init(t_fractal *fractal);
 void		pick_color(t_fractal *fractal);

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 21:59:12 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:03:37 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,21 @@ void	update_render(t_fractal *fractal)
 {
 	if (fractal->id == MANDELBROT)
 	{
-		//mandelbrot_data_init(fractal);
 		mandelbrot_render(fractal);
 	}
 	if (fractal->id == JULIA)
 	{
-		//julia_data_init(fractal);
 		julia_render(fractal);
 	}
 	if (fractal->id == TRICORN)
 	{
-		//tricorn_data_init(fractal);
 		tricorn_render(fractal);
 	}
-	if (fractal->id == VELA)
+	if (fractal->id == BURNING)
 	{
-		vela_render(fractal);
+		burningship_render(fractal);
 	}
-	if (fractal->id == NOVA)
-	{
-		nova_render(fractal);
-	}
+
 }
 
 void	zoom(t_fractal *fractal)
