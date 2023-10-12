@@ -6,19 +6,22 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:03:37 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:36:54 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// Exit the program as failure.
-void	error(void)
-{
-	puts(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
-
+/**
+ * @brief Update the rendering of the fractal based on its current type.
+ *
+ * This function updates the rendering of the fractal based on the fractal type
+ * specified in the `t_fractal` structure. It calls the appropriate rendering
+ * function for the selected fractal type.
+ *
+ * @param[in, out] fractal A pointer to the `t_fractal` structure containing
+ * the fractal type and rendering parameters.
+ */
 void	update_render(t_fractal *fractal)
 {
 	if (fractal->id == MANDELBROT)
@@ -33,11 +36,6 @@ void	update_render(t_fractal *fractal)
 	{
 		tricorn_render(fractal);
 	}
-	if (fractal->id == BURNING)
-	{
-		burningship_render(fractal);
-	}
-
 }
 
 void	zoom(t_fractal *fractal)
@@ -65,8 +63,6 @@ bool	check_input(int argc, char **argv, t_fractal *fractal)
 	}
 	else if (argc == 2 && !strncmp(argv[1], "tricorn", 7))
 		fractal_init(fractal, TRICORN, 0, 0);
-	else if (argc == 2 && !strncmp(argv[1], "burningship", 12))
-		fractal_init(fractal, BURNING, 0, 0);
 	else
 		return (false);
 	return (true);
@@ -86,7 +82,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		puts(PARAM_MSG);
+		param_error();
 		return (EXIT_FAILURE);
 	}
 	mlx_delete_image(fractal.mlx, fractal.img);

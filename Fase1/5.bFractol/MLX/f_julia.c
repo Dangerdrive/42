@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 20:54:53 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:03:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 		z = complex_sum(complex_sqr(z), fractal->c);
 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
 			{
-				//fractal->color = map_color(i, fractal->color * 0.9, fractal);
 				mlx_put_pixel(fractal->img, x, y, fractal->color * 0.9995);
 			}
 		//if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)

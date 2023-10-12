@@ -6,11 +6,23 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:44:47 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 15:32:38 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:11:48 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+/**
+ * Display an error message and exit the program.
+ *
+ * This function prints an error message to the console and exits the program
+ * with a failure status.
+ */
+void	error(void)
+{
+	puts(mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}
 
 /**
  * Display a guide with control instructions.
@@ -29,4 +41,20 @@ void	guide(void)
 	"\tuse \033[1m\033[38;5;110mleft_shift + scroll\033[0m for zoom\n" \
 	"\tpress \033[1m\033[38;5;110mTAB\033[0m to change fractal\n" \
 	"\tpress \033[1m\033[38;5;110mR\033[0m to randomize julia set\n");
+}
+
+/**
+ * Display an error message for incorrect parameters.
+ *
+ * This function prints an error message to the console when the program
+ * is called with incorrect parameters.
+ */
+void	param_error(void)
+{
+	puts("Error - incorrect params\n\n" \
+"params:\t \033[1m\033[38;5;110mmandelbrot\n" \
+"\t julia \033[0m\033[38;5;115m<real> <imaginary>\033[0m\n\n" \
+"examples:\n" \
+"./fractol julia \033[38;5;115m-0.8 0.156\033[0m\n" \
+"./fractol julia \033[38;5;115m-0.8 0.156\n");
 }

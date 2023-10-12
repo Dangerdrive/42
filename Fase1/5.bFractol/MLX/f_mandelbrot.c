@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 21:58:03 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:53:43 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	mandelbrot_data_init(t_fractal *fractal)
 	fractal->id = MANDELBROT;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
-	fractal->x_shift = -0.5;
+	fractal->x_shift = -0.7;
 	fractal->y_shift = 0.0;
-	fractal->zoom = 1;
+	fractal->zoom = 0.7;
+	fractal->xmin = -2.0;
+	fractal->xmax = 2.0;
+	fractal->ymin = -2.0;
+	fractal->ymax = 2.0;
 }
 
 /**
@@ -36,6 +40,33 @@ void	mandelbrot_data_init(t_fractal *fractal)
  * @param[in] y The y-coordinate of the pixel.
  * @param[in] fractal The fractal structure containing rendering parameters.
  */
+// void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
+// {
+// 	t_complex	z;
+// 	t_complex	c;
+// 	int			i;
+
+// 	i = 0;
+// 	z.real = 0.0;
+// 	z.i = 0.0;
+
+// 	c.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
+// 	c.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
+
+// 	while (i < fractal->iterations)
+// 	{
+// 		z = complex_sum(complex_sqr(z), c);
+// 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
+// 			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
+// 		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
+// 		{
+// 			fractal->color2 = map_color(i, fractal->color, fractal);
+// 			mlx_put_pixel(fractal->img, x, y, fractal->color2);
+// 			return ;
+// 		}
+// 		i++;
+// 	}
+// }
 void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
@@ -46,20 +77,20 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 	z.real = 0.0;
 	z.i = 0.0;
 
-	c.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-	c.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
-
+	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
+		* fractal->zoom + fractal->x_shift;
+	c.i = map(y, HEIGHT, fractal->ymin, fractal->ymax)
+		* fractal->zoom + fractal->y_shift;
 	while (i < fractal->iterations)
 	{
 		z = complex_sum(complex_sqr(z), c);
 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-			mlx_put_pixel(fractal->img, x, y, WHITE);
+			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
 		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
 		{
-		//printf("color %x\n", fractal->color);
-		fractal->color2 = map_color(i, fractal->color, fractal);
-		mlx_put_pixel(fractal->img, x, y, fractal->color2);
-		return ;
+			fractal->color2 = map_color(i, fractal->color, fractal);
+			mlx_put_pixel(fractal->img, x, y, fractal->color2);
+			return ;
 		}
 		i++;
 	}

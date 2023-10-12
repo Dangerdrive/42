@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:07:16 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:04:08 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ void	select_fractal(t_fractal *fractal)
 	}
 	else if (fractal->id == JULIA)
 		tricorn_data_init(fractal);
-	else if (fractal->id == TRICORN)
-		vela_data_init(fractal);
-	else if (fractal->id == BURNING)
-		burningship_data_init(fractal);
 	else
 		mandelbrot_data_init(fractal);
 }
@@ -64,8 +60,6 @@ void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 		julia_data_init(fractal, c_x, c_y);
 	if (id == TRICORN)
 		tricorn_data_init(fractal);
-	if (id == BURNING)
-		burningship_data_init(fractal);
 	puts("press G for guide");
 	fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, false);
 	if (!fractal->mlx)

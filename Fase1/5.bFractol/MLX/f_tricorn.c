@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 21:25:02 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:03:15 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 	c.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
 	while (i < fractal->iterations)
 	{
-		z = (complex_sum(complex_conjugate(complex_sqr(z)),c));
-		// z = complex_sum(z, c);
+		z = (complex_sum(complex_conjugate((complex_sqr(z))), c));
 		if (((z.real * z.real) + (z.i * z.i)) < fractal->escape_value)
 		{
-			// mlx_put_pixel(fractal->img, x, y, WHITE);
+			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));// mlx_put_pixel(fractal->img, x, y, WHITE);
 		}
 		else if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
 		{

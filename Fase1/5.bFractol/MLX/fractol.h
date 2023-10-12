@@ -6,13 +6,14 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:05:04 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:47:48 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //---------------------------------------------------------------------------
 #ifndef FRACTOL_H
 # define FRACTOL_H
+# define ESCAPE_COUNT 100
 # define WIDTH 720
 # define HEIGHT 720
 # define BLACK	0x000000FF
@@ -35,12 +36,7 @@
 # define SILVER	0xC0C0C0FF
 # define GRAY	0x808080FF
 # define BROWN 	0xA52A2AFF
-# define PARAM_MSG "Error - incorrect params\n\n" \
-"params:\t \033[1m\033[38;5;110mmandelbrot\n" \
-"\t julia \033[0m\033[38;5;115m<real> <imaginary>\033[0m\n\n" \
-"examples:\n" \
-"./fractol julia \033[38;5;115m-0.8 0.156\033[0m\n" \
-"./fractol julia \033[38;5;115m-0.8 0.156\n" \
+
 
 # include <fcntl.h>    // for open
 # include <unistd.h>   // for close, read, write
@@ -67,13 +63,6 @@ typedef enum sets
 	TRICORN,
 	BURNING
 }	t_sets;
-
-// typedef enum color
-// {
-// 	CYAN,
-// 	GOLD
-
-// }	t_color;
 
 /**
  * @struct t_complex
@@ -107,16 +96,20 @@ typedef struct s_fractal
 	void		*mlx;
 	int			width;
 	int			height;
+	int			xmin;
+	int			xmax;
+	int			ymin;
+	int			ymax;
+	double		xzoom;
+	double		yzoom;
+	double		zoom_factor;
 	t_complex	c;
 	double		escape_value;
 	double		zoom;
-	//double		x;
-	//double		y;
 	double		x_shift;
 	double		y_shift;
 	int			mouse_x;
 	int			mouse_y;
-	//double		radius;
 	int			iterations;
 	int			color_id;
 	int			color;
@@ -131,10 +124,13 @@ typedef struct s_fractal
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 
 /**
- * Lets you set a custom image as the program icon.
+ * @brief Initializes a fractal structure with Mandelbrot set parameters.
  *
- * @param[t_] fractal The image to use as icon.
+ * This function initializes a 'fractal' structure with the parameters
+ * specific to the Mandelbrot set. It sets the fractal's name, type, escape
+ * value, maximum iterations, shifts, zoom level, and Julia constant 'c'.
  *
+ * @param[in,out] fractal A pointer to the fractal structure to be initialized.
  */
 void		fractal_init(t_fractal *fractal, int id, double c_x, double c_y);
 
@@ -175,14 +171,14 @@ int			map_color(int iter, int color, t_fractal *fractal);
 t_complex	complex_power(t_complex a, int n);
 void		tricorn_render(t_fractal *fractal);
 t_complex	complex_conjugate(t_complex a);
-void		burningship_render(t_fractal *fractal);
 void		tricorn_data_init(t_fractal *fractal);
 
-void		burningship_data_init(t_fractal *fractal);
+
 
 void		mandelbrot_data_init(t_fractal *fractal);
 void		pick_color(t_fractal *fractal);
-
+void		param_error(void);
+int			darken_color(t_fractal *fractal);
 
 #endif
 

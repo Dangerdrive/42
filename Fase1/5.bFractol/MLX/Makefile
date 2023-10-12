@@ -61,8 +61,6 @@ SRCS	:= 	./colors.c \
 			./f_mandelbrot.c \
 			./fractal_init.c \
 			./guide.c \
-			./fractals.c \
-			./fractol.c \
 			./hooks.c \
 			./main.c \
 			./math.c \

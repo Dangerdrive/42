@@ -6,12 +6,21 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:57:00 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/07 22:57:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:17:56 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/**
+ * @brief Compares two strings
+ *
+ * @param str1 The first string
+ * @param str2 The second string
+ * @param n The number of characters to compare
+ *
+ * @return int 1 if the strings are equal, 0 otherwise
+ */
 int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
 	size_t	i;
