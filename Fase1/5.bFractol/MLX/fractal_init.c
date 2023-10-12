@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:05:25 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:07:16 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	select_fractal(t_fractal *fractal)
 		tricorn_data_init(fractal);
 	else if (fractal->id == TRICORN)
 		vela_data_init(fractal);
-	else if (fractal->id == VELA)
-		nova_data_init(fractal);
+	else if (fractal->id == BURNING)
+		burningship_data_init(fractal);
 	else
 		mandelbrot_data_init(fractal);
 }

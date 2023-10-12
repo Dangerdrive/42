@@ -6,17 +6,17 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/11 22:02:04 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:06:25 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	nova_burningship_init(t_fractal *fractal)
+void	burningship_init(t_fractal *fractal)
 {
 	fractal->color = GOLD;
 	fractal->name = "❄️ BURNING SHIP ❄️";
-	fractal->id = NOVA;
+	fractal->id = BURNING;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
 	fractal->x_shift = -0.5;
