@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 18:03:15 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:02:28 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	tricorn_data_init(t_fractal *fractal)
 	fractal->id = TRICORN;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100.0;
-	fractal->x_shift = -0.0;
+	fractal->x_shift = -0.1;
 	fractal->y_shift = 0.0;
-	fractal->zoom = 1;
+	fractal->zoom = 0.95;
 }
 
 /**
@@ -54,7 +54,7 @@ void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 		z = (complex_sum(complex_conjugate((complex_sqr(z))), c));
 		if (((z.real * z.real) + (z.i * z.i)) < fractal->escape_value)
 		{
-			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));// mlx_put_pixel(fractal->img, x, y, WHITE);
+			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
 		}
 		else if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
 		{

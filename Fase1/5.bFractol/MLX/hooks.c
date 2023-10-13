@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 20:49:03 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:12:31 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,33 +94,47 @@ void	keyhook(void *fractal)
 // 	update_render(fractal_ptr);
 // }
 
+// void    scrollhook(double xdelta, double ydelta, void *param)
+// {
+//     t_fractal	*fractal_ptr;
+//     double		zoom_factor;
+
+//     fractal_ptr = param;
+
+//     zoom_factor = 1.1;
+//     mlx_get_mouse_pos(fractal_ptr->mlx, &fractal_ptr->mouse_x, &fractal_ptr->mouse_y);
+//     fractal_ptr->xzoom = fractal_ptr->xmin + fractal_ptr->mouse_x * ((fractal_ptr->xmax - fractal_ptr->xmin) / fractal_ptr->width);
+//     fractal_ptr->yzoom = fractal_ptr->ymin + fractal_ptr->mouse_y * ((fractal_ptr->ymax - fractal_ptr->ymin) / fractal_ptr->height);
+//     if (ydelta > 0)
+//     {
+//         fractal_ptr->xmin = fractal_ptr->xzoom - (1.0 / zoom_factor) * (fractal_ptr->xzoom - fractal_ptr->xmin);
+//         fractal_ptr->xmax = fractal_ptr->xzoom + (1.0 / zoom_factor) * (fractal_ptr->xmax - fractal_ptr->xzoom);
+//         fractal_ptr->ymin = fractal_ptr->yzoom - (1.0 / zoom_factor) * (fractal_ptr->yzoom - fractal_ptr->ymin);
+//         fractal_ptr->ymax = fractal_ptr->yzoom + (1.0 / zoom_factor) * (fractal_ptr->ymax - fractal_ptr->yzoom);
+//     }
+//     if (ydelta < 0)
+//     {
+//         fractal_ptr->xmin = fractal_ptr->xzoom - zoom_factor * (fractal_ptr->xzoom - fractal_ptr->xmin);
+//         fractal_ptr->xmax = fractal_ptr->xzoom + zoom_factor * (fractal_ptr->xmax - fractal_ptr->xzoom);
+//         fractal_ptr->ymin = fractal_ptr->yzoom - zoom_factor * (fractal_ptr->yzoom - fractal_ptr->ymin);
+//         fractal_ptr->ymax = fractal_ptr->yzoom + zoom_factor * (fractal_ptr->ymax - fractal_ptr->yzoom);
+//     }
+// }
+
 void    scrollhook(double xdelta, double ydelta, void *param)
 {
-    t_fractal	*fractal_ptr;
-    double		zoom_factor;
-
-    fractal_ptr = param;
-
-    zoom_factor = 1.1;
-    mlx_get_mouse_pos(fractal_ptr->mlx, &fractal_ptr->mouse_x, &fractal_ptr->mouse_y);
-    fractal_ptr->xzoom = fractal_ptr->xmin + fractal_ptr->mouse_x * ((fractal_ptr->xmax - fractal_ptr->xmin) / fractal_ptr->width);
-    fractal_ptr->yzoom = fractal_ptr->ymin + fractal_ptr->mouse_y * ((fractal_ptr->ymax - fractal_ptr->ymin) / fractal_ptr->height);
-    if (ydelta > 0)
-    {
-        fractal_ptr->xmin = fractal_ptr->xzoom - (1.0 / zoom_factor) * (fractal_ptr->xzoom - fractal_ptr->xmin);
-        fractal_ptr->xmax = fractal_ptr->xzoom + (1.0 / zoom_factor) * (fractal_ptr->xmax - fractal_ptr->xzoom);
-        fractal_ptr->ymin = fractal_ptr->yzoom - (1.0 / zoom_factor) * (fractal_ptr->yzoom - fractal_ptr->ymin);
-        fractal_ptr->ymax = fractal_ptr->yzoom + (1.0 / zoom_factor) * (fractal_ptr->ymax - fractal_ptr->yzoom);
-    }
-    if (ydelta < 0)
-    {
-        fractal_ptr->xmin = fractal_ptr->xzoom - zoom_factor * (fractal_ptr->xzoom - fractal_ptr->xmin);
-        fractal_ptr->xmax = fractal_ptr->xzoom + zoom_factor * (fractal_ptr->xmax - fractal_ptr->xzoom);
-        fractal_ptr->ymin = fractal_ptr->yzoom - zoom_factor * (fractal_ptr->yzoom - fractal_ptr->ymin);
-        fractal_ptr->ymax = fractal_ptr->yzoom + zoom_factor * (fractal_ptr->ymax - fractal_ptr->yzoom);
-    }
+	t_fractal	*fractal_ptr;
+double mouse_fractal_x = map(fractal_ptr->mouse_x, WIDTH, fractal_ptr->xmin, fractal_ptr->xmax) * fractal_ptr->zoom + fractal_ptr->x_shift;
+double mouse_fractal_y = map(fractal_ptr->mouse_y, HEIGHT, fractal_ptr->ymin, fractal_ptr->ymax) * fractal_ptr->zoom + fractal_ptr->y_shift;
+mlx_get_mouse_pos(fractal_ptr->mlx, &fractal_ptr->mouse_x, &fractal_ptr->mouse_y);
+if (ydelta > 0)
+	fractal_ptr->zoom *= 0.9;
+else if (ydelta < 0)
+	fractal_ptr->zoom *= 1.1;
+fractal_ptr->x_shift += mouse_fractal_x - map(fractal_ptr->mouse_x, WIDTH, fractal_ptr->xmin, fractal_ptr->xmax) * fractal_ptr->zoom;
+fractal_ptr->y_shift += mouse_fractal_y - map(fractal_ptr->mouse_y, HEIGHT, fractal_ptr->ymin, fractal_ptr->ymax) * fractal_ptr->zoom;
+update_render(fractal_ptr);
 }
-
 /**
  * Handles cursor (mouse) position events.
  *
