@@ -6,51 +6,11 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 18:03:44 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:02:14 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/**
- * Handles the rendering of a Julia set pixel at the specified coordinates.
- *
- * This function computes the color of a Julia set pixel at coordinates (x, y)
- * and updates the pixel in the fractal's image. It iteratively calculates
- * the color based on the Julia set algorithm until it reaches the escape
- * value or maximum iterations.
- *
- * @param[in] x The x-coordinate of the pixel.
- * @param[in] y The y-coordinate of the pixel.
- * @param[in,out] fractal A pointer to the fractal structure containing 
- * parameters and image data.
- */
-void	handle_julia_pixel(int x, int y, t_fractal *fractal)
-{
-	t_complex	z;
-	int			i;
-
-	i = 0;
-	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-	z.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
-
-	while (i < fractal->iterations)
-	{
-		z = complex_sum(complex_sqr(z), fractal->c);
-		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-			{
-				mlx_put_pixel(fractal->img, x, y, fractal->color * 0.9995);
-			}
-		//if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
-		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
-		{
-		fractal->color2 = map_color(i, fractal->color, fractal);
-		mlx_put_pixel(fractal->img, x, y, fractal->color2);
-		return ;
-		}
-		i++;
-	}
-}
 
 /**
  * Initializes the fractal structure with Julia set parameters.
@@ -75,6 +35,43 @@ void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
 	fractal->zoom = 1;
 	fractal->c.real = c_x;
 	fractal->c.i = c_y;
+}
+
+/**
+ * Handles the rendering of a Julia set pixel at the specified coordinates.
+ *
+ * This function computes the color of a Julia set pixel at coordinates (x, y)
+ * and updates the pixel in the fractal's image. It iteratively calculates
+ * the color based on the Julia set algorithm until it reaches the escape
+ * value or maximum iterations.
+ *
+ * @param[in] x The x-coordinate of the pixel.
+ * @param[in] y The y-coordinate of the pixel.
+ * @param[in,out] fractal A pointer to the fractal structure containing 
+ * parameters and image data.
+ */
+void	handle_julia_pixel(int x, int y, t_fractal *fractal)
+{
+	t_complex		z;
+	unsigned int	i;
+
+	i = 0;
+	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
+	z.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
+
+	while (i < fractal->iterations)
+	{
+		z = complex_sum(complex_sqr(z), fractal->c);
+		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
+			mlx_put_pixel(fractal->img, x, y, fractal->color * 0.9995);
+		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
+		{
+			fractal->color2 = map_color(i, fractal->color, fractal);
+			mlx_put_pixel(fractal->img, x, y, fractal->color2);
+			return ;
+		}
+		i++;
+	}
 }
 
 /**

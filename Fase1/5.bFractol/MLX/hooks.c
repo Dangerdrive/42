@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 22:49:48 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:35:18 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,34 +129,33 @@ void	keyhook(void *fractal)
 // 	update_render(fractal_ptr);
 // }
 
-
-
-
-
-void    scrollhook(double xdelta, double ydelta, void *param)
+void	scrollhook(double xdelta, double ydelta, void *param)
 {
-    t_fractal    *st;
-    double        zoom_factor;
+	t_fractal	*st;
+	//double		zoom_factor;
 
-    st = param;
-    zoom_factor = 0.9;
-    mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
-    st->xzoom = st->xmin + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
-    st->yzoom = st->ymin + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
-    if (ydelta > 0)
-    {
-        st->xmin = st->xzoom - (1.0 / zoom_factor) * (st->xzoom - st->xmin);
-        st->xmax = st->xzoom + (1.0 / zoom_factor) * (st->xmax - st->xzoom);
-        st->ymin = st->yzoom - (1.0 / zoom_factor) * (st->yzoom - st->ymin);
-        st->ymax = st->yzoom + (1.0 / zoom_factor) * (st->ymax - st->yzoom);
-    }
-    if (ydelta < 0)
-    {
-        st->xmin = st->xzoom - zoom_factor * (st->xzoom - st->xmin);
-        st->xmax = st->xzoom + zoom_factor * (st->xmax - st->xzoom);
-        st->ymin = st->yzoom - zoom_factor * (st->yzoom - st->ymin);
-        st->ymax = st->yzoom + zoom_factor * (st->ymax - st->yzoom);
-    }
+	xdelta = 0;
+	ydelta = 0;
+	st = param;
+	// zoom_factor = 1.1;
+	// mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
+	// st->xzoom = st->xmin + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
+	// st->yzoom = st->ymin + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
+	// printf("xzoom = %f\n", st->xzoom);
+	// if (ydelta > 0)
+	// {
+	// 	st->xmin = st->xzoom - (1.0 / zoom_factor) * (st->xzoom - st->xmin);
+	// 	st->xmax = st->xzoom + (1.0 / zoom_factor) * (st->xmax - st->xzoom);
+	// 	st->ymin = st->yzoom - (1.0 / zoom_factor) * (st->yzoom - st->ymin);
+	// 	st->ymax = st->yzoom + (1.0 / zoom_factor) * (st->ymax - st->yzoom);
+	// }
+	// if (ydelta < 0)
+	// {
+	// 	st->xmin = st->xzoom - zoom_factor * (st->xzoom - st->xmin);
+	// 	st->xmax = st->xzoom + zoom_factor * (st->xmax - st->xzoom);
+	// 	st->ymin = st->yzoom - zoom_factor * (st->yzoom - st->ymin);
+	// 	st->ymax = st->yzoom + zoom_factor * (st->ymax - st->yzoom);
+	// }
 }
 
 
@@ -226,15 +225,17 @@ void	cursorhook(double xmouse, double ymouse, void *param)
 	t_fractal	*fractal_ptr;
 
 	fractal_ptr = (t_fractal *)param;
+	xmouse = 0;
+	ymouse = 0;
 	mlx_get_mouse_pos(fractal_ptr->mlx, &fractal_ptr->mouse_x,
 		&fractal_ptr->mouse_y);
 	if (fractal_ptr->id == JULIA
 		&& mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT_CONTROL))
 	{
 		fractal_ptr->c.real = map(fractal_ptr->mouse_x, WIDTH, 1.8, -1.8);
-		printf("c.real = %f\n", fractal_ptr->c.real);
+		//printf("c.real = %f\n", fractal_ptr->c.real);
 		fractal_ptr->c.i = map(fractal_ptr->mouse_y, HEIGHT, 1.8, -1.8);
-		printf("c.i = %f\n", fractal_ptr->c.i);
+		//printf("c.i = %f\n", fractal_ptr->c.i);
 		update_render(fractal_ptr);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 22:18:55 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:02:38 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	mandelbrot_data_init(t_fractal *fractal)
 	fractal->color = CYAN;
 	fractal->id = MANDELBROT;
 	fractal->escape_value = 4.0;
-	fractal->iterations = 100.0;
+	fractal->iterations = 100;
 	fractal->x_shift = -0.7;
 	fractal->y_shift = 0.0;
 	fractal->zoom = 0.7;
@@ -69,17 +69,16 @@ void	mandelbrot_data_init(t_fractal *fractal)
 // }
 void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 {
-	t_complex	z;
-	t_complex	c;
-	int			i;
+	t_complex		z;
+	t_complex		c;
+	unsigned int	i;
 
 	i = 0;
 	z.real = 0.0;
 	z.i = 0.0;
+
 	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
 		* fractal->zoom + fractal->x_shift;
-		// printf("c.real = %f\n", c.real);
-		// printf("fractal->x_shift = %f\n", fractal->x_shift);
 	c.i = map(y, HEIGHT, fractal->ymin, fractal->ymax)
 		* fractal->zoom + fractal->y_shift;
 	while (i < fractal->iterations)

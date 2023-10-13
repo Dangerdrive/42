@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 18:36:54 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:51:11 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	update_render(t_fractal *fractal)
 	}
 }
 
-void	zoom(t_fractal *fractal)
-{
-//	fractal->x_shift = fractal->mouse_x * fractal->zoom;
-//	fractal->y_shift = fractal->mouse_y * fractal->zoom;
-}
+// void	zoom(t_fractal *fractal)
+// {
+// //	fractal->x_shift = fractal->mouse_x * fractal->zoom;
+// //	fractal->y_shift = fractal->mouse_y * fractal->zoom;
+// }
 
 
 
@@ -75,8 +75,8 @@ int	main(int argc, char **argv)
 	if (check_input(argc, argv, &fractal))
 	{
 		update_render(&fractal);
-		mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
-		mlx_cursor_hook(fractal.mlx, &cursorhook, &fractal);
+		//mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
+		//mlx_cursor_hook(fractal.mlx, &cursorhook, &fractal);
 		mlx_loop_hook(fractal.mlx, keyhook, &fractal);
 		mlx_loop(fractal.mlx);
 	}

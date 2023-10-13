@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 21:02:28 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:03:11 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	tricorn_data_init(t_fractal *fractal)
  */
 void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 {
-	t_complex	z;
-	t_complex	c;
-	int			i;
+	t_complex		z;
+	t_complex		c;
+	unsigned int	i;
 
 	i = 0;
 	z.real = 0.0;

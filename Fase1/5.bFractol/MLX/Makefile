@@ -48,43 +48,101 @@
 #re: fclean all
 
 
+# NAME	:= fractol
+# CC = cc
+# CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O3 -Iinclude
+# LDFLAGS = -ldl -lglfw -pthread -lm
+# LIBMLX	:= ./MLX42
+
+# HEADERS	:= -I ./ -I $(LIBMLX)/
+# LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+# SRCS	:= 	./colors.c \
+# 			./f_julia.c \
+# 			./f_mandelbrot.c \
+# 			./fractal_init.c \
+# 			./guide.c \
+# 			./hooks.c \
+# 			./main.c \
+# 			./math.c \
+# 			./string_utils.c
+# OBJS	:= ${SRCS:.c=.o}s
+
+# #.PHONY: all, clean, fclean, re, libmlx, bonus
+
+# .PHONY: all, clean, fclean, re, bonus
+
+
+# #all: libmlx $(NAME)
+
+# all: $(NAME)BMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+# %.o: %.c
+# 	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+# $(NAME): $(OBJS)
+# 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+
+# clean:
+# 	@rm -rf $(OBJS)
+# 	@rm -rf $(LIBMLX)/build
+
+# #libmlx:
+# #//@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+# %.o: %.c
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+# $(NAME): $(OBJS)
+# 	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+
+# clean:
+# 	rm -rf $(OBJS)
+# 	rm -rf $(LIBMLX)/build
+
+# fclean: clean
+# 	rm -rf $(NAME)
+
+# re: clean all
+
+
 NAME	:= fractol
-CC = cc
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O3 -Iinclude
-LDFLAGS = -ldl -lglfw -pthread -lm
-LIBMLX	:= ./MLX42
+CC	  := cc
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -Iinclude
+LDFLAGS := -ldl -lglfw -pthread -lm
+LIBMLX  := ./MLX42/build
+SRCS	:= ./colors.c \
+		./f_julia.c \
+		./f_mandelbrot.c \
+		./f_tricorn.c \
+		./fractal_init.c \
+		./guide.c \
+		./hooks.c \
+		./main.c \
+		./math.c \
+		./string_utils.c
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= 	./colors.c \
-			./f_julia.c \
-			./f_mandelbrot.c \
-			./fractal_init.c \
-			./guide.c \
-			./hooks.c \
-			./main.c \
-			./math.c \
-			./string_utils.c
-OBJS	:= ${SRCS:.c=.o}s
+OBJDIR  := obj
+OBJS	:= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
-.PHONY: all, clean, fclean, re, libmlx, bonus
+.PHONY: all clean fclean re
 
-all: libmlx $(NAME)
+bonus:  all
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-
-%.o: %.c
-	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+all:	$(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) -o $(NAME) -L$(LIBMLX) -lmlx42 $(LDFLAGS)
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJDIR) $(NAME)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
-re: clean all
+re:		clean all

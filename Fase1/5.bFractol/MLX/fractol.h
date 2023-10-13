@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 20:47:48 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:04:52 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,95 +90,75 @@ typedef struct s_complex
  */
 typedef struct s_fractal
 {
-	char		*name;
-	int			id;
-	mlx_image_t	*img;
-	void		*mlx;
-	int			width;
-	int			height;
-	int			xmin;
-	int			xmax;
-	int			ymin;
-	int			ymax;
-	double		xzoom;
-	double		yzoom;
-	double		zoom_factor;
-	t_complex	c;
-	double		escape_value;
-	double		zoom;
-	double		x_shift;
-	double		y_shift;
-	int			mouse_x;
-	int			mouse_y;
-	int			iterations;
-	int			color_id;
-	int			color;
-	int			color2;
-	int			r;
-	int			g;
-	int			b;
+	char			*name;
+	int				id;
+	mlx_image_t		*img;
+	void			*mlx;
+	int				width;
+	int				height;
+	double			xmin;
+	double			xmax;
+	double			ymin;
+	double			ymax;
+	double			xzoom;
+	double			yzoom;
+	double			zoom_factor;
+	t_complex		c;
+	double			escape_value;
+	double			zoom;
+	double			x_shift;
+	double			y_shift;
+	int				mouse_x;
+	int				mouse_y;
+	unsigned int	iterations;
+	unsigned int	color;
+	unsigned int	color2;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
 }				t_fractal;
 
+//Color
+unsigned int	map_color(int iter, int color, t_fractal *fractal);
+void			pick_color(t_fractal *fractal);
+unsigned int	darken_color(t_fractal *fractal);
 
 
-int			ft_strncmp(const char *str1, const char *str2, size_t n);
-
-/**
- * @brief Initializes a fractal structure with Mandelbrot set parameters.
- *
- * This function initializes a 'fractal' structure with the parameters
- * specific to the Mandelbrot set. It sets the fractal's name, type, escape
- * value, maximum iterations, shifts, zoom level, and Julia constant 'c'.
- *
- * @param[in,out] fractal A pointer to the fractal structure to be initialized.
- */
-void		fractal_init(t_fractal *fractal, int id, double c_x, double c_y);
-
-/**
- * Lets you set a custom image as the program icon.
- *
- * @param[in] x The MLX instance handle.
- * @param[in] y The MLX instance handle.
- * @param[t_] fractal The image to use as icon.
- *
- */
-
-void		mandelbrot_render(t_fractal *fractal);
-void		julia_render(t_fractal *fractal);
-double		map(double unscaled_num, double old_max, double new_min,
-				double new_max);
-
-//double	map_color(double unscaled_num, double old_max, double new_min, double new_max);
-//int	map_color(int i, int max_iterations, int start_color, int end_color);
-//double map_color(double pei, int iteration, int max_iteration, int color1, int color2);
-
-
-t_complex	complex_sum(t_complex a, t_complex b);
-t_complex	complex_sqr(t_complex a);
-
-void		guide(void);
-void		select_fractal(t_fractal *fractal);
-double		ft_atod(char *str);
-void		randomize_julia(t_fractal *fractal_ptr);
-void		mandelbrot_data_init(t_fractal *fractal);
-void		randomize_julia(t_fractal *fractal_ptr);
-void		keyhook(void	*fractal);
-void		scrollhook(double xdelta, double ydelta, void	*param);
-void		cursorhook(double xmouse, double ymouse, void	*param);
-void		julia_data_init(t_fractal *fractal, double c_x, double c_y);
-void		update_render(t_fractal *fractal);
-int			map_color(int iter, int color, t_fractal *fractal);
-t_complex	complex_power(t_complex a, int n);
-void		tricorn_render(t_fractal *fractal);
-t_complex	complex_conjugate(t_complex a);
-void		tricorn_data_init(t_fractal *fractal);
+int				ft_strncmp(const char *str1, const char *str2, size_t n);
+void			fractal_init(t_fractal *fractal, int id, double c_x,
+					double c_y);
 
 
 
-void		mandelbrot_data_init(t_fractal *fractal);
-void		pick_color(t_fractal *fractal);
-void		param_error(void);
-int			darken_color(t_fractal *fractal);
+//-------Math
+double			map(double unscaled_num, double old_max, double new_min,
+					double new_max);
+t_complex		complex_sum(t_complex a, t_complex b);
+t_complex		complex_sqr(t_complex a);
+t_complex		complex_power(t_complex a, int n);
+t_complex		complex_conjugate(t_complex a);
+
+void			guide(void);
+void			select_fractal(t_fractal *fractal);
+double			ft_atod(char *str);
+//-------Julia Set
+void			julia_data_init(t_fractal *fractal, double c_x, double c_y);
+void			randomize_julia(t_fractal *fractal_ptr);
+void			julia_render(t_fractal *fractal);
+//-------Mandelbrot
+void			mandelbrot_data_init(t_fractal *fractal);
+void			mandelbrot_render(t_fractal *fractal);
+//-------Tricorn
+void			tricorn_render(t_fractal *fractal);
+void			tricorn_data_init(t_fractal *fractal);
+//-------Hooks
+void			keyhook(void	*fractal);
+void			scrollhook(double xdelta, double ydelta, void	*param);
+void			cursorhook(double xmouse, double ymouse, void	*param);
+
+void			update_render(t_fractal *fractal);
+
+void			param_error(void);
 
 #endif
 

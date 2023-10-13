@@ -6,12 +6,11 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:41:15 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 18:21:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:38:13 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 /**
  * Picks a color for the fractal based on its type.
@@ -64,7 +63,17 @@ void	split_rgb(int32_t base_color, t_fractal *fractal)
 	fractal->b = base_color >> 8 & 0xFF;
 }
 
-int	darken_color(t_fractal *fractal)
+/**
+ * Darkens a color by a factor of 10%.
+ *
+ * This function takes a 32-bit color value as input and darkens it by a factor
+ * of 10%. It then returns the new color value.
+ *
+ * @param[in] base_color The 32-bit color value to be darkened.
+ *
+ * @return The darkened color value.
+ */
+unsigned int	darken_color(t_fractal *fractal)
 {	
 	split_rgb(fractal->color, fractal);
 	fractal->r = (int)(fractal->r * 0.100);
@@ -88,7 +97,7 @@ int	darken_color(t_fractal *fractal)
  *
  * @return The interpolated color based on the iteration count.
  */
-int	map_color(int iter, int color, t_fractal *fractal)
+unsigned int	map_color(int iter, int color, t_fractal *fractal)
 {
 	double	interpolation_factor;
 	double	smoothed_factor;
