@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 20:53:43 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:18:55 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.real = 0.0;
 	z.i = 0.0;
-
 	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
 		* fractal->zoom + fractal->x_shift;
+		// printf("c.real = %f\n", c.real);
+		// printf("fractal->x_shift = %f\n", fractal->x_shift);
 	c.i = map(y, HEIGHT, fractal->ymin, fractal->ymax)
 		* fractal->zoom + fractal->y_shift;
 	while (i < fractal->iterations)
