@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 19:04:52 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:50:13 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,13 @@ unsigned int	darken_color(t_fractal *fractal);
 
 
 int				ft_strncmp(const char *str1, const char *str2, size_t n);
+double			ft_atod(char *str);
+
+
 void			fractal_init(t_fractal *fractal, int id, double c_x,
 					double c_y);
-
-
-
+void			select_fractal(t_fractal *fractal);
+void			update_render(t_fractal *fractal);
 //-------Math
 double			map(double unscaled_num, double old_max, double new_min,
 					double new_max);
@@ -137,10 +139,6 @@ t_complex		complex_sum(t_complex a, t_complex b);
 t_complex		complex_sqr(t_complex a);
 t_complex		complex_power(t_complex a, int n);
 t_complex		complex_conjugate(t_complex a);
-
-void			guide(void);
-void			select_fractal(t_fractal *fractal);
-double			ft_atod(char *str);
 //-------Julia Set
 void			julia_data_init(t_fractal *fractal, double c_x, double c_y);
 void			randomize_julia(t_fractal *fractal_ptr);
@@ -156,9 +154,10 @@ void			keyhook(void	*fractal);
 void			scrollhook(double xdelta, double ydelta, void	*param);
 void			cursorhook(double xmouse, double ymouse, void	*param);
 
-void			update_render(t_fractal *fractal);
 
 void			param_error(void);
+void			guide(void);
+
 
 #endif
 
