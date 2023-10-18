@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/17 22:28:11 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:33:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,50 +127,41 @@ void	keyhook(void *fractal)
 // 	update_render(fractal_ptr);
 // }
 
+void	juliascroll(double ydelta, t_fractal *fractol)
+{
+	fractol->c.real += (ydelta / 1000) * fractol->xzoom;
+	fractol->c.i += (ydelta / 1000) * fractol->xzoom;
+}
+
 void	scrollhook(double xdelta, double ydelta, void *param)
 {
-	t_fractal	*st;
+	t_fractal	*fr;
+	double		zoom_factor;
 
-	st = param;
+	fr = param;
 	xdelta = 0;
-	mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
-
+	zoom_factor = 1.1;
+	mlx_get_mouse_pos(fr->mlx, &fr->mouse_x, &fr->mouse_y);
+	fr->xzoom = fr->xmin + fr->mouse_x * ((fr->xmax - fr->xmin) / WIDTH);
+	fr->yzoom = fr->ymin + fr->mouse_y * ((fr->ymax - fr->ymin) / HEIGHT);
+	printf("xzoom = %f\n", fr->xzoom);
+	if (fr->id == JULIA && mlx_is_key_down(fr->mlx, MLX_KEY_LEFT_SHIFT))
+		juliascroll(ydelta, fr);
 	if (ydelta > 0)
 	{
-		st->zoom *= 0.9;
-		st->xmin *= st->zoom + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
-		st->xmax *= st->zoom + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
-		st->ymin *= st->zoom + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
-		st->ymax *= st->zoom + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
+		fr->xmin = fr->xzoom - (1.0 / zoom_factor) * (fr->xzoom - fr->xmin);
+		fr->xmax = fr->xzoom + (1.0 / zoom_factor) * (fr->xmax - fr->xzoom);
+		fr->ymin = fr->yzoom - (1.0 / zoom_factor) * (fr->yzoom - fr->ymin);
+		fr->ymax = fr->yzoom + (1.0 / zoom_factor) * (fr->ymax - fr->yzoom);
 	}
-	else if (ydelta < 0)
+	if (ydelta < 0)
 	{
-		st->zoom *= 1.1;
-		st->xmin *= st->zoom;
-		st->xmax *= st->zoom;
-		st->ymin *= st->zoom;
-		st->ymax *= st->zoom;
+		fr->xmin = fr->xzoom - zoom_factor * (fr->xzoom - fr->xmin);
+		fr->xmax = fr->xzoom + zoom_factor * (fr->xmax - fr->xzoom);
+		fr->ymin = fr->yzoom - zoom_factor * (fr->yzoom - fr->ymin);
+		fr->ymax = fr->yzoom + zoom_factor * (fr->ymax - fr->yzoom);
 	}
-	// zoom_factor = 1.1;
-	// mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
-	// st->xzoom = st->xmin + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
-	// st->yzoom = st->ymin + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
-	// printf("xzoom = %f\n", st->xzoom);
-	// if (ydelta > 0)
-	// {
-	// 	st->xmin = st->xzoom - (1.0 / zoom_factor) * (st->xzoom - st->xmin);
-	// 	st->xmax = st->xzoom + (1.0 / zoom_factor) * (st->xmax - st->xzoom);
-	// 	st->ymin = st->yzoom - (1.0 / zoom_factor) * (st->yzoom - st->ymin);
-	// 	st->ymax = st->yzoom + (1.0 / zoom_factor) * (st->ymax - st->yzoom);
-	// }
-	// if (ydelta < 0)
-	// {
-	// 	st->xmin = st->xzoom - zoom_factor * (st->xzoom - st->xmin);
-	// 	st->xmax = st->xzoom + zoom_factor * (st->xmax - st->xzoom);
-	// 	st->ymin = st->yzoom - zoom_factor * (st->yzoom - st->ymin);
-	// 	st->ymax = st->yzoom + zoom_factor * (st->ymax - st->yzoom);
-	// }
-	update_render(st);
+	update_render(fr);
 }
 
 
@@ -249,44 +240,7 @@ void	cursorhook(double xmouse, double ymouse, void *param)
 		&& mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT_CONTROL))
 	{
 		fractal_ptr->c.real = map(fractal_ptr->mouse_x, WIDTH, 1.8, -1.8);
-		//printf("c.real = %f\n", fractal_ptr->c.real);
 		fractal_ptr->c.i = map(fractal_ptr->mouse_y, HEIGHT, 1.8, -1.8);
-		//printf("c.i = %f\n", fractal_ptr->c.i);
 		update_render(fractal_ptr);
 	}
 }
-
-// /**
-//  * @brief Function to update the mouse position so the zoom can be centered
-//  *
-//  * @param data The data struct
-//  */
-// void	update_mouse_pos(t_fractal *fractal)
-// {
-// 	int32_t	x;
-// 	int32_t	y;
-
-// 	mlx_get_mouse_pos(fractal->mlx, &x, &y);
-// 	if (x >= 0 && x <= fractal->width)
-// 		fractal->mouse_x = x;
-// 	if (y >= 0 && y <= fractal->height)
-// 		fractal->mouse_y = y;
-// 	// if (x < 0)
-// 	// 	fractal->mouse_x = 0;
-// 	// else if (x > fractal->width)
-// 	// 	fractal->mouse_x = fractal->width;
-// 	// else
-// 	// 	fractal->mouse_x = x;
-// 	// if (y > 0)
-// 	// 	fractal->mouse_y = 0;
-// 	// else if (y < fractal->height)
-// 	// 	fractal->mouse_y = fractal->height;
-// 	// else
-// 	// 	fractal->mouse_y = y;
-
-// 	// fractal->mouse_x = x;
-// 	// fractal->mouse_y = y;
-
-// 	// printf("mouse_x = %d\n", fractal->mouse_x);
-// 	//printf("mouse_y = %d\n", fractal->mouse_y);
-// }

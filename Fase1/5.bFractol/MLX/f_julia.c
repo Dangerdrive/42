@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/17 20:48:20 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:35:46 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal)
 	unsigned int	i;
 
 	i = 0;
-	z.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-	z.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
+	z.real = map(x, WIDTH, fractal->xmin, fractal->xmax) + fractal->x_shift;
+	z.i = map(y, HEIGHT, fractal->ymax, fractal->ymin) + fractal->y_shift;
 
 	while (i < fractal->iterations)
 	{

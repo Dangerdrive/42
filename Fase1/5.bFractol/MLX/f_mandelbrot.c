@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/17 22:22:15 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:48:15 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	mandelbrot_data_init(t_fractal *fractal)
 	fractal->id = MANDELBROT;
 	fractal->escape_value = 4.0;
 	fractal->iterations = 100;
-	fractal->x_shift = -0.7;
+	fractal->x_shift = +0.7 * fractal->initial_zoom;
 	fractal->y_shift = 0.0;
-	fractal->zoom = 0.7;
-	fractal->xmin = -2.0;
-	fractal->xmax = 2.0;
-	fractal->ymin = -2.0;
-	fractal->ymax = 2.0;
+	fractal->initial_zoom = 0.7;
+	fractal->zoom_factor = 1.1;
+	fractal->xmin = -2.0 * fractal->initial_zoom;
+	fractal->xmax = 2.0 * fractal->initial_zoom;
+	fractal->ymin = -2.0 * fractal->initial_zoom;
+	fractal->ymax = 2.0 * fractal->initial_zoom;
 }
 
 /**
@@ -52,7 +53,6 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 
 	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
 		+ fractal->x_shift * fractal->zoom ;
-	//printf("c.real = %f\n", c.real);
 	c.i = map(y, HEIGHT, fractal->ymin, fractal->ymax)
 		+ fractal->y_shift * fractal->zoom;
 	while (i < fractal->iterations)

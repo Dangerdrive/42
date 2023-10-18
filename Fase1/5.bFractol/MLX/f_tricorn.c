@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 19:03:11 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:37:46 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	handle_tricorn_pixel(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.real = 0.0;
 	z.i = 0.0;
-	c.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-	c.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
+	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
+		+ fractal->x_shift * fractal->zoom;
+	c.i = map(y, HEIGHT, fractal->ymax, fractal->ymin)
+		+ fractal->y_shift * fractal->zoom;
 	while (i < fractal->iterations)
 	{
 		z = (complex_sum(complex_conjugate((complex_sqr(z))), c));
 		if (((z.real * z.real) + (z.i * z.i)) < fractal->escape_value)
-		{
 			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
-		}
 		else if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
 		{
 			fractal->color2 = map_color(i, fractal->color, fractal);

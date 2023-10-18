@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/17 21:47:27 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:46:29 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_fractal
 	double			zoom_factor;
 	t_complex		c;
 	double			escape_value;
+	double			initial_zoom;	
 	double			zoom;
 	double			x_shift;
 	double			y_shift;

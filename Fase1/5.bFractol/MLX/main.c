@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:49:57 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/17 22:23:29 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:40:13 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 	{
 		update_render(&fractal);
 		mlx_scroll_hook(fractal.mlx, &scrollhook, &fractal);
-		//mlx_cursor_hook(fractal.mlx, &cursorhook, &fractal);
+		mlx_cursor_hook(fractal.mlx, &cursorhook, &fractal);
 		mlx_loop_hook(fractal.mlx, keyhook, &fractal);
 		mlx_loop(fractal.mlx);
 	}
