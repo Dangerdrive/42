@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:56:38 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/10 15:24:51 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:33:00 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ t_complex	complex_sum(t_complex a, t_complex b)
 	return (c);
 }
 
-
 /**
  * Computes the square of a complex number.
- *
- * 
+ * * 
  * This function takes a complex number 'a' and computes its square,
  * resulting in a new complex number 'squared'.
  *

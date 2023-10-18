@@ -40,3 +40,11 @@ typedef struct mlx_image
 
 
 //gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+
+
+//git@github.com:Xyckens/fract-ol.git
+//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+//valgrind --leak-check=full -s ./a.out mandelbrot
+
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia 0.285 0.01
+// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia -0.8 0.156

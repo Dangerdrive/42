@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 19:50:13 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:47:27 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # include <string.h>   // for strerror
 # include <math.h>
 # include "MLX42/MLX42.h"
-//# include "libft/libft.h" //for ft_putstr_fd, ft_strcmp
 
 /**
  * @enum t_sets
@@ -118,27 +117,15 @@ typedef struct s_fractal
 	unsigned int	b;
 }				t_fractal;
 
-//Color
+//-------Colors
 unsigned int	map_color(int iter, int color, t_fractal *fractal);
 void			pick_color(t_fractal *fractal);
 unsigned int	darken_color(t_fractal *fractal);
-
-
-int				ft_strncmp(const char *str1, const char *str2, size_t n);
-double			ft_atod(char *str);
-
 
 void			fractal_init(t_fractal *fractal, int id, double c_x,
 					double c_y);
 void			select_fractal(t_fractal *fractal);
 void			update_render(t_fractal *fractal);
-//-------Math
-double			map(double unscaled_num, double old_max, double new_min,
-					double new_max);
-t_complex		complex_sum(t_complex a, t_complex b);
-t_complex		complex_sqr(t_complex a);
-t_complex		complex_power(t_complex a, int n);
-t_complex		complex_conjugate(t_complex a);
 //-------Julia Set
 void			julia_data_init(t_fractal *fractal, double c_x, double c_y);
 void			randomize_julia(t_fractal *fractal_ptr);
@@ -153,17 +140,19 @@ void			tricorn_data_init(t_fractal *fractal);
 void			keyhook(void	*fractal);
 void			scrollhook(double xdelta, double ydelta, void	*param);
 void			cursorhook(double xmouse, double ymouse, void	*param);
-
-
+//-------Math
+double			map(double unscaled_num, double old_max, double new_min,
+					double new_max);
+t_complex		complex_sum(t_complex a, t_complex b);
+t_complex		complex_sqr(t_complex a);
+t_complex		complex_power(t_complex a, int n);
+t_complex		complex_conjugate(t_complex a);
+//-------Messages
+void			error(void);
 void			param_error(void);
 void			guide(void);
-
+//-------String Utils
+int				ft_strncmp(const char *str1, const char *str2, size_t n);
+double			ft_atod(char *str);
 
 #endif
-
-//git@github.com:Xyckens/fract-ol.git
-//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
-//valgrind --leak-check=full -s ./a.out mandelbrot
-
-// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia 0.285 0.01
-// gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia -0.8 0.156

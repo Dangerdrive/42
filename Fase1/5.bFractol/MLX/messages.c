@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guide.c                                            :+:      :+:    :+:   */
+/*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:44:47 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 17:11:48 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:32:27 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	guide(void)
 	"\tuse \033[1m\033[38;5;110mmouse scroll\033[0m for zoom\n" \
 	"\tuse \033[1m\033[38;5;110mleft_shift + scroll\033[0m for zoom\n" \
 	"\tpress \033[1m\033[38;5;110mTAB\033[0m to change fractal\n" \
+	"\tpress \033[1m\033[38;5;110mC\033[0m to change color\n" \
 	"\tpress \033[1m\033[38;5;110mR\033[0m to randomize julia set\n");
 }
 
@@ -51,10 +52,11 @@ void	guide(void)
  */
 void	param_error(void)
 {
-	puts("Error - incorrect params\n\n" \
+	puts("\n\nError - incorrect params\n\n" \
 "params:\t \033[1m\033[38;5;110mmandelbrot\n" \
+"\t \033[1m\033[38;5;110mtricorn\n" \
 "\t julia \033[0m\033[38;5;115m<real> <imaginary>\033[0m\n\n" \
 "examples:\n" \
-"./fractol julia \033[38;5;115m-0.8 0.156\033[0m\n" \
+"./fractol julia \033[38;5;115m0.285 0.01\033[0m\n" \
 "./fractol julia \033[38;5;115m-0.8 0.156\n");
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 18:35:18 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 22:28:11 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,16 @@ void	keyhook(void *fractal)
 		mlx_close_window(fractal_ptr->mlx);
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_UP))
 		if (fractal_ptr->y_shift <= 2.5)
-			fractal_ptr->y_shift += 0.1 * fractal_ptr->zoom;
+			fractal_ptr->y_shift -= 0.1 * fractal_ptr->zoom;
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_DOWN))
 		if (fractal_ptr->y_shift >= -2.5)
-			fractal_ptr->y_shift -= 0.1 * fractal_ptr->zoom;
+			fractal_ptr->y_shift += 0.1 * fractal_ptr->zoom;
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_LEFT))
 		if (fractal_ptr->x_shift >= -2.5)
 			fractal_ptr->x_shift -= 0.1 * fractal_ptr->zoom;
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_RIGHT))
 		if (fractal_ptr->x_shift <= 2.5)
 			fractal_ptr->x_shift += 0.1 * fractal_ptr->zoom;
-	// if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_G))
-	// 	guide();
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_C))
 		pick_color(fractal_ptr);
 	if (mlx_is_key_down(fractal_ptr->mlx, MLX_KEY_R))
@@ -132,11 +130,27 @@ void	keyhook(void *fractal)
 void	scrollhook(double xdelta, double ydelta, void *param)
 {
 	t_fractal	*st;
-	//double		zoom_factor;
 
-	xdelta = 0;
-	ydelta = 0;
 	st = param;
+	xdelta = 0;
+	mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
+
+	if (ydelta > 0)
+	{
+		st->zoom *= 0.9;
+		st->xmin *= st->zoom + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
+		st->xmax *= st->zoom + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
+		st->ymin *= st->zoom + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
+		st->ymax *= st->zoom + st->mouse_y * ((st->ymax - st->ymin) / HEIGHT);
+	}
+	else if (ydelta < 0)
+	{
+		st->zoom *= 1.1;
+		st->xmin *= st->zoom;
+		st->xmax *= st->zoom;
+		st->ymin *= st->zoom;
+		st->ymax *= st->zoom;
+	}
 	// zoom_factor = 1.1;
 	// mlx_get_mouse_pos(st->mlx, &st->mouse_x, &st->mouse_y);
 	// st->xzoom = st->xmin + st->mouse_x * ((st->xmax - st->xmin) / WIDTH);
@@ -156,7 +170,9 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	// 	st->ymin = st->yzoom - zoom_factor * (st->yzoom - st->ymin);
 	// 	st->ymax = st->yzoom + zoom_factor * (st->ymax - st->yzoom);
 	// }
+	update_render(st);
 }
+
 
 
 

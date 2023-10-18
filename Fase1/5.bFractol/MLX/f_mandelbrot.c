@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 19:02:38 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 22:22:15 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,6 @@ void	mandelbrot_data_init(t_fractal *fractal)
  * @param[in] y The y-coordinate of the pixel.
  * @param[in] fractal The fractal structure containing rendering parameters.
  */
-// void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
-// {
-// 	t_complex	z;
-// 	t_complex	c;
-// 	int			i;
-
-// 	i = 0;
-// 	z.real = 0.0;
-// 	z.i = 0.0;
-
-// 	c.real = map(x, WIDTH, -2.0, +2.0) * fractal->zoom + fractal->x_shift;
-// 	c.i = map(y, HEIGHT, +2.0, -2.0) * fractal->zoom + fractal->y_shift;
-
-// 	while (i < fractal->iterations)
-// 	{
-// 		z = complex_sum(complex_sqr(z), c);
-// 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-// 			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
-// 		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
-// 		{
-// 			fractal->color2 = map_color(i, fractal->color, fractal);
-// 			mlx_put_pixel(fractal->img, x, y, fractal->color2);
-// 			return ;
-// 		}
-// 		i++;
-// 	}
-// }
 void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex		z;
@@ -78,9 +51,10 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 	z.i = 0.0;
 
 	c.real = map(x, WIDTH, fractal->xmin, fractal->xmax)
-		* fractal->zoom + fractal->x_shift;
+		+ fractal->x_shift * fractal->zoom ;
+	//printf("c.real = %f\n", c.real);
 	c.i = map(y, HEIGHT, fractal->ymin, fractal->ymax)
-		* fractal->zoom + fractal->y_shift;
+		+ fractal->y_shift * fractal->zoom;
 	while (i < fractal->iterations)
 	{
 		z = complex_sum(complex_sqr(z), c);

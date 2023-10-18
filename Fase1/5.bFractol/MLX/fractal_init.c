@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/12 17:04:08 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 22:13:57 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	select_fractal(t_fractal *fractal)
 		tricorn_data_init(fractal);
 	else
 		mandelbrot_data_init(fractal);
+	mlx_set_window_title(fractal->mlx, fractal->name);
 }
 
 /**
@@ -60,7 +61,7 @@ void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 		julia_data_init(fractal, c_x, c_y);
 	if (id == TRICORN)
 		tricorn_data_init(fractal);
-	puts("press G for guide");
+	guide();
 	fractal->mlx = mlx_init(WIDTH, HEIGHT, fractal->name, false);
 	if (!fractal->mlx)
 		exit(EXIT_FAILURE);
@@ -69,5 +70,31 @@ void	fractal_init(t_fractal *fractal, int id, double c_x, double c_y)
 	{
 		mlx_terminate(fractal->mlx);
 		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * @brief Update the rendering of the fractal based on its current type.
+ *
+ * This function updates the rendering of the fractal based on the fractal type
+ * specified in the `t_fractal` structure. It calls the appropriate rendering
+ * function for the selected fractal type.
+ *
+ * @param[in, out] fractal A pointer to the `t_fractal` structure containing
+ * the fractal type and rendering parameters.
+ */
+void	update_render(t_fractal *fractal)
+{
+	if (fractal->id == MANDELBROT)
+	{
+		mandelbrot_render(fractal);
+	}
+	if (fractal->id == JULIA)
+	{
+		julia_render(fractal);
+	}
+	if (fractal->id == TRICORN)
+	{
+		tricorn_render(fractal);
 	}
 }

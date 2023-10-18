@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/13 19:02:14 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:48:20 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	randomize_julia(t_fractal *fractal_ptr)
 {
 	fractal_ptr->c.real = (drand48() * 1.2) - 0.8;
 	fractal_ptr->c.i = (drand48() * 1.4) - 0.7;
-	puts("\nJulia set selected - random c values applied\n");
-	//printf("c = %f + %fi\n", fractal_ptr->c.real, fractal_ptr->c.i);
 }
 
 /**
