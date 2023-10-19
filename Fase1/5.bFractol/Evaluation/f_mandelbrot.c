@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 20:15:52 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:37:26 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 		/ (HEIGHT - 0) + fractal->ymin + fractal->y_shift;
 	while (i < fractal->iterations)
 	{
-		z = complex_sum(complex_sqr(z), c);
+		z = complex_sum(complex_sqr(z), c);	
 		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
 			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
 		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)

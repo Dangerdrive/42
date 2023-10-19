@@ -48,3 +48,25 @@ typedef struct mlx_image
 
 // gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia 0.285 0.01
 // gcc *.c MLX42/build/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out julia -0.8 0.156
+
+
+October, 2023, cmake version of 42 Sao Paulo could not compile libmlx42.a, so I included a compiled version.
+
+
+CODAM MLX lib has some advantages:
+you dont need to worry about key mapping. It comes mapped.
+mlx_terminate() frees everything*.
+
+*actually CODAM's MLX has a few leaks, including in mlx_init function.
+to 
+valgrind --leak-check=full --show-leak-kinds=all --gen-suppressions=all --suppressions=./MLX42Codam/suppress.sup ./fractol mandelbrot
+you will have way less projects to check.
+
+
+avoid calling functions on hooks without conditions. 
+
+For instance, your rendering functions. After changing a parameter you will have to re-render.
+Call 
+
+
+
