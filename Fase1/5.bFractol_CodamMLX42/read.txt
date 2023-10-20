@@ -1,26 +1,6 @@
 //https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension
 
 /*
-diferenças minilibx e MLX codam
-mlx_init -> mlx_init_window
-mlx_init da codam já cria a janela, enquanto a da minilibx não. A da minilibx só cria a conexão.
-então ela recebe parametros para a criação da janela também.
-
-as structs de imagem são diferentes. Você nao tem uma mlx_get_address pra modificar valores da imagem.
-
-typedef struct mlx_image
-{
-	const uint32_t	width;
-	const uint32_t	height;
-	uint8_t*		pixels;
-	mlx_instance_t*	instances;
-	size_t			count;
-	bool			enabled;
-	void*			context;
-}	mlx_image_t;
-
-
-*/
 
 
 //link with -lmlx -lXext -lX11 -L path/to/libs/
@@ -33,11 +13,10 @@ typedef struct mlx_image
 // OpenCL (Open Computing Language) is a framework for writing programs that execute across heterogeneous platforms consisting of central processing units (CPUs), graphics processing units (GPUs), digital signal processors (DSPs), field-programmable gate arrays (FPGAs) and other processors or hardware accelerators. OpenCL specifies programming languages (based on C99 and C++11) for programming these devices and application programming interfaces (APIs) to control the platform and execute programs on the compute devices. OpenCL provides a standard interface for parallel computing using task- and data-based parallelism.
 // Overall, OpenCL serves as an open and standard framework for parallel computing across different GPU architectures, similar to how CUDA is specific to NVIDIA GPUs.
 // https://github.com/paulo-santana/fractol-gpu
-//https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
 // https://github.com/librity/ft_fractol
 
 
-//gcc *.c MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+
 
 
 //git@github.com:Xyckens/fract-ol.git
@@ -50,6 +29,12 @@ typedef struct mlx_image
 
 October, 2023, cmake version of 42 Sao Paulo could not compile libmlx42.a, so I included a compiled version.
 GLFW is not installed for basecamp/online students from 42 Sao Paulo.
+
+
+diferenças minilibx e MLX codam
+mlx_init -> mlx_init_window
+mlx_init da codam já cria a janela, enquanto a da minilibx não. A da minilibx só cria a conexão.
+então ela recebe parametros para a criação da janela também.
 
 
 CODAM MLX lib has some advantages:
@@ -103,22 +88,25 @@ One really cool feature you can implement are hooks to change Julia's constant.
 I made it change the constant according to mouse position. I made it between -1.8 +1.8 for both imaginary and real.
 I also made it change Julia constant increasing or decreasing the constant(both imaginary and real alltogether)
 
-
+One of the few examples of Fract'ol implementations with Codam minilibx is below.
+Is way way much more than needed, but it has some cool stuff, like transforming colors to hsv
+https://github.com/rvan-mee/Improved_Fractol/tree/master
+Here's the other example I found.
+https://github.com/Bde-meij/fract-ol
 
 Oceano has a great steb-by-step video for it. 
 It uses the old minilibx, but his explanation is great and all theory applies basically the same way.
 https://www.youtube.com/watch?v=ANLW1zYbLcs
 
-One tip 
-
-
 if you wanna got deep, there is a full article on plotting algorithms.
 But this was way beyond my poor math skills.
 https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
 
-One of the few examples of Fract'ol implementations with Codam minilibx is the one below.
-Is way way much more than needed, but it has some cool stuff, like transforming colors to hsv
-https://github.com/rvan-mee/Improved_Fractol/tree/master
+
 
 
 https://www.hive.fi/en/article/student-project-fractol/
+
+running fractol on GPU (NVIDIA's CUDA)
+https://github.com/paulo-santana/fractol-gpu
+
