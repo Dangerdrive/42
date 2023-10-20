@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:45:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 20:31:25 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:10:42 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	keyhook(void *param)
 		select_fractal(fractal);
 		update_render(fractal);
 	}
+	else if (mlx_is_key_down(fractal->mlx, MLX_KEY_G))
+		update_render(fractal);
 }
 
 /**

@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_mandelbrot.c                                     :+:      :+:    :+:   */
+/*   f_tricorn_glitch.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:50:01 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 22:37:26 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:40:58 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /**
- * Initializes the Mandelbrot fractal data in the given fractal structure.
+ * Initializes the fractal structure with parameters for rendering the 
+ * Tricorn fractal.
  *
- * @param[in] fractal The fractal structure to be initialized.
+ * @param[in] fractal The fractal struct to be initialized.
  */
-void	mandelbrot_data_init(t_fractal *fractal)
+void	tricorn_data_init_glitch(t_fractal *fractal)
 {
-	fractal->name = "❄️ Mandelbrot ❄️";
-	fractal->color = BROWN;
-	fractal->id = MANDELBROT;
+	fractal->name = "❄️ Tricorn 2 ❄️";
+	fractal->color = TOMATO;
+	fractal->id = TRICORN2;
 	fractal->escape_value = 4.0;
 	fractal->iterations = ESCAPE_COUNT;
-	fractal->x_shift = -0.7;
+	fractal->x_shift = -0.1;
 	fractal->y_shift = 0.0;
-	fractal->initial_zoom = 0.7;
+	fractal->initial_zoom = 0.95;
 	fractal->zoom = 1.0;
 	fractal->xmin = -2.0 * fractal->initial_zoom;
 	fractal->xmax = 2.0 * fractal->initial_zoom;
@@ -35,13 +36,14 @@ void	mandelbrot_data_init(t_fractal *fractal)
 }
 
 /**
- * Handles the rendering of a Mandelbrot fractal pixel.
+ * Renders a Tricorn fractal pixel at coordinates (x, y) within the given 
+ * fractal struct.
  *
- * @param[in] x The x-coordinate of the pixel.
- * @param[in] y The y-coordinate of the pixel.
+ * @param[in] x       The x-coordinate of the pixel.
+ * @param[in] y       The y-coordinate of the pixel.
  * @param[in] fractal The fractal structure containing rendering parameters.
  */
-void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
+void	handle_tricorn_pixel_glitch(int x, int y, t_fractal *fractal)
 {
 	t_complex		z;
 	t_complex		c;
@@ -56,10 +58,8 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 		/ (HEIGHT - 0) + fractal->ymin + fractal->y_shift;
 	while (i < fractal->iterations)
 	{
-		z = complex_sum(complex_sqr(z), c);	
-		if ((((z.real * z.real) + (z.i * z.i)) < fractal->escape_value))
-			mlx_put_pixel(fractal->img, x, y, darken_color(fractal));
-		else if ((z.real * z.real + z.i * z.i) > fractal->escape_value)
+		z = (complex_sum(complex_conjugate((complex_sqr(z))), c));
+		if (((z.real * z.real) + (z.i * z.i)) > fractal->escape_value)
 		{
 			fractal->color2 = map_color(i, fractal);
 			mlx_put_pixel(fractal->img, x, y, fractal->color2);
@@ -70,17 +70,19 @@ void	handle_mandelbrot_pixel(int x, int y, t_fractal *fractal)
 }
 
 /**
- * Renders the Mandelbrot fractal on the fractal's image.
+ * Renders the Tricorn fractal on the fractal's image.
+ * Glitchy version does not have pixels inside the set.
+ * So when you zoom, what is inside the set won't update.
  *
  * This function iterates through all pixels in the fractal's image and calls
- * 'handle_mandelbrot_pixel' to compute and update the colors based on the 
- * Mandelbrot algorithm. It then displays the rendered fractal using 
+ * 'handle_tricorn_pixel' to compute and update the colors based on the 
+ * Tricorn algorithm. It then displays the rendered fractal using 
  * the MLX library.
  *
  * @param[in,out] fractal A pointer to the fractal structure containing 
  * rendering parameters.
  */
-void	mandelbrot_render(t_fractal *fractal)
+void	tricorn_render_glitch(t_fractal *fractal)
 {
 	int	y;
 	int	x;
@@ -90,7 +92,7 @@ void	mandelbrot_render(t_fractal *fractal)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			handle_mandelbrot_pixel(x, y, fractal);
+			handle_tricorn_pixel_glitch(x, y, fractal);
 	}
 	mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }

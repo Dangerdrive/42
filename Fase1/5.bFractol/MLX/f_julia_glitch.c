@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_julia.c                                          :+:      :+:    :+:   */
+/*   f_julia_glitch.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:49:54 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 20:13:52 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:33:33 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
  * @param[in] c_x The real part of the Julia constant 'c'.
  * @param[in] c_y The imaginary part of the Julia constant 'c'.
  */
-void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
+void	julia_data_init_glitch(t_fractal *fractal, double c_x, double c_y)
 {
-	fractal->name = "❄️ Julia ❄️";
-	fractal->id = JULIA;
+	fractal->name = "❄️ Julia 2 ❄️";
+	fractal->id = JULIA2;
 	fractal->color = CYAN;
 	fractal->escape_value = 4.0;
 	fractal->iterations = ESCAPE_COUNT;
@@ -55,7 +55,7 @@ void	julia_data_init(t_fractal *fractal, double c_x, double c_y)
  * @param[in,out] fractal A pointer to the fractal structure containing 
  * parameters and image data.
  */
-void	handle_julia_pixel(int x, int y, t_fractal *fractal)
+void	handle_julia_pixel_glitch(int x, int y, t_fractal *fractal)
 {
 	t_complex		z;
 	unsigned int	i;
@@ -88,7 +88,7 @@ void	handle_julia_pixel(int x, int y, t_fractal *fractal)
  *
  * @param[in,out] fractal_ptr A pointer to the fractal structure to be updated.
  */
-void	randomize_julia(t_fractal *fractal_ptr)
+void	randomize_julia_glitch(t_fractal *fractal_ptr)
 {
 	fractal_ptr->c.real = (drand48() * 1.2) - 0.8;
 	fractal_ptr->c.i = (drand48() * 1.4) - 0.7;
@@ -104,7 +104,7 @@ void	randomize_julia(t_fractal *fractal_ptr)
  * @param[in,out] fractal A pointer to the fractal structure containing 
  * rendering parameters.
  */
-void	julia_render(t_fractal *fractal)
+void	julia_render_glitch(t_fractal *fractal)
 {
 	int	y;
 	int	x;
@@ -114,7 +114,7 @@ void	julia_render(t_fractal *fractal)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			handle_julia_pixel(x, y, fractal);
+			handle_julia_pixel_glitch(x, y, fractal);
 	}
 	mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:44:47 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 19:05:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:12:58 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	guide(void)
 	"\tuse \033[1m\033[38;5;110mmouse scroll\033[0m for zoom\n" \
 	"\tpress \033[1m\033[38;5;110mTAB\033[0m to change fractal\n" \
 	"\tpress \033[1m\033[38;5;110mC\033[0m to change color\n" \
+	"\t keep \033[1m\033[38;5;110mG\033[0m pressed for glitchy colors\n" \
 	"\nJulia Set constants:\n" \
 	"\tpress \033[1m\033[38;5;110mR\033[0m to randomize \n"\
 	"\tuse \033[1m\033[38;5;110mleft_shift + scroll\033[0m " \

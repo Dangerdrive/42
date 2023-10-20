@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 20:20:18 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:48:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ typedef enum sets
 	MANDELBROT,
 	JULIA,
 	TRICORN,
+	MANDELBROT2,
+	JULIA2,
+	TRICORN2,
 }	t_sets;
 
 /**
@@ -149,5 +152,15 @@ void			guide(void);
 //-------String Utils
 int				ft_strncmp(const char *str1, const char *str2, size_t n);
 double			ft_atod(char *str);
+//-------Extra Stuff (not evaluated)
+void			julia_render_glitch(t_fractal *fractal);
+void			mandelbrot_render_glitch(t_fractal *fractal);
+void			tricorn_render_glitch(t_fractal *fractal);
+void			julia_data_init_glitch(t_fractal *fractal, double c_x,
+					double c_y);
+void			mandelbrot_data_init_glitch(t_fractal *fractal);
+void			tricorn_data_init_glitch(t_fractal *fractal);
 
 #endif
+
+//gcc *.c MLX42Codam/libmlx42.a -Iinclude -O3 -ldl -lglfw -pthread -lm && ./a.out mandelbrot 

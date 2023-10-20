@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:36:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/18 19:02:58 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:03:37 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ void	select_fractal(t_fractal *fractal)
 	}
 	else if (fractal->id == JULIA)
 		tricorn_data_init(fractal);
+	else if (fractal->id == TRICORN)
+		mandelbrot_data_init_glitch(fractal);
+	else if (fractal->id == MANDELBROT2)
+	{
+		fractal->c.real = (drand48() * 1.2) - 0.8;
+		fractal->c.i = (drand48() * 1.4) - 0.7;
+		julia_data_init(fractal, fractal->c.real, fractal->c.i);
+	}
+	else if (fractal->id == JULIA2)
+		tricorn_data_init_glitch(fractal);
 	else
 		mandelbrot_data_init(fractal);
 	mlx_set_window_title(fractal->mlx, fractal->name);
@@ -93,5 +103,17 @@ void	update_render(t_fractal *fractal)
 	if (fractal->id == TRICORN)
 	{
 		tricorn_render(fractal);
+	}
+	if (fractal->id == MANDELBROT2)
+	{
+		mandelbrot_render_glitch(fractal);
+	}
+	if (fractal->id == JULIA2)
+	{
+		julia_render_glitch(fractal);
+	}
+	if (fractal->id == TRICORN2)
+	{
+		tricorn_render_glitch(fractal);
 	}
 }
