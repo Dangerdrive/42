@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"random": "c",
-		"unistd.h": "c",
-		"sstream": "c",
-		"fractol.h": "c",
-		"fcntl.h": "c"
-	}
-}
