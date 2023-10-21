@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:20:58 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/10/19 18:48:01 by fde-alen         ###   ########.fr       */
+/*   Updated: 2023/10/20 09:55:05 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # include <string.h>   // for strerror
 # include <math.h>
 # include "MLX42Codam/MLX42.h"
+# include <hip/hip_runtime.h>
 
 /**
  * @enum t_sets
