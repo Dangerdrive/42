@@ -35,7 +35,7 @@ typedef struct s_pipex
 {
 	pid_t	pid1;
 	pid_t	pid2;
-	int		tube[2];
+	int		fd[2];
 	int		infile;
 	int		outfile;
 	char	*paths;
