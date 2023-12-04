@@ -33,15 +33,27 @@
 
 typedef struct s_pipex
 {
-	pid_t	pid1;
-	pid_t	pid2;
-	int		fd[2];
-	int		infile;
-	int		outfile;
-	char	*paths;
-	char	**cmd_paths;
-	char	**cmd_args;
-	char	*cmd;
+	char	**envp;
+	char	**av;
+	int		ac;
+	int		heredoc;
+	int		fd_in;
+	int		fd_out;
+	int		*pipe;
+	int		nb_cmds;
+	int		child;
+	int		*pids;
+	char	**cmd_options;
+	char	*cmd_path;
+	// pid_t	pid1;
+	// pid_t	pid2;
+	// int		fd[2];
+	// int		infile;
+	// int		outfile;
+	// char	*paths;
+	// char	**cmd_paths;
+	// char	**cmd_args;
+	// char	*cmd;
 }t_pipex;
 
 /* childs.c */

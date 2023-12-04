@@ -203,3 +203,47 @@ int	main(int argc, char **argv)
 // • Your program mustn’t have memory leaks.
 // • If you have any doubt, handle the errors like the shell command:
 // < file1 cmd1 | cmd2 > file2
+
+static t_pipex	clean_init(void)
+{
+	t_pipex	pipex;
+
+	pipex.envp = NULL;
+	pipex.ac = -1;
+	pipex.av = NULL;
+	pipex.heredoc = 0;
+	pipex.fd_in = -1;
+	pipex.fd_out = -1;
+	pipex.pipe = NULL;
+	pipex.nb_cmds = -1;
+	pipex.child = -1;
+	pipex.pids = NULL;
+	pipex.cmd_options = NULL;
+	pipex.cmd_path = NULL;
+	return (pipex);
+}
+
+int validate_args(int ac, char **av, t_pipex *pipex)
+	if (ac < 5)
+	{
+		if (ac >= 2 && !ft_strncmp("here_doc", av[1], 9))
+			return (msg("Usage: ",
+					"./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.",
+					"", 1));
+		return (msg("Usage: ",
+				"./pipex file1 cmd1 cmd2 ... cmdn file2.", "", 1));
+	}
+	else if (ac < 6 && !ft_strncmp("here_doc", av[1], 9))
+		return (msg("Usage: ",
+				"./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.", "", 1));
+	if (!envp || envp[0][0] == '\0')
+		exit_error(msg("Unexpected error.", "", "", 1), &d);
+
+int	main(int ac, char** av, char** envp)
+{
+	t_pipex	pipex;
+
+
+
+	
+}
