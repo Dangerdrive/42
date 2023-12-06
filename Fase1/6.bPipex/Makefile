@@ -4,14 +4,17 @@ CFLAGS	:=	-Wextra -Wall -Werror -Wunreachable-code -Iinclude
 
 
 
-LIBMLX	:= 	./MLX42Codam
 LEAKS	:=	valgrind --leak-check=full --show-leak-kinds=all
 SRCS	:= 	./*.c
 			
 OBJDIR	:=	obj
 OBJS	:=	$(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
-.PHONY:	all clean fclean re valgrind run
+.PHONY:	all clean fclean re valgrind
+
+LIBFT_PATH		=	./libft
+LIBFT			=	$(LIBFT_PATH)/libft.a
+
 
 bonus:	all
 
@@ -23,8 +26,11 @@ valgrind:	all
 
 all:	$(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) -o $(NAME) 
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(OBJS) -o $(NAME)
+	
+$(LIBFT):
+	make -C $(LIBFT_PATH) all	
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -33,16 +39,14 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
 clean:
+					make -C $(LIBFT_PATH) clean
 	@rm -rf $(OBJDIR) $(NAME)
 
 fclean:	clean
+					make -C $(LIBFT_PATH) fclean
 	@rm -rf $(NAME)
 
 re:		fclean all
-
-run:	re
-	@./fractol mandelbrot
-re:		clean all
 
 
 
