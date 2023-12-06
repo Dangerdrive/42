@@ -223,21 +223,20 @@ static t_pipex	clean_init(void)
 	return (pipex);
 }
 
-int validate_args(int ac, char **av, t_pipex *pipex)
-	if (ac < 5)
-	{
-		if (ac >= 2 && !ft_strncmp("here_doc", av[1], 9))
-			return (msg("Usage: ",
-					"./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.",
-					"", 1));
-		return (msg("Usage: ",
-				"./pipex file1 cmd1 cmd2 ... cmdn file2.", "", 1));
-	}
-	else if (ac < 6 && !ft_strncmp("here_doc", av[1], 9))
-		return (msg("Usage: ",
-				"./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.", "", 1));
-	if (!envp || envp[0][0] == '\0')
-		exit_error(msg("Unexpected error.", "", "", 1), &d);
+int validate_args(int ac, char **av, t_pipex *pipex) {
+    if (ac < 5) {
+        if (ac >= 2 && !ft_strncmp("here_doc", av[1], 9))
+            return (msg("Usage: ",
+                        "./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.",
+                        "", 1));
+        return (msg("Usage: ",
+                    "./pipex file1 cmd1 cmd2 ... cmdn file2.", "", 1));
+    } else if (ac < 6 && !ft_strncmp("here_doc", av[1], 9))
+        return (msg("Usage: ",
+                    "./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.", "", 1));
+    if (!envp || envp[0][0] == '\0')
+        exit_error(msg("Unexpected error.", "", "", 1), &pipex);
+}
 
 int	main(int ac, char** av, char** envp)
 {
