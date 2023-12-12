@@ -10,7 +10,7 @@ OUTPUT_INVALID=test/forbidden.txt
 
 #Test shortcuts
 COMMAND_WITH_PATH=/usr/bin/cat
-LEAK_TOGGLE=0           #Set to 1 to run Valgrind, some other value for no check
+LEAK_TOGGLE=1           #Set to 1 to run Valgrind, some other value for no check
 VALGRIND="valgrind --leak-check=full --show-leak-kinds=all"
 
 #Colors
