@@ -44,6 +44,24 @@ typedef struct s_pipex
 	int		child;
 	int		*pids;
 	char	**cmd_options;
+	ft_strncmp.c \
+	ft_strnstr.c \
+	ft_substr.c \
+	ft_strlcpy.c \
+	get_next_line.c \
+	get_next_line_utils.c
+	ft_strncmp.c \
+	ft_strnstr.c \
+	ft_substr.c \
+	ft_strlcpy.c \
+	get_next_line.c \
+	get_next_line_utils.c
+	ft_strncmp.c \
+	ft_strnstr.c \
+	ft_substr.c \
+	ft_strlcpy.c \
+	get_next_line.c \
+	get_next_line_utils.c
 	char	*cmd_path;
 	// pid_t	pid1;
 	// pid_t	pid2;
