@@ -21,7 +21,7 @@ SRC = pipex.c \
 
 # Formatting
 BOLD      = \033[1m
-NO_COLOR  = \033[0m
+NO_FORMAT  = \033[0m
 
 SRCS  = $(addprefix $(SRC_PATH), $(SRC))
 OBJ   = $(SRC:.c=.o)
@@ -30,7 +30,7 @@ OBJS  = $(addprefix $(OBJ_PATH), $(OBJ))
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-	@echo  "$(BOLD)✔️ Compiling $<$(NO_COLOR)"
+	@echo  "$(BOLD)✔️ Compiling $<$(NO_FORMAT)"
 
 all: 
 	@echo ""
@@ -38,11 +38,11 @@ all:
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) -o $@ -L$(LIBFT_PATH) -lft
-	@echo  "\n✅ $(BOLD)Pipex compiled$(NO_COLOR)"
+	@echo  "\n✅ $(BOLD)Pipex compiled$(NO_FORMAT)"
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH) all
-	@echo  "\n✔️ $(BOLD)Libft compiled$(NO_COLOR)"
+	@echo  "\n✔️ $(BOLD)Libft compiled$(NO_FORMAT)"
 
 bonus: all
 
@@ -50,13 +50,13 @@ clean:
 	@echo ""
 	@make -C $(LIBFT_PATH) clean
 	@rm -rf $(OBJ_PATH)
-	@echo  "🗑️  $(BOLD)Object files removed$(NO_COLOR)"
+	@echo  "🗑️  $(BOLD)Object files removed$(NO_FORMAT)"
 
 fclean: clean
 	@echo ""
 	@make -C $(LIBFT_PATH) fclean
 	@rm -f $(NAME)
-	@echo  "🗑️  $(BOLD)Pipex removed$(NO_COLOR)"
+	@echo  "🗑️  $(BOLD)Pipex removed$(NO_FORMAT)"
 
 re: fclean all
 
