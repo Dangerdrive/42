@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 22:36:23 by fde-alen          #+#    #+#             */
+/*   Updated: 2024/01/08 23:43:15 by fde-alen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 
 #ifndef PIPEX_H
 # define PIPEX_H
@@ -44,7 +57,7 @@ void	free_strs(char *str, char **strs);
 /* file_handler.c */
 void	get_input_file(t_data *data);
 void	get_output_file(t_data *data);
-void	get_heredoc(t_data *data);
+void	handle_heredoc(t_data *data);
 
 /*functions from libft*/
 /*ft_putchar_fd
