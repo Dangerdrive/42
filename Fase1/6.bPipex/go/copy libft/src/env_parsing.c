@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:36:53 by fde-alen          #+#    #+#             */
-/*   Updated: 2024/01/09 22:22:55 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:14:44 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,73 +14,70 @@
 
 #include "pipex.h"
 
-/* 
- * get_env_path:
- *   Searches for the "PATH=" entry in the environment variable array.
+/**
+ * Extracts the value of the PATH environment variable.
  *
- * Parameters:
- *   envp - Environment variables array.
+ * Iterates through the array of environment variables (`envp`) to find the PATH
+ * variable. It uses `ft_strnstr` to search for the substring "PATH=" in each
+ * environment string. Once found, it extracts the value of PATH using `ft_substr`,
+ * skipping the first 5 characters which constitute "PATH=". The search stops as soon
+ * as the PATH variable is found or when the end of the array is reached.
  *
- * Returns:
- *   A dynamically allocated string containing the PATH environment variable (excluding "PATH=").
- *   Returns NULL if the PATH variable is not found or if memory allocation fails.
+ * @param[in] envp Array of environment variables, each as a string.
  *
- * Notes:
- *   - The function iterates through the envp array to find the entry starting with "PATH=".
- *   - Upon finding the PATH entry, it allocates a new string containing just the paths (removing "PATH=").
+ * @return A pointer to a newly allocated string containing the value of PATH.
+ *         Returns NULL if PATH is not found or in case of memory allocation failure.
  */
-static char *get_env_path(char **envp)
+static char *extract_path_var(char **envp)
 {
-    char *path;
-    int i;
+	char	*path;
+	char	*found;
+	int	 i;
 
-    i = 0;
-    path = NULL;
-    while (envp[i] != NULL && envp[i][0] != '\0')
-    {
-        path = ft_strnstr(envp[i], "PATH=", 5);
-        if (path)
-        {
-            path = ft_substr(path, 5, ft_strlen(path));
-            break;
-        }
-        i++;
-    }
-    return (path);
+	path = NULL;
+	i = 0;
+	while (envp[i] != NULL && envp[i][0] != '\0' && path == NULL)
+	{
+		found = ft_strnstr(envp[i], "PATH=", 5);
+		if (found)
+			path = ft_substr(found, 5, ft_strlen(found) - 5);
+		i++;
+	}
+	return (path);
 }
 
-/* 
- * make_usable_paths:
- *   Appends a '/' character at the end of each path string in the array.
- *
- * Parameters:
- *   paths - Array of path strings.
- *
- * Returns:
- *   The modified array of path strings with a '/' appended to each.
- *
- * Notes:
- *   - Iterates through the paths array and appends a '/' to each string.
- *   - Uses dynamic memory allocation for the new strings; the original strings are freed.
- */
-static char **make_usable_paths(char **paths)
-{
-    int i;
-    char *tmp;
+// /* 
+//  * make_usable_paths:
+//  *   Appends a '/' character at the end of each path string in the array.
+//  *
+//  * Parameters:
+//  *   paths - Array of path strings.
+//  *
+//  * Returns:
+//  *   The modified array of path strings with a '/' appended to each.
+//  *
+//  * Notes:
+//  *   - Iterates through the paths array and appends a '/' to each string.
+//  *   - Uses dynamic memory allocation for the new strings; the original strings are freed.
+//  */
+// static char **make_usable_paths(char **paths)
+// {
+//     int i;
+//     char *tmp;
 
-    i = 0;
-    tmp = NULL;
-    while (paths[i])
-    {
-        tmp = paths[i];
-        paths[i] = ft_strjoin(paths[i], "/");
-        //free_strs(tmp, NULL);
-        free(tmp);
-        tmp = NULL;
-        i++;
-    }
-    return (paths);
-}
+//     i = 0;
+//     tmp = NULL;
+//     while (paths[i])
+//     {
+//         tmp = paths[i];
+//         paths[i] = ft_strjoin(paths[i], "/");
+//         //free_strs(tmp, NULL);
+//         free(tmp);
+//         tmp = NULL;
+//         i++;
+//     }
+//     return (paths);
+// }
 
 
 
@@ -101,25 +98,51 @@ static char **make_usable_paths(char **paths)
  *   - Splits the PATH string into individual paths using ':' as the delimiter.
  *   - Calls make_usable_paths to append a '/' to each path string.
  */
+
+
+/**
+ * Retrieves and processes the PATH environment variable.
+ *
+ * Extracts the PATH environment variable from the provided 'envp' array and splits
+ * it into individual paths using ':' as the delimiter. Each path string is then
+ * appended with a '/' character to make them directly usable for file path construction.
+ * The function first calls 'extract_path_var' to extract the PATH variable and then
+ * uses 'ft_split' to separate it into individual paths. After splitting, it appends
+ * '/' to each path. If any memory allocation fails during these processes, the function
+ * will free the allocated memory and return NULL.
+ *
+ * @param[in] envp The array of environment variables.
+ *
+ * @return An array of strings, each representing a path from the PATH environment
+ *         variable with a '/' appended, or NULL if any allocation fails.
+ */
 static char **get_env_paths(char **envp)
 {
     char *env_path_str;
     char **paths;
+    int i;
+    char *tmp;
 
-    env_path_str = get_env_path(envp);
+    i = 0;
+    env_path_str = extract_path_var(envp);
     if (!env_path_str)
         return (NULL);
     paths = ft_split(env_path_str, ':');
-    //free_strs(env_path_str, NULL);
     free(env_path_str);
-    env_path_str = NULL;    
     if (!paths)
         return (NULL);
-    paths = make_usable_paths(paths);
-    if (!paths)
-        return (NULL);
+    while (paths[i])
+    {
+        tmp = paths[i];
+        paths[i] = ft_strjoin(paths[i], "/");
+        free(tmp);
+        if (!paths[i])
+            return (NULL);
+        i++;
+    }
     return (paths);
 }
+
 
 
 /* 
