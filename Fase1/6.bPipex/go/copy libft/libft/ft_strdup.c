@@ -1,17 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   P1-23.ft_strdup.c                                  :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:41:59 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/08 16:31:52 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:12:38 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Duplicates the string 'src' using malloc.
+ * 
+ * @param[in] src The string to be duplicated.
+ * 
+ * @return A pointer to the newly allocated string, which is a duplicate
+ *         of 'src'. Returns NULL if the allocation fails.
+ */
 char	*ft_strdup(const char *src)
 {
 	char	*dest;

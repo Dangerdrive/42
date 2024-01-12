@@ -48,6 +48,9 @@
 # .PHONY:				all bonus clean fclean re libft
 
 
+#suppress directory messages
+MAKEFLAGS += --no-print-directory
+
 # Name of the library
 NAME		= libftprintf.a
 

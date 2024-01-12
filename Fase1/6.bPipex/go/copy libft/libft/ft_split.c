@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:57:21 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/19 15:42:43 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:13:01 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ static void	*ft_free_split(char **split, size_t len)
 	return (NULL);
 }
 
+/**
+ * Allocates and returns an array of strings obtained by splitting 's'
+ * using the character 'c' as a delimiter. The array is ended by a NULL pointer.
+ * 
+ * @param[in] s The string to be split.
+ * @param[in] c The delimiter character.
+ * 
+ * @return The array of new strings resulting from the split. Returns NULL
+ *         if the allocation fails or 's' is NULL.
+ */
 char	**ft_split(char const *s, char c)
 {
 	char	**split;

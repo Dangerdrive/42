@@ -6,7 +6,7 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:41:37 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/06/13 22:12:36 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:43:25 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # define BUFFER_SIZE 3000
 #endif
 
+/**
+ * Joins two strings, creating a new string, and frees the first string.
+ *
+ * Dynamically allocates memory to create a new string that concatenates 'str1' and 'str2'.
+ * It also ensures that if 'str1' is NULL, it is initialized to an empty string before
+ * concatenation. After creating the new string, 'str1' is freed.
+ *
+ * @param[in] str1 The first string to concatenate. It is freed after concatenation.
+ * @param[in] str2 The second string to concatenate.
+ *
+ * @return A new dynamically allocated string containing 'str1' followed by 'str2'.
+ */
 static char	*gnl_strjoin(char *str1, char *str2)
 {
 	size_t	i;
@@ -44,6 +56,19 @@ static char	*gnl_strjoin(char *str1, char *str2)
 	return (result);
 }
 
+/**
+ * Reads text from a file descriptor into a buffer until a newline character is found
+ * or the end of the file is reached.
+ *
+ * Continuously reads text from 'fd' and appends it to 'line_buffer' until a newline
+ * character is encountered or EOF is reached. Utilizes 'gnl_strjoin' for appending
+ * and ensures memory allocation failure is handled.
+ *
+ * @param[in] fd The file descriptor from which to read.
+ * @param[in] line_buffer The buffer containing the current line content.
+ *
+ * @return The updated line buffer containing text from the file descriptor.
+ */
 static char	*read_text(int fd, char *line_buffer)
 {
 	char	*read_buffer;
@@ -69,6 +94,17 @@ static char	*read_text(int fd, char *line_buffer)
 	return (line_buffer);
 }
 
+/**
+ * Extracts a single line, including the newline character, from a buffer.
+ *
+ * Allocates memory for a new string and copies characters from 'line_buffer' into it
+ * until a newline character or the end of the string is reached. The resulting string
+ * includes the newline character if present.
+ *
+ * @param[in] line_buffer The buffer from which to extract the line.
+ *
+ * @return A newly allocated string containing the extracted line.
+ */
 static char	*extract_line(char *line_buffer)
 {
 	int		i;
@@ -97,6 +133,16 @@ static char	*extract_line(char *line_buffer)
 	return (extracted_line);
 }
 
+/**
+ * Extracts the remaining text from a buffer after the first newline character.
+ *
+ * Allocates memory for a new string and copies characters from 'line_buffer' into it,
+ * starting after the first newline character. The original 'line_buffer' is freed.
+ *
+ * @param[in] line_buffer The buffer from which to extract the remaining text.
+ *
+ * @return A newly allocated string containing the remaining text.
+ */
 static char	*extract_remaining(char *line_buffer)
 {
 	int		i;
@@ -123,6 +169,19 @@ static char	*extract_remaining(char *line_buffer)
 	return (remaining_buffer);
 }
 
+/**
+ * Reads a line from a file descriptor, handling any intermediate buffering.
+ *
+ * This function is the entry point for reading lines from a file descriptor. It manages
+ * a static buffer that retains leftover data between calls. On each call, it reads a line
+ * up to and including the newline character, or to EOF if no newline is present. It
+ * utilizes helper functions to manage the reading, line extraction, and buffer management.
+ *
+ * @param[in] fd The file descriptor from which to read.
+ *
+ * @return A newly allocated string containing the next line from the file descriptor,
+ *         or NULL if there is nothing left to read or an error occurs.
+ */
 char	*get_next_line(int fd)
 {
 	char		*line;

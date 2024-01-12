@@ -6,12 +6,20 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:18 by fde-alen          #+#    #+#             */
-/*   Updated: 2023/05/11 17:43:13 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:57:16 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Checks if a character is part of a given set.
+ *
+ * @param[in] c The character to be checked.
+ * @param[in] set A null-terminated string representing the set of characters to check against.
+ *
+ * @return 1 if the character is found in the set, 0 otherwise.
+ */
 static int	is_set_char(char c, const char *set)
 {
 	while (*set)
@@ -23,6 +31,16 @@ static int	is_set_char(char c, const char *set)
 	return (0);
 }
 
+/**
+ * Trims the beginning and end of a string by removing specified characters.
+ *
+ * @param[in] s1 The string to be trimmed.
+ * @param[in] set A null-terminated string representing the set of characters to be trimmed.
+ *
+ * @return A newly allocated string with the specified characters removed from
+ *         the beginning and end of the original string. Returns NULL if memory
+ *         allocation fails or if either of the input strings is NULL.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*trimmed;

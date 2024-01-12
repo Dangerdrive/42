@@ -1,16 +1,17 @@
 # Name of the library
-NAME 		= 		libft.a
+NAME		= 		libft.a
 
 # Directories for source and header files
-SRCDIR 		= 		.
-INCDIR 		= 		.
+SRCDIR		=		.
+INCDIR		=		.
+OBJDIR		=		Objects
 
 # Compiler and flags
-CC 			= 		cc
-CFLAGS 		= 		-Wall -Wextra -Werror
+CC			=		cc
+CFLAGS		=		-Wall -Wextra -Werror
 
 # Source files and object files
-SRCS		= 		$(addprefix $(SRCDIR)/, ft_atoi.c \
+SRCS		=		$(addprefix $(SRCDIR)/, ft_atoi.c \
 					ft_bzero.c \
 					ft_calloc.c \
 					ft_isalnum.c \
@@ -53,9 +54,9 @@ SRCS		= 		$(addprefix $(SRCDIR)/, ft_atoi.c \
 					ft_unumlen_base.c \
 					get_next_line.c)
 
-OBJS 		= 		$(SRCS:.c=.o)
+OBJS		= 		$(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
-B_SRCS 		= 		$(addprefix $(SRCDIR)/, ft_lstnew.c \
+B_SRCS		= 		$(addprefix $(SRCDIR)/, ft_lstnew.c \
 					ft_lstadd_front.c \
 					ft_lstsize.c \
 					ft_lstlast.c \
@@ -65,7 +66,7 @@ B_SRCS 		= 		$(addprefix $(SRCDIR)/, ft_lstnew.c \
 					ft_lstiter.c \
 					ft_lstmap.c)
 
-B_OBJS 		= 		$(B_SRCS:.c=.o)
+B_OBJS	  = 		$(addprefix $(OBJDIR)/, $(notdir $(B_SRCS:.c=.o)))
 
 # Formatting
 BOLD 		= 		\033[1m
@@ -75,19 +76,20 @@ BOLD 		= 		\033[1m
 
 all: 				$(NAME)
 
-$(NAME): 			$(OBJS)
+$(NAME): 			$(OBJDIR) $(OBJS) $(B_OBJS)
 					@ar rc $(NAME) $(OBJS)
 #					@echo "✅ $(BOLD)Libft created"
 
-$(SRCDIR)/%.o: 		$(SRCDIR)/%.c
-					@$(CC) $(CFLAGS) -c -o $@ $< -I $(INCDIR)
+$(OBJDIR)/%.o:		$(SRCDIR)/%.c
+					@mkdir -p $(OBJDIR)
+					@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
 
 bonus: 				$(B_OBJS)
 					ar rc $(NAME) $(B_OBJS)
 #					@echo "✅ $(BOLD)Bonus added"
 
 clean:
-					@rm -f $(OBJS) $(B_OBJS)
+					@rm -rf $(OBJDIR)
 #					@echo "🗑️  $(BOLD)Object files removed"
 
 fclean: 			clean
