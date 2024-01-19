@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 22:37:20 by fde-alen          #+#    #+#             */
-/*   Updated: 2024/01/09 22:26:01 by fde-alen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -24,14 +13,14 @@
  */
 static void close_pipe_fds(t_data *data)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < (data->nb_cmds - 1) * 2)
-    {
-        close(data->pipe[i]);
-        i++;
-    }
+	i = 0;
+	while (i < (data->nb_cmds - 1) * 2)
+	{
+		close(data->pipe[i]);
+		i++;
+	}
 }
 
 
@@ -64,27 +53,27 @@ static void close_pipe_fds(t_data *data)
  */
 void exit_error(int error_status, t_data *data)
 {
-    if (data)
-    {
-        close_fds(data);
-        if (data->pipe)
-            free(data->pipe);
-        if (data->pids)
-            free(data->pids);
-        // if (data->cmd_options || data->cmd_path)
-        //     free_strs(data->cmd_path, data->cmd_options);
-        if (data->cmd_options)
-            free_strs(NULL, data->cmd_options);
-        if (data->cmd_path)
-        {
-            free(data->cmd_path);
-            data->cmd_path = NULL;
-        }
-         
-    }
-    if (data->heredoc == 1)
-        unlink(".heredoc.tmp");
-    exit(error_status);
+	if (data)
+	{
+		close_fds(data);
+		if (data->pipe)
+			free(data->pipe);
+		if (data->pids)
+			free(data->pids);
+		// if (data->cmd_options || data->cmd_path)
+		//   free_strs(data->cmd_path, data->cmd_options);
+		if (data->cmd_options)
+			free_strs(NULL, data->cmd_options);
+		if (data->cmd_path)
+		{
+			free(data->cmd_path);
+			data->cmd_path = NULL;
+		}
+		 
+	}
+	if (data->heredoc == 1)
+		unlink(".heredoc.tmp");
+	exit(error_status);
 }
 
 
@@ -104,11 +93,11 @@ void exit_error(int error_status, t_data *data)
  */
 int msg(char *str1, char *str2, char *str3, int erno)
 {
-    ft_putstr_fd("pipex: ", 2);
-    ft_putstr_fd(str1, 2);
-    ft_putstr_fd(str2, 2);
-    ft_putendl_fd(str3, 2);
-    return (erno);
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	ft_putendl_fd(str3, 2);
+	return (erno);
 }
 
 
@@ -125,11 +114,11 @@ int msg(char *str1, char *str2, char *str3, int erno)
  */
 void close_fds(t_data *data)
 {
-    if (data->fd_in != -1)
-        close(data->fd_in);
-    if (data->fd_out != -1)
-        close(data->fd_out);
-    close_pipe_fds(data);
+	if (data->fd_in != -1)
+		close(data->fd_in);
+	if (data->fd_out != -1)
+		close(data->fd_out);
+	close_pipe_fds(data);
 }
 
 
@@ -162,23 +151,23 @@ void close_fds(t_data *data)
  */
 void free_strs(char *str, char **strs)
 {
-    int i;
+	int i;
 
-    if (str)
-    {
-        free(str);
-        str = NULL;
-    }
-    if (strs)
-    {
-        i = 0;
-        while (strs[i])
-        {
-            free(strs[i]);
-            i++;
-        }
-        free(strs);
-        strs = NULL;
-    }
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
+	if (strs)
+	{
+		i = 0;
+		while (strs[i])
+		{
+			free(strs[i]);
+			i++;
+		}
+		free(strs);
+		strs = NULL;
+	}
 }
 

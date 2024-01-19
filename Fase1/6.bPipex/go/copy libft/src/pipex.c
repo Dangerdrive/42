@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 22:37:13 by fde-alen          #+#    #+#             */
-/*   Updated: 2024/01/09 22:12:18 by fde-alen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "pipex.h"
 
 /* 
@@ -24,6 +12,22 @@
  * Notes:
  *   - The function uses dup2() to duplicate the given file descriptors to STDIN_FILENO and STDOUT_FILENO.
  *   - If an error occurs during this process, the function calls exit_error() to handle it.
+ */
+
+/**
+ * Executes a child process in the Pipex pipeline.
+ *
+ * This function is responsible for configuring and executing a single command within the pipeline.
+ * It redirects the standard input and output for the child process based on its position in the pipeline:
+ * - The first child uses the initial input file descriptor and the write-end of the first pipe.
+ * - The last child uses the read-end of the last pipe and the final output file descriptor.
+ * - Middle children use the read-end of their respective input pipe and the write-end of their respective output pipe.
+ * After setting up the redirection, the function closes any file descriptors that are no longer needed.
+ * It validates the command and its options and then executes the command using `execve`.
+ * If `execve` fails, it handles the error appropriately.
+ *
+ * @param[in,out] data Pointer to the `t_data` structure containing necessary information for the child process,
+ * including file descriptors, command options, and environment variables.
  */
 static void redirect_io(int input, int output, t_data *data)
 {
@@ -41,7 +45,7 @@ static void redirect_io(int input, int output, t_data *data)
 		exit_error(1, data); // Specific error for output redirection failure
 }
 
-
+		
 
 /* 
  * execute_child_process:
@@ -60,6 +64,21 @@ static void redirect_io(int input, int output, t_data *data)
  *   - The position of the child in the pipeline determines which file descriptors are used for its standard input and output.
  *   - The function ensures that the command to be executed (data->cmd_path) and its options (data->cmd_options) are not NULL.
  *   - If execve fails, the function retrieves the error message using strerror and constructs a specific error message using msg.
+ */
+
+/**
+ * Redirects the standard input and output of a process.
+ *
+ * This function is responsible for redirecting the standard input (STDIN) and standard output (STDOUT)
+ * of a process to specified file descriptors. It uses the `dup2` system call to duplicate the given 
+ * file descriptors to STDIN_FILENO and STDOUT_FILENO. If either of the input or output file descriptors
+ * is invalid (less than 0), the function will call `exit_error` to handle the situation. Similarly, 
+ * if an error occurs during the redirection process (e.g., `dup2` fails), the function will call 
+ * `exit_error` with an appropriate error message or code.
+ *
+ * @param[in] input The file descriptor to be set as the new standard input (STDIN_FILENO).
+ * @param[in] output The file descriptor to be set as the new standard output (STDOUT_FILENO).
+ * @param[in,out] data Pointer to a t_data structure for error handling and other purposes.
  */
 static void execute_child_process(t_data *data)
 {
@@ -101,6 +120,23 @@ static void execute_child_process(t_data *data)
 *	child.
 *	Returns the exit status code of the last child process.
 */
+
+
+/**
+ * Manages the parent process in a pipeline of command executions.
+ *
+ * This function is responsible for closing unnecessary file descriptors and waiting for child processes 
+ * to complete their execution. It iterates through the child processes, using `waitpid` to wait for each 
+ * child to finish. The function captures the exit status of the last child process in the pipeline, which 
+ * it returns as the overall exit code. It also performs cleanup by freeing memory allocated for pipes and 
+ * process IDs.
+ *
+ * @param[in,out] data Pointer to a t_data structure containing necessary information, such as the number of 
+ * commands, child process IDs, and pipe file descriptors.
+ * 
+ * @return The exit status code of the last child process in the pipeline. If no exit status is captured, the 
+ * function defaults to returning 1.
+ */
 static int	execute_parent_process(t_data *data)
 {
 	pid_t	wpid;
@@ -159,80 +195,80 @@ static int	execute_parent_process(t_data *data)
  */
 static int pipex(t_data *data)
 {
-    int exit_code;
+	int exit_code;
 
-    // Create a pipe and check for errors
-    if (pipe(data->pipe) == -1) {
-        exit_error(msg("pipe", ": ", strerror(errno), 1), data);
-    }
+	// Create a pipe and check for errors
+	if (pipe(data->pipe) == -1) {
+		exit_error(msg("pipe", ": ", strerror(errno), 1), data);
+	}
 
-    // Fork child processes for each command in the pipeline
-    data->child = 0;
-    while (data->child < data->nb_cmds) {
-        // Parse the command and its options
-        data->cmd_options = ft_split(data->av[data->child + 2 + data->heredoc], ' ');
-        if (!data->cmd_options) {
-            exit_error(msg("unexpected error", "", "", 1), data);
-        }
+	// Fork child processes for each command in the pipeline
+	data->child = 0;
+	while (data->child < data->nb_cmds) {
+		// Parse the command and its options
+		data->cmd_options = ft_split(data->av[data->child + 2 + data->heredoc], ' ');
+		if (!data->cmd_options) {
+			exit_error(msg("unexpected error", "", "", 1), data);
+		}
 
-        // Get the full path of the command
-        data->cmd_path = get_cmd(data->cmd_options[0], data);
+		// Get the full path of the command
+		data->cmd_path = get_cmd(data->cmd_options[0], data);
 
-        // Fork a new process
-        data->pids[data->child] = fork();
-        if (data->pids[data->child] == -1) {
-            // Handle errors in fork
-            exit_error(msg("fork", ": ", strerror(errno), 1), data);
-        } else if (data->pids[data->child] == 0) {
-            // Child process: Execute the command
-            execute_child_process(data);
-        }
+		// Fork a new process
+		data->pids[data->child] = fork();
+		if (data->pids[data->child] == -1) {
+			// Handle errors in fork
+			exit_error(msg("fork", ": ", strerror(errno), 1), data);
+		} else if (data->pids[data->child] == 0) {
+			// Child process: Execute the command
+			execute_child_process(data);
+		}
 
-        // Free allocated strings for the current command
-        free_strs(data->cmd_path, data->cmd_options);
+		// Free allocated strings for the current command
+		free_strs(data->cmd_path, data->cmd_options);
 
-        // Move to the next command
-        data->child++;
-    }
+		// Move to the next command
+		data->child++;
+	}
 
-    // Parent process: Wait for children and get the exit code
-    exit_code = execute_parent_process(data);
+	// Parent process: Wait for children and get the exit code
+	exit_code = execute_parent_process(data);
 
-    // Remove temporary file if heredoc was used
-    if (data->heredoc == 1) {
-        unlink(".heredoc.tmp");
-    }
+	// Remove temporary file if heredoc was used
+	if (data->heredoc == 1) {
+		unlink(".heredoc.tmp");
+	}
 
-    return exit_code;
+	return exit_code;
 }
 
 // static int pipex(t_data *data)
 // {
-//     int exit_code;
-//     if (pipe(data->pipe) == -1) {
-//         exit_error(msg("pipe", ": ", strerror(errno), 1), data);
-//     }
-//     data->child = 0;
-//     while (data->child < data->nb_cmds) {
-//         data->cmd_options = ft_split(data->av[data->child + 2 + data->heredoc], ' ');
-//         if (!data->cmd_options) {
-//             exit_error(msg("unexpected error", "", "", 1), data);
-//         }
-//         data->cmd_path = get_cmd(data->cmd_options[0], data);
-//         data->pids[data->child] = fork();
-//         if (data->pids[data->child] == -1) {
-//             exit_error(msg("fork", ": ", strerror(errno), 1), data);
-//         } else if (data->pids[data->child] == 0) {
-//             execute_child_process(data);
-//         }
-//         free_strs(data->cmd_path, data->cmd_options);
-//         data->child++;
-//     }
-//     exit_code = execute_parent_process(data);
-//     if (data->heredoc == 1) {
-//         unlink(".heredoc.tmp");
-//     }
-//     return exit_code;
+//	 int exit_code;
+//	 if (pipe(data->pipe) == -1) {
+//		 exit_error(msg("pipe", ": ", strerror(errno), 1), data);
+//	 }
+//	 data->child = 0;
+//	 while (data->child < data->nb_cmds) {
+//		 data->cmd_options = ft_split(data->av[data->child + 2 + data->heredoc], ' ');
+//		 if (!data->cmd_options) {
+//			 exit_error(msg("unexpected error", "", "", 1), data);
+//		 }
+//		 data->cmd_path = get_cmd(data->cmd_options[0], data);
+//		 data->pids[data->child] = fork();
+//		 if (data->pids[data->child] == -1) {
+//			 exit_error(msg("fork", ": ", strerror(errno), 1), data);
+//		 } else if (data->pids[data->child] == 0) {
+//			 execute_child_process(data);
+//		 }
+//		 free_strs(data->cmd_path, data->cmd_options);
+//		 data->child++;
+//	 }
+//	 exit_code = execute_parent_process(data);
+//	 if (data->heredoc == 1) {
+//		 unlink(".heredoc.tmp");
+//	 }
+//	 return exit_code;
 // }
 
 
@@ -261,6 +297,23 @@ static int pipex(t_data *data)
  * Notes:
  *   - The program supports a 'here_doc' feature which alters the expected argument format.
  *   - Usage messages guide the user on how to properly invoke the program.
+ */
+
+/**
+ * Entry point for the Pipex program.
+ *
+ * This function is responsible for initializing and executing the Pipex pipeline process. 
+ * It starts by validating the command-line arguments to ensure they meet the program's requirements.
+ * If the arguments are insufficient or incorrect, it displays usage instructions. 
+ * It checks for a valid environment before initializing the pipeline process with provided arguments.
+ * Once initialized, it invokes the pipex function to manage the execution of commands within a pipeline.
+ * Finally, it returns the exit code from the last command executed by Pipex.
+ *
+ * @param ac The count of command-line arguments.
+ * @param av The vector of command-line arguments.
+ * @param envp The environment variables.
+ *
+ * @return The exit code of the last command executed by Pipex, or an error code in case of invalid input or setup failure.
  */
 int main(int ac, char **av, char **envp)
 {

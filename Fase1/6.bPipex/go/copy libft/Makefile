@@ -86,7 +86,7 @@ CFLAGS      = -Werror -Wextra -Wall -Ilibft -Ift_printf
 NAME        = pipex
 
 SRC_PATH    = src/
-OBJ_PATH    = obj/
+OBJ_PATH    = src/obj/
 
 INC		    = -I ./includes/
 

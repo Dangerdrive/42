@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_parsing.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 22:36:53 by fde-alen          #+#    #+#             */
-/*   Updated: 2024/01/10 22:14:44 by fde-alen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 
 
@@ -26,7 +15,7 @@
  * @param[in] envp Array of environment variables, each as a string.
  *
  * @return A pointer to a newly allocated string containing the value of PATH.
- *         Returns NULL if PATH is not found or in case of memory allocation failure.
+ *     Returns NULL if PATH is not found or in case of memory allocation failure.
  */
 static char *extract_path_var(char **envp)
 {
@@ -62,21 +51,21 @@ static char *extract_path_var(char **envp)
 //  */
 // static char **make_usable_paths(char **paths)
 // {
-//     int i;
-//     char *tmp;
+//   int i;
+//   char *tmp;
 
-//     i = 0;
-//     tmp = NULL;
-//     while (paths[i])
-//     {
-//         tmp = paths[i];
-//         paths[i] = ft_strjoin(paths[i], "/");
-//         //free_strs(tmp, NULL);
-//         free(tmp);
-//         tmp = NULL;
-//         i++;
-//     }
-//     return (paths);
+//   i = 0;
+//   tmp = NULL;
+//   while (paths[i])
+//   {
+//     tmp = paths[i];
+//     paths[i] = ft_strjoin(paths[i], "/");
+//     //free_strs(tmp, NULL);
+//     free(tmp);
+//    tmp = NULL;
+//     i++;
+//   }
+//   return (paths);
 // }
 
 
@@ -114,7 +103,7 @@ static char *extract_path_var(char **envp)
  * @param[in] envp The array of environment variables.
  *
  * @return An array of strings, each representing a path from the PATH environment
- *         variable with a '/' appended, or NULL if any allocation fails.
+ *     variable with a '/' appended, or NULL if any allocation fails.
  */
 static char **get_env_paths(char **envp)
 {
@@ -161,6 +150,24 @@ static char **get_env_paths(char **envp)
  *   - Iterates through each path and checks if the command exists and is executable in that path.
  *   - If found, returns the full path to the command.
  *   - If the command is not found, or if memory allocation fails, returns NULL.
+ */
+
+/**
+ * Finds the full path of a command by searching through a set of directories.
+ *
+ * This function takes a command name and an array of directory paths, then
+ * iterates through each directory to check if the command exists and is
+ * executable within that directory. It constructs the full path of the command
+ * by joining the directory path with the command name.
+ *
+ * @param cmd The command name to search for.
+ * @param paths An array of directory paths to search the command in.
+ * @return A dynamically allocated string containing the full path to the command if found,
+ *     otherwise returns NULL. The caller is responsible for freeing this string.
+ *
+ * Note: If the command is not found in any of the provided paths, or if there is an
+ *     error during path construction, the function returns NULL. If an error occurs,
+ *     the function also frees the paths array and exits with an error message.
  */
 static char *get_cmd_path(char *cmd, char **paths)
 {

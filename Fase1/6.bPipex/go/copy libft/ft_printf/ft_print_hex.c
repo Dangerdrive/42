@@ -6,12 +6,24 @@
 /*   By: fde-alen <fde-alen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:15:11 by fde-alen          #+#    #+#             */
-/*   Updated: 2024/01/10 18:35:58 by fde-alen         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:01:53 by fde-alen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/**
+ * Prints an unsigned integer in hexadecimal format to the specified file descriptor.
+ *
+ * Converts the number to a hexadecimal string using either lowercase ('x') or
+ * uppercase ('X') characters. If the flag '#' is provided and the number is
+ * non-zero, the appropriate prefix ("0x" or "0X") is added.
+ *
+ * @param num The unsigned integer to be printed in hexadecimal.
+ * @param format The format character ('x' for lowercase, 'X' for uppercase).
+ * @param flag The flag character ('#', or other).
+ * @return The length of the printed string including the prefix if applicable.
+ */
 int	ft_print_hex(unsigned int num, const char format, const char flag)
 {
 	char	*str;

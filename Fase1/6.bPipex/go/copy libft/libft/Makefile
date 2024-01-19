@@ -66,34 +66,41 @@ B_SRCS		= 		$(addprefix $(SRCDIR)/, ft_lstnew.c \
 					ft_lstiter.c \
 					ft_lstmap.c)
 
-B_OBJS	  = 		$(addprefix $(OBJDIR)/, $(notdir $(B_SRCS:.c=.o)))
+B_OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(B_SRCS:.c=.o)))
 
 # Formatting
-BOLD 		= 		\033[1m
+BOLD		= \033[1m
 
 # Rules
-.PHONY: 			all clean fclean re bonus
+.PHONY: all clean fclean re bonus
 
-all: 				$(NAME)
+all:		$(NAME)
 
-$(NAME): 			$(OBJDIR) $(OBJS) $(B_OBJS)
-					@ar rc $(NAME) $(OBJS)
-#					@echo "✅ $(BOLD)Libft created"
+$(NAME):	$(OBJS) $(B_OBJS)
+			@ar rc $(NAME) $(OBJS) $(B_OBJS)
+#			@echo "✅ $(BOLD)Libft created"
 
-$(OBJDIR)/%.o:		$(SRCDIR)/%.c
-					@mkdir -p $(OBJDIR)
-					@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
+$(OBJS):	| $(OBJDIR)
 
-bonus: 				$(B_OBJS)
-					ar rc $(NAME) $(B_OBJS)
-#					@echo "✅ $(BOLD)Bonus added"
+$(B_OBJS):  | $(OBJDIR)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+			@mkdir -p $(OBJDIR)
+			@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
+
+$(OBJDIR):
+			@mkdir -p $(OBJDIR)
+
+bonus:	  $(B_OBJS)
+			@ar rc $(NAME) $(B_OBJS)
+#			@echo "✅ $(BOLD)Bonus added"
 
 clean:
-					@rm -rf $(OBJDIR)
-#					@echo "🗑️  $(BOLD)Object files removed"
+			@rm -rf $(OBJDIR)
+#			@echo "🗑️  $(BOLD)Object files removed"
 
-fclean: 			clean
-					@rm -f $(NAME)
-#					@echo "🗑️  $(BOLD)Libft removed"
+fclean:	 clean
+			@rm -f $(NAME)
+#			@echo "🗑️  $(BOLD)Libft removed"
 
-re: 				fclean all
+re:		 fclean all
